@@ -1,0 +1,18 @@
+<div class="topnav" id="myTopnav">
+
+  <a id="menuTitle1" routerLink="./accueil" class="active" (click)="activeMenuTitle(1)">
+    <mat-icon [ngStyle]="{'font-size':'18px'}">home</mat-icon>
+  </a>
+  <a id="menuTitle2" routerLink="./soins-visage" (click)="activeMenuTitle(2)">Soins du visage</a>
+  <a id="menuTitle3" routerLink="./soins-corps" (click)="activeMenuTitle(3)">Soins du corps</a>
+  <a id="menuTitle4" routerLink="./dietetique" (click)="activeMenuTitle(4)">Diététique</a>
+  <a id="menuTitle5" routerLink="./tarifs" (click)="activeMenuTitle(5)">Tarifs</a>
+  <a id="menuTitle6" href="http://facebook.com/">
+    <img src="assets/images/icon-facebook.png" class="fbIco" alt="Facebook" />
+  </a>
+
+  <a href="javascript:void(0);" class="icon" (click)="activeMenuResponsive()">
+      <mat-icon [ngStyle]="{'font-size':'18px'}">menu</mat-icon>
+  </a>
+
+</div>

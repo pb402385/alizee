@@ -1,0 +1,42 @@
+/* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
+
+/* CSS pour le style des Forms Select */
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+.disabledButton{
+	display: none !important;
+}
+
+.mat-form-field-ripple{
+	color: #006e82 !important;
+	background-color: #006e82 !important;
+}
+
+.mat-form-field-underline{
+	color: #006e82 !important;
+}
+
+.mat-input-element {
+    caret-color: #006e82 !important;
+}
+
+.mat-form-field.mat-focused.mat-primary .mat-select-arrow{color:#006e82 !important}
+.mat-primary .mat-option.mat-selected:not(.mat-option-disabled){color:#006e82 !important}
+.mat-button.mat-primary,.mat-icon-button.mat-primary,.mat-stroked-button.mat-primary{color:#006e82 !important}
+.mat-form-field.mat-focused .mat-form-field-label{color:#006e82 !important}
+.mat-form-field.mat-focused.mat-primary .mat-select-arrow{color:#006e82 !important}
+
+.mat-dialog-container{
+    border-radius: 10px;
+    background: white;
+}
+
+.mat-menu-content {
+    background-color: #ebebeb !important;
+}
+
+#homePage {
+    font-weight: bold;
+}
+
