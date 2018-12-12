@@ -1,3 +1,12 @@
+#right{
+  height: 100%;
+  width: 80%;
+  position: relative;
+  z-index: 1;
+  left: 200px;
+  top: -330px;
+}
+
 #subMenu {
     height: 100%;
     width: 200px;
@@ -7,7 +16,6 @@
     top: -30px;
     background-color: #111;
     overflow-x: hidden;
-    padding-top: 20px;
   }
   
   /* On mouse-over */
@@ -20,14 +28,13 @@
   }
   
   #subMenu p{
-    padding: 6px 8px 6px 16px;
+    padding: 0px 8px 6px 16px;
     text-decoration: none;
     font-size: 20px;
     color: #818181;
     display: block;
     border: none;
     background: none;
-    width: 100%;
     text-align: left;
     cursor: pointer;
     outline: none;
@@ -37,4 +44,15 @@
   @media screen and (max-height: 450px) {
     #subMenu {padding-top: 15px;}
     #subMenu p {font-size: 18px;}
+  }
+
+  @media screen and (max-width: 700px) {
+    #right{
+      height: 100%;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+      left: 0px;
+      top: 0px;
+    }
   }

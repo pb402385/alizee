@@ -13,6 +13,8 @@ export class SoinsCorpsComponent implements OnInit {
 
   public menuScClicked:number = 0;
 
+  public screenWidth:number = screen.width;
+
   constructor(private utils: UtilsService) {
 
   }

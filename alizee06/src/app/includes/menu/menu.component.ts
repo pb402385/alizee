@@ -10,6 +10,8 @@ export class MenuComponent implements OnInit {
   public subMenuVisage:boolean = false;
   public subMenuCorps:boolean = false;
 
+  public screenWidth:number = screen.width;
+
   constructor() { }
 
   ngOnInit() {
@@ -31,6 +33,32 @@ export class MenuComponent implements OnInit {
       document.getElementById("menuTitle"+i).className = "";
     }
     document.getElementById("menuTitle"+id).className = "active";
+  }
+
+  openSubMenuSv(){
+    let dropdownContent = document.getElementById("contentSv");
+    let dropdownButton =  document.getElementById("menuBtnSv");
+    if (dropdownContent.style.display === "block") {
+      dropdownButton.removeAttribute("class");
+      dropdownButton.setAttribute("class","dropdown-btn");
+      dropdownContent.style.display = "none";
+    } else {
+      dropdownButton.setAttribute("class","dropdown-btn activeSub");
+      dropdownContent.style.display = "block";
+    }
+  }
+
+  openSubMenuSc(){
+    let dropdownContent = document.getElementById("contentSc");
+    let dropdownButton =  document.getElementById("menuBtnSc");
+    if (dropdownContent.style.display === "block") {
+      dropdownButton.removeAttribute("class");
+      dropdownButton.setAttribute("class","dropdown-btn");
+      dropdownContent.style.display = "none";
+    } else {
+      dropdownButton.setAttribute("class","dropdown-btn activeSub");
+      dropdownContent.style.display = "block";
+    }
   }
 
 }

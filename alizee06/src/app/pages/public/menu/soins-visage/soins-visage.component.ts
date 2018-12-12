@@ -13,6 +13,8 @@ export class SoinsVisageComponent implements OnInit {
 
   public menuSvClicked:number = 0;
 
+  public screenWidth:number = screen.width;
+
   constructor(private utils: UtilsService) {
 
   }
