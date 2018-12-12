@@ -1,3 +1,48 @@
-<p>
-  soins-corps works!
-</p>
+<div>
+  <div id="subMenu" *ngIf="subMenuCorps == true">
+    <p id="menuSc1" (click)="setMenuSc(1)">Twinslim cavitation</p>
+    <p id="menuSc2" (click)="setMenuSc(2)">Twinslim radiofréquence</p>
+    <p id="menuSc3" (click)="setMenuSc(3)">Cryolipolyse</p>
+    <p id="menuSc4" (click)="setMenuSc(4)">Onde de choc</p>
+    <p id="menuSc5" (click)="setMenuSc(5)">Miltathérapie</p>
+  </div>
+
+  <div id="right">
+      <p>
+          soins-corps works!
+      </p>
+
+      <div *ngIf="menuScClicked == 0">
+          <p>
+              Sélectionnez un sous menu.
+          </p>
+      </div>
+
+      <div *ngIf="menuScClicked == 1">
+        <!-- On inclut le Contenu du menuSc1 -->
+        <app-twinslim id="app_menuSc1"></app-twinslim> 
+      </div>
+
+      <div *ngIf="menuScClicked == 2">
+          <!-- On inclut le Contenu du menuSc2 -->
+          <app-dervabrasion id="app_menuSc2"></app-dervabrasion> 
+      </div>
+
+      <div *ngIf="menuScClicked == 3">
+        <!-- On inclut le Contenu du menuSc3 -->
+        <app-micro id="app_menuSc3"></app-micro> 
+      </div>
+
+      <div *ngIf="menuScClicked == 4">
+          <!-- On inclut le Contenu du menuSc4 -->
+          <app-mesolift id="app_menuSc4"></app-mesolift> 
+      </div>
+
+      <div *ngIf="menuScClicked == 5">
+        <!-- On inclut le Contenu du menuSc5 -->
+        <app-injections id="app_menuSc5"></app-injections> 
+      </div>
+
+  </div>
+</div>
+

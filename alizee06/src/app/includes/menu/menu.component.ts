@@ -31,19 +31,6 @@ export class MenuComponent implements OnInit {
       document.getElementById("menuTitle"+i).className = "";
     }
     document.getElementById("menuTitle"+id).className = "active";
-
-    if(id == 2){
-      //cas soin visage
-      this.subMenuVisage = true;
-
-    }else if(id == 3){
-      //cas soin corps
-      this.subMenuCorps = false;
-    }else{
-      //aucun submenu ouvert
-      this.subMenuVisage = false;
-      this.subMenuCorps = false;
-    }
   }
 
 }
