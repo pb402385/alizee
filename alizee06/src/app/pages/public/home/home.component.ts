@@ -13,7 +13,12 @@ export class HomeComponent implements OnInit {
     
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+
+    //this.utils.getAllProduits();
+    //this.utils.getAllTarifs();
+    
+  }
 
   ngAfterViewInit(){
     this.utils.fixBottom();

@@ -1,11 +1,95 @@
 import { Injectable, NgZone } from '@angular/core';
 
+import { CategorieService } from './api/categorie.service';
+import { ProduitService } from './api/produit.service';
+import { TarifService } from './api/tarif.service';
+
+import { ErrorLogService } from './error-log/error-log.service';
+
 @Injectable({
   providedIn: 'root'
 })
 export class UtilsService {
 
-  constructor(private zone: NgZone) { }
+  constructor(private zone: NgZone,
+    private categorieService: CategorieService,
+    private produitService: ProduitService,
+    private tarifService: TarifService,
+    private errorService: ErrorLogService) { }
+
+
+  getAllCategories(classe:any){
+    //On fait un appel au web service des notifications
+    this.categorieService.getAllCategories().subscribe(
+      response => {
+
+        //On récupère les categories
+        let responseJSON = response.body;
+        classe.categories = JSON.parse(responseJSON);
+      },
+      error =>{
+        //En cas d'ereur on affiche le message d'erreur
+        if(error) this.errorService.errorManagement(error,"/getAllCategories",this);
+        return error;
+      } 
+    );
+  }
+
+  getAllProduits(){
+    //On fait un appel au web service des produits
+    this.produitService.getAllProduits().subscribe(
+      response => {
+
+        //On récupère les produits
+        let responseJSON = response.body;
+      },
+      error =>{
+        //En cas d'ereur on affiche le message d'erreur
+        if(error) this.errorService.errorManagement(error,"/getAllProduits",this);
+      } 
+    );
+  }
+
+  getAllProduitsSimple(classe:any){
+    //On fait un appel au web service des produits
+    this.produitService.getAllProduits().subscribe(
+      response => {
+
+        //On récupère les produits
+        let responseJSON = response.body;
+        classe.produits = JSON.parse(responseJSON);
+
+        //On trie les produits par categorie
+        let array = [];
+        for(let i = 0; i <= classe.categories.records.length; i++){
+          array[i] = [];
+        }
+        for(let i = 0; i < classe.produits.records.length; i++){
+          array[classe.produits.records[i].id_categorie].push(classe.produits.records[i]);         
+        }
+        classe.sortedProducts = array;
+      },
+      error =>{
+        //En cas d'ereur on affiche le message d'erreur
+        if(error) this.errorService.errorManagement(error,"/getAllProduitsSimple",this);
+      } 
+    );
+  }
+
+  getAllTarifs(){
+    //On fait un appel au web service des tarifs
+    this.tarifService.getAllTarifs().subscribe(
+      response => {
+
+        //On récupère les tarifs
+        let responseJSON = response.body;
+      },
+      error =>{
+        //En cas d'ereur on affiche le message d'erreur
+        if(error) this.errorService.errorManagement(error,"/getAllTarifs",this);
+      } 
+    );
+  }
 
 
   fixBottom(){

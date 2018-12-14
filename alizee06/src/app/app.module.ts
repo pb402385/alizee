@@ -5,6 +5,9 @@ import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
+import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
+
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderResponsiveComponent } from './includes/header-responsive/header-responsive.component';
@@ -14,6 +17,10 @@ import { ContactComponent } from './pages/public/footer/contact/contact.componen
 import { FaqComponent } from './pages/public/footer/faq/faq.component';
 
 import { UtilsService } from './services/utils.service';
+import { ErrorLogService } from './services/error-log/error-log.service';
+import { CategorieService } from './services/api/categorie.service';
+import { ProduitService } from './services/api/produit.service';
+import { TarifService } from './services/api/tarif.service';
 
 import { 
   MatButtonModule,
@@ -85,6 +92,8 @@ import { TwinslimVisageComponent } from './includes/soins-visage/twinslim-visage
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    HttpClientModule,
+    HttpModule,
     BrowserAnimationsModule,
     MatButtonModule,
     MatButtonToggleModule,
@@ -106,7 +115,7 @@ import { TwinslimVisageComponent } from './includes/soins-visage/twinslim-visage
     MatTooltipModule,
     MatGridListModule
   ],
-  providers: [UtilsService],
+  providers: [UtilsService, ErrorLogService, CategorieService, ProduitService, TarifService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

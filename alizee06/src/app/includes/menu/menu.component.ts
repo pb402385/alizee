@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { UtilsService } from '../../services/utils.service';
+
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -10,9 +12,16 @@ export class MenuComponent implements OnInit {
   public subMenuVisage:boolean = false;
   public subMenuCorps:boolean = false;
 
+  public categories:any = null;
+  public produits:any = null;
+  public sortedProducts: any = null;
+
   public screenWidth:number = screen.width;
 
-  constructor() { }
+  constructor(private utils: UtilsService) { 
+    this.utils.getAllCategories(this);
+    this.utils.getAllProduitsSimple(this);
+  }
 
   ngOnInit() {
   }
@@ -35,22 +44,9 @@ export class MenuComponent implements OnInit {
     document.getElementById("menuTitle"+id).className = "active";
   }
 
-  openSubMenuSv(){
-    let dropdownContent = document.getElementById("contentSv");
-    let dropdownButton =  document.getElementById("menuBtnSv");
-    if (dropdownContent.style.display === "block") {
-      dropdownButton.removeAttribute("class");
-      dropdownButton.setAttribute("class","dropdown-btn");
-      dropdownContent.style.display = "none";
-    } else {
-      dropdownButton.setAttribute("class","dropdown-btn activeSub");
-      dropdownContent.style.display = "block";
-    }
-  }
-
-  openSubMenuSc(){
-    let dropdownContent = document.getElementById("contentSc");
-    let dropdownButton =  document.getElementById("menuBtnSc");
+  openSubMenu(id:string){
+    let dropdownContent = document.getElementById("content"+id);
+    let dropdownButton =  document.getElementById("menuBtn"+id);
     if (dropdownContent.style.display === "block") {
       dropdownButton.removeAttribute("class");
       dropdownButton.setAttribute("class","dropdown-btn");

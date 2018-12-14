@@ -1,43 +1,34 @@
 <div class="topnav" id="myTopnav">
 
-  <a id="menuTitle1" routerLink="./accueil" class="active" (click)="activeMenuTitle(1)">
+  <a id="menuTitle0" routerLink="./accueil" class="active" (click)="activeMenuTitle(0)">
     <mat-icon [ngStyle]="{'font-size':'18px'}">home</mat-icon>
   </a>
 
-  <a *ngIf="screenWidth > 700" id="menuTitle2" routerLink="./soins-visage" (click)="activeMenuTitle(2)">Soins du visage</a>
-  <a *ngIf="screenWidth > 700" id="menuTitle3" routerLink="./soins-corps" (click)="activeMenuTitle(3)">Soins du corps</a>
+  <div *ngIf="screenWidth > 700 && categories !== null && categories.records.length > 0">
+    <a  *ngFor="let categorie of categories.records" 
+        id="menuTitle{{categorie.place}}" routerLink="./{{categorie.routerlink}}" (click)="activeMenuTitle(categorie.place)">
+        {{categorie.nom}}
+    </a>
+  </div>
 
-  <a *ngIf="screenWidth <= 700" id="menuTitle2" routerLink="./soins-visage" (click)="openSubMenuSv()">
-    <button id="menuBtnSv" class="dropdown-btn">Soins du visage 
-        <i class="fa fa-caret-down"></i>
-      </button>
-      <div id="contentSv" class="dropdown-container">
-          <p id="menuSv1" class="pSubContent" (click)="setMenuSv(1)">Twinslim radiofréquence</p>
-          <p id="menuSv2" class="pSubContent" (click)="setMenuSv(2)">Dervabrasion</p>
-          <p id="menuSv3" class="pSubContent" (click)="setMenuSv(3)">Micro-needling</p>
-          <p id="menuSv4" class="pSubContent" (click)="setMenuSv(4)">Mésolift</p>
-          <p id="menuSv5" class="pSubContent" (click)="setMenuSv(5)">Injections Acide hyaluonique</p>
-          <p id="menuSv6" class="pSubContent" (click)="setMenuSv(6)">Peeling</p>
-          <p id="menuSv7" class="pSubContent" (click)="setMenuSv(7)">Miltathérapie</p>
-      </div>
-  </a>
+  <div *ngIf="screenWidth <= 700 && categories !== null && categories.records.length > 0">
+      <a *ngFor="let categorie of categories.records" 
+         id="menuTitle{{categorie.place}}" (click)="openSubMenu(''+categorie.place)">
+        <button id="menuBtn{{categorie.place}}" class="dropdown-btn">{{categorie.nom}}
+          <i class="fa fa-caret-down"></i>
+        </button>
 
-  <a *ngIf="screenWidth <= 700" id="menuTitle3" routerLink="./soins-corps" (click)="openSubMenuSc()">
-    <button id="menuBtnSc" class="dropdown-btn">Soins du corps 
-        <i class="fa fa-caret-down"></i>
-      </button>
-      <div id="contentSc" class="dropdown-container">
-          <p id="menuSc1" class="pSubContent" (click)="setMenuSc(1)">Twinslim cavitation</p>
-          <p id="menuSc2" class="pSubContent" (click)="setMenuSc(2)">Twinslim radiofréquence</p>
-          <p id="menuSc3" class="pSubContent" (click)="setMenuSc(3)">Cryolipolyse</p>
-          <p id="menuSc4" class="pSubContent" (click)="setMenuSc(4)">Onde de choc</p>
-          <p id="menuSc5" class="pSubContent" (click)="setMenuSc(5)">Miltathérapie</p>
-      </div>
-  </a>
+        <div id="content{{categorie.place}}" class="dropdown-container" *ngIf="produits !== null && sortedProducts !== null">
+            <p  *ngFor="let produit of sortedProducts[categorie.place]"
+                id="menu{{produit.place}}" class="pSubContent" (click)="setMenu(produit.place)">
+                {{produit.nom}}
+            </p>
+        </div>
 
-  <a id="menuTitle4" routerLink="./dietetique" (click)="activeMenuTitle(4)">Diététique</a>
-  <a id="menuTitle5" routerLink="./tarifs" (click)="activeMenuTitle(5)">Tarifs</a>
-  <a id="menuTitle6" href="http://facebook.com/">
+      </a>
+  </div>
+
+  <a href="http://facebook.com/">
     <img src="assets/images/icon-facebook.png" class="fbIco" alt="Facebook" />
   </a>
 

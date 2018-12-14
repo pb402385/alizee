@@ -95,17 +95,37 @@
 }
 
 /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
-#contentSv{
+#content1{
   display: none;
   background-color: #333;
   padding-left: 8px;
 }
 
-#contentSc{
+#content2{
   display: none;
   background-color: #333;
   padding-left: 8px;
 }
+
+#content3{
+  display: none;
+  background-color: #333;
+  padding-left: 8px;
+}
+
+#content4{
+  display: none;
+  background-color: #333;
+  padding-left: 8px;
+}
+
+#content5{
+  display: none;
+  background-color: #333;
+  padding-left: 8px;
+}
+
+
 
 /* Optional: Style the caret down icon */
 .fa-caret-down {
