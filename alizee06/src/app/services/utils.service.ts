@@ -11,11 +11,53 @@ import { ErrorLogService } from './error-log/error-log.service';
 })
 export class UtilsService {
 
+  private categories: any = null;
+
   constructor(private zone: NgZone,
     private categorieService: CategorieService,
     private produitService: ProduitService,
     private tarifService: TarifService,
     private errorService: ErrorLogService) { }
+
+
+
+  getProduitsByCategorie(id:any,classe:any){
+    //On fait un appel au web service des produits
+    this.produitService.getAllProduitsByCategorie(id).subscribe(
+      response => {
+
+        //On récupère les produits
+        let responseJSON = response.body;
+        classe.produits = JSON.parse(responseJSON);
+
+      },
+      error =>{
+        //En cas d'ereur on affiche le message d'erreur
+        if(error) this.errorService.errorManagement(error,"/getProduitsByCategorie",this);
+      } 
+    );
+  }
+
+
+  getInfoForMenu(classe:any){
+    //On fait un appel au web service des categories
+    this.categorieService.getAllCategories().subscribe(
+      response => {
+
+        //On récupère les categories
+        let responseJSON = response.body;
+        classe.categories = JSON.parse(responseJSON);
+        this.categories = classe.categories;
+
+        this.getAllProduitsSimple(classe);
+      },
+      error =>{
+        //En cas d'ereur on affiche le message d'erreur
+        if(error) this.errorService.errorManagement(error,"/getAllCategories",this);
+        return error;
+      } 
+    );
+  }
 
 
   getAllCategories(classe:any){
@@ -26,6 +68,7 @@ export class UtilsService {
         //On récupère les categories
         let responseJSON = response.body;
         classe.categories = JSON.parse(responseJSON);
+        this.categories = classe.categories;
       },
       error =>{
         //En cas d'ereur on affiche le message d'erreur
@@ -61,11 +104,12 @@ export class UtilsService {
 
         //On trie les produits par categorie
         let array = [];
-        for(let i = 0; i <= classe.categories.records.length; i++){
+        for(let i = 0; i < this.categories.records.length; i++){
           array[i] = [];
+          if(location.href.indexOf(this.categories.records[i].routerlink) >= 0) classe.activeMenuTitle(this.categories.records[i].place);   
         }
         for(let i = 0; i < classe.produits.records.length; i++){
-          array[classe.produits.records[i].id_categorie].push(classe.produits.records[i]);         
+          array[classe.produits.records[i].id_categorie].push(classe.produits.records[i]);
         }
         classe.sortedProducts = array;
       },

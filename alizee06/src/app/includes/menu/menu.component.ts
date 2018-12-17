@@ -18,9 +18,11 @@ export class MenuComponent implements OnInit {
 
   public screenWidth:number = screen.width;
 
+  public menuClicked:number = 0;
+
+
   constructor(private utils: UtilsService) { 
-    this.utils.getAllCategories(this);
-    this.utils.getAllProduitsSimple(this);
+    this.utils.getInfoForMenu(this);
   }
 
   ngOnInit() {
@@ -37,8 +39,9 @@ export class MenuComponent implements OnInit {
   }
 
   activeMenuTitle(id:number) {
-    let menuLength = document.getElementById("myTopnav").children.length - 1;
-    for(let i=1; i<menuLength; i++){
+    let menuLength = document.getElementById("myTopnav").children.length - 3;
+    menuLength = menuLength + document.getElementById("subtopnav").children.length;
+    for(let i=0; i<menuLength; i++){
       document.getElementById("menuTitle"+i).className = "";
     }
     document.getElementById("menuTitle"+id).className = "active";
@@ -55,6 +58,23 @@ export class MenuComponent implements OnInit {
       dropdownButton.setAttribute("class","dropdown-btn activeSub");
       dropdownContent.style.display = "block";
     }
+  }
+
+  setMenu(id:number,categorieId:any){
+    this.selectMenu(id,categorieId);
+    this.menuClicked = id;
+  }
+
+  selectMenu(id:number,categorieId:any){
+    //On supprime la classe selected
+    let nb = document.getElementById("content"+categorieId).children.length;
+
+    for(let i=1; i<=nb; i++){
+      console.log("menu"+categorieId+""+i);
+      document.getElementById("menu"+categorieId+""+i).removeAttribute("class");
+    }
+
+    document.getElementById("menu"+categorieId+""+id).setAttribute("class","selected");
   }
 
 }

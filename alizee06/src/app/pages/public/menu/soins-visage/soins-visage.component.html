@@ -1,59 +1,23 @@
-<div>
-    <div id="subMenu" *ngIf="subMenuVisage == true && screenWidth > 700">
-        <p id="menuSv1" (click)="setMenuSv(1)">Twinslim radiofréquence</p>
-        <p id="menuSv2" (click)="setMenuSv(2)">Dervabrasion</p>
-        <p id="menuSv3" (click)="setMenuSv(3)">Micro-needling</p>
-        <p id="menuSv4" (click)="setMenuSv(4)">Mésolift</p>
-        <p id="menuSv5" (click)="setMenuSv(5)">Injections Acide hyaluonique</p>
-        <p id="menuSv6" (click)="setMenuSv(6)">Peeling</p>
-        <p id="menuSv7" (click)="setMenuSv(7)">Miltathérapie</p>
-    </div>
-  
-    <div id="right">
-        <p>
-            soins-visage works!
+<div *ngIf="screenWidth > 700 && produits !== null && produits.records.length > 0">
+    <div id="subMenu">
+        <p  *ngFor="let produit of produits.records" 
+          id="menu{{produit.place}}" (click)="setMenu(produit.place)">
+          {{produit.nom}}
         </p>
+    </div>
+    
+    <div id="right" *ngIf="screenWidth > 700 && produits !== null && produits.records.length > 0">
 
         <div *ngIf="menuSvClicked == 0">
             <p>
                 Sélectionnez un sous menu.
             </p>
         </div>
-  
-        <div *ngIf="menuSvClicked == 1">
-          <!-- On inclut le Contenu du menuSc1 -->
-          <app-twinslim-visage id="app_menuSc1"></app-twinslim-visage> 
-        </div>
-  
-        <div *ngIf="menuSvClicked == 2">
-            <!-- On inclut le Contenu du menuSc2 -->
-            <app-dervabrasion-visage id="app_menuSc2"></app-dervabrasion-visage> 
-        </div>
-  
-        <div *ngIf="menuSvClicked == 3">
-          <!-- On inclut le Contenu du menuSc3 -->
-          <app-micro-visage id="app_menuSc3"></app-micro-visage> 
-        </div>
-  
-        <div *ngIf="menuSvClicked == 4">
-            <!-- On inclut le Contenu du menuSc4 -->
-            <app-mesolift-visage id="app_menuSc4"></app-mesolift-visage> 
-        </div>
-  
-        <div *ngIf="menuSvClicked == 5">
-          <!-- On inclut le Contenu du menuSc5 -->
-          <app-injections-visage id="app_menuSc5"></app-injections-visage> 
-        </div>
 
-        <div *ngIf="menuSvClicked == 6">
-            <!-- On inclut le Contenu du menuSc6 -->
-            <app-peeling id="app_menuSc6"></app-peeling> 
+        <div *ngIf="menuSvClicked >= 1">
+            <!-- On inclut le Contenu du menuSc1 -->
+            <app-template id="app-template" [produit]="produit"></app-template> 
         </div>
-
-        <div *ngIf="menuSvClicked == 7">
-            <!-- On inclut le Contenu du menuSc7 -->
-            <app-miltatherapie id="app_menuSc7"></app-miltatherapie> 
-        </div>
-          
     </div>
+
 </div>

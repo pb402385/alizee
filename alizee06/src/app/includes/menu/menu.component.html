@@ -4,14 +4,14 @@
     <mat-icon [ngStyle]="{'font-size':'18px'}">home</mat-icon>
   </a>
 
-  <div *ngIf="screenWidth > 700 && categories !== null && categories.records.length > 0">
+  <div id="subtopnav" *ngIf="screenWidth > 700 && categories !== null && categories.records.length > 0">
     <a  *ngFor="let categorie of categories.records" 
         id="menuTitle{{categorie.place}}" routerLink="./{{categorie.routerlink}}" (click)="activeMenuTitle(categorie.place)">
         {{categorie.nom}}
     </a>
   </div>
 
-  <div *ngIf="screenWidth <= 700 && categories !== null && categories.records.length > 0">
+  <div id="subtopnav" *ngIf="screenWidth <= 700 && categories !== null && categories.records.length > 0">
       <a *ngFor="let categorie of categories.records" 
          id="menuTitle{{categorie.place}}" (click)="openSubMenu(''+categorie.place)">
         <button id="menuBtn{{categorie.place}}" class="dropdown-btn">{{categorie.nom}}
@@ -19,8 +19,8 @@
         </button>
 
         <div id="content{{categorie.place}}" class="dropdown-container" *ngIf="produits !== null && sortedProducts !== null">
-            <p  *ngFor="let produit of sortedProducts[categorie.place]"
-                id="menu{{produit.place}}" class="pSubContent" (click)="setMenu(produit.place)">
+            <p  *ngFor="let produit of sortedProducts[categorie.place-1]"
+                id="menu{{categorie.place}}{{produit.place}}" class="pSubContent" (click)="setMenu(produit.place,categorie.place)">
                 {{produit.nom}}
             </p>
         </div>

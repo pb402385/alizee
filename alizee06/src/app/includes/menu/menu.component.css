@@ -1,6 +1,6 @@
 .topnav {
   overflow: hidden;
-  background-color: #333;
+  background-color: CornflowerBlue;
 }
 
 .topnav a {
@@ -14,7 +14,7 @@
 }
 
 .topnav a:hover {
-  background-color: #ddd;
+  background-color: silver;
   color: black;
 }
 
@@ -97,31 +97,31 @@
 /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
 #content1{
   display: none;
-  background-color: #333;
+  background-color: CornflowerBlue;
   padding-left: 8px;
 }
 
 #content2{
   display: none;
-  background-color: #333;
+  background-color: CornflowerBlue;
   padding-left: 8px;
 }
 
 #content3{
   display: none;
-  background-color: #333;
+  background-color: CornflowerBlue;
   padding-left: 8px;
 }
 
 #content4{
   display: none;
-  background-color: #333;
+  background-color: CornflowerBlue;
   padding-left: 8px;
 }
 
 #content5{
   display: none;
-  background-color: #333;
+  background-color: CornflowerBlue;
   padding-left: 8px;
 }
 
@@ -131,4 +131,10 @@
 .fa-caret-down {
   float: right;
   padding-right: 8px;
+}
+
+
+
+.selected{
+  color: deepskyblue !important;
 }

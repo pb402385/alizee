@@ -1,0 +1,39 @@
+<div id="template">
+    <h3 id="titleProduit" (change)="reloadData()">
+        {{produit.nom}}
+    </h3>
+
+    <div *ngIf="produit.id_template  == 1">
+        <div id="templateRight">
+          <div id="templateImageRight">
+            <img [src]="image_p" alt="templateImageRight" />
+          </div>
+        </div>
+
+        <div id="templateLeft">
+          <div *ngIf="description_p !== ''" id="templateDescription" [innerHTML]="description_p">
+
+          </div>
+        </div>
+
+    </div>
+
+    <div *ngIf="produit.id_template  == 2">
+        <div id="imageTitleDiv">
+            <img id="imageTitle" [src]="image_p" alt="templateImageTitle" />
+        </div>
+
+        <div id="templateRight">
+          <div id="templateImageRight">
+            <img [src]="image_s" alt="templateImageRight" />
+          </div>
+        </div>
+
+        <div id="templateLeft">
+          <div *ngIf="description_p !== ''" id="templateDescription" [innerHTML]="description_p">
+
+          </div>
+        </div>
+
+    </div>
+</div>

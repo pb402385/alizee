@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DervabrasionVisageComponent } from './dervabrasion-visage.component';
+import { TemplateComponent } from './template.component';
 
-describe('DervabrasionVisageComponent', () => {
-  let component: DervabrasionVisageComponent;
-  let fixture: ComponentFixture<DervabrasionVisageComponent>;
+describe('TemplateComponent', () => {
+  let component: TemplateComponent;
+  let fixture: ComponentFixture<TemplateComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DervabrasionVisageComponent ]
+      declarations: [ TemplateComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DervabrasionVisageComponent);
+    fixture = TestBed.createComponent(TemplateComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

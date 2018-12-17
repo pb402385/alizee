@@ -1,0 +1,16 @@
+#imageTitle{
+    width:100%;
+}
+
+#titleProduit{
+    text-align:center;
+}
+
+#templateRight{
+    width:50%;
+    float: right;
+}
+
+#templateLeft{
+    width:50%;
+}

@@ -48,18 +48,7 @@ import { DietetiqueComponent } from './pages/public/menu/dietetique/dietetique.c
 import { TarifsComponent } from './pages/public/menu/tarifs/tarifs.component';
 import { SoinsVisageComponent } from './pages/public/menu/soins-visage/soins-visage.component';
 import { SoinsCorpsComponent } from './pages/public/menu/soins-corps/soins-corps.component';
-import { TwinslimComponent } from './includes/soins-corps/twinslim/twinslim.component';
-import { DervabrasionComponent } from './includes/soins-corps/dervabrasion/dervabrasion.component';
-import { MicroComponent } from './includes/soins-corps/micro/micro.component';
-import { MesoliftComponent } from './includes/soins-corps/mesolift/mesolift.component';
-import { InjectionsComponent } from './includes/soins-corps/injections/injections.component';
-import { PeelingComponent } from './includes/soins-visage/peeling/peeling.component';
-import { MiltatherapieComponent } from './includes/soins-visage/miltatherapie/miltatherapie.component';
-import { InjectionsVisageComponent } from './includes/soins-visage/injections-visage/injections-visage.component';
-import { MesoliftVisageComponent } from './includes/soins-visage/mesolift-visage/mesolift-visage.component';
-import { MicroVisageComponent } from './includes/soins-visage/micro-visage/micro-visage.component';
-import { DervabrasionVisageComponent } from './includes/soins-visage/dervabrasion-visage/dervabrasion-visage.component';
-import { TwinslimVisageComponent } from './includes/soins-visage/twinslim-visage/twinslim-visage.component';
+import { TemplateComponent } from './includes/template/template.component';
 
 @NgModule({
   declarations: [
@@ -74,18 +63,7 @@ import { TwinslimVisageComponent } from './includes/soins-visage/twinslim-visage
     TarifsComponent,
     SoinsVisageComponent,
     SoinsCorpsComponent,
-    TwinslimComponent,
-    DervabrasionComponent,
-    MicroComponent,
-    MesoliftComponent,
-    InjectionsComponent,
-    PeelingComponent,
-    MiltatherapieComponent,
-    InjectionsVisageComponent,
-    MesoliftVisageComponent,
-    MicroVisageComponent,
-    DervabrasionVisageComponent,
-    TwinslimVisageComponent
+    TemplateComponent
   ],
   imports: [
     BrowserModule,
