@@ -16,13 +16,14 @@ class Produit{
 	public $descriptions;
     public $isvisible;
 	public $place;
+	public $path;
  
     // constructor with $db as database connection
     public function __construct($db){
         $this->conn = $db;
     }
 	
-	//Obtenir toutes les Produits
+	//Obtenir tous les Produits
 	function getAllProduits(){
 	 
 		$query = "SELECT * FROM " . $this->table_name;
@@ -34,7 +35,19 @@ class Produit{
 		return $stmt;
 	}
 	
-	//Obtenir toutes les Produits (version allégée pour pas charger ce qui est inutile)
+	//Obtenir tous les Produits par categorie
+	function getAllProduitsByCategorie($id){
+	 
+		$query = "SELECT * FROM " . $this->table_name . " WHERE idcategorie=" . $id;
+		// prepare query statement
+		$stmt = $this->conn->prepare($query);
+		// execute query
+		$stmt->execute();
+	 
+		return $stmt;
+	}
+	
+	//Obtenir tous les Produits (version allégée pour pas charger ce qui est inutile)
 	function getAllProduitsSimple(){
 	 
 		$query = "SELECT id, idcategorie, nom, isvisible, place FROM " . $this->table_name;
@@ -62,7 +75,8 @@ class Produit{
 					images=:images,
 					descriptions=:descriptions,
 					isvisible=:isvisible,
-					place=:place";
+					place=:place,
+					path=:path";
 	 
 		// prepare query
 		$stmt = $this->conn->prepare($query);
@@ -77,6 +91,7 @@ class Produit{
 		$this->descriptions=htmlspecialchars(strip_tags($this->descriptions));
 		$this->isvisible=htmlspecialchars(strip_tags($this->isvisible));
 		$this->place=htmlspecialchars(strip_tags($this->place));
+		$this->path=htmlspecialchars(strip_tags($this->path));
 	 
 		// bind values
 		$stmt->bindParam(":idtemplate", $this->idtemplate);
@@ -88,6 +103,7 @@ class Produit{
 		$stmt->bindParam(":descriptions", $this->descriptions);
 		$stmt->bindParam(":place", $this->place);
 		$stmt->bindParam(":isvisible", $this->isvisible);
+		$stmt->bindParam(":path", $this->path);
 	 
 		// execute query
 		if($stmt->execute()){
@@ -113,7 +129,8 @@ class Produit{
 					images=:images,
 					descriptions=:descriptions,
 					isvisible=:isvisible,
-					place=:place
+					place=:place,
+					path=:path
 				WHERE
 					id = :id";
 	 
@@ -130,6 +147,7 @@ class Produit{
 		$this->descriptions=htmlspecialchars(strip_tags($this->descriptions));
 		$this->isvisible=htmlspecialchars(strip_tags($this->isvisible));
 		$this->place=htmlspecialchars(strip_tags($this->place));
+		$this->path=htmlspecialchars(strip_tags($this->path));
 		$this->id=htmlspecialchars(strip_tags($this->id));
 	 
 		// bind new values
@@ -143,6 +161,7 @@ class Produit{
 		$stmt->bindParam(":descriptions", $this->descriptions);
 		$stmt->bindParam(":place", $this->place);
 		$stmt->bindParam(":isvisible", $this->isvisible);
+		$stmt->bindParam(":path", $this->path);
 	 
 		// execute the query
 		if($stmt->execute()){

@@ -6,6 +6,12 @@ header("Content-Type: application/json; charset=UTF-8");
 // include database and object files
 include_once '../config/database.php';
 include_once './produit.php';
+
+if (isset($_GET['id'])) {
+    $id =  $_GET['id'];
+} else {
+    // Fallback behaviour goes here
+}
  
 // instantiate database and product object
 $database = new Database();
@@ -16,7 +22,7 @@ $produit = new Produit($db);
  
  
 // query products
-$stmt = $produit->getAllProduitsSimple();
+$stmt = $produit->getAllProduitsByCategorie($id);
 $num = $stmt->rowCount();
  
 // check if more than 0 record found
@@ -37,8 +43,13 @@ if($num>0){
  
         $produit_item=array(	
 			"id" => $id,
+			"id_template" => $idtemplate,
 			"id_categorie" => $idcategorie,
 			"nom" => $nom,
+			"image_p" => base64_encode($imagep),
+			"description_p" => $descriptionp,
+			"image_s" => base64_encode($images),
+			"description_s" => $descriptions,
 			"isvisible" => $isvisible,
 			"place" => $place,
 			"path" => $path

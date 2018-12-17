@@ -40,12 +40,13 @@ if($num>0){
 			"id_template" => $idtemplate,
 			"id_categorie" => $idcategorie,
 			"nom" => $nom,
-			"image_p" => $imagep,
+			"image_p" => base64_encode($imagep),
 			"description_p" => $descriptionp,
-			"image_s" => $images,
+			"image_s" => base64_encode($images),
 			"description_s" => $descriptions,
 			"isvisible" => $isvisible,
-			"place" => $place
+			"place" => $place,
+			"path" => $path
         );
  
         array_push($produit_arr["records"], $produit_item);

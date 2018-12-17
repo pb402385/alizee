@@ -20,7 +20,7 @@ $produit = new Produit($db);
 //TODO get data from url here
  
 // get posted data
-$data = json_decode('{"id_template":"2","id_categorie":"2","nom":"Test produit","image_p":null,"description_p":null,"image_s":null,"description_s":null,"isvisible":"1","place":"1"}');
+$data = json_decode('{"id_template":"2","id_categorie":"2","nom":"Test produit","image_p":null,"description_p":null,"image_s":null,"description_s":null,"isvisible":"1","place":"1","path":"test"}');
  
 // make sure data is not empty
 if(
@@ -32,7 +32,8 @@ if(
 	//!empty($data->image_s) &&
 	//!empty($data->description_s) &&
     !empty($data->isvisible) &&
-    !empty($data->place)
+    !empty($data->place) &&
+    !empty($path->path)
 ){
  
     // set produit property values
@@ -45,6 +46,7 @@ if(
 	$produit->descriptions = $data->description_s;
     $produit->isvisible = $data->isvisible;
 	$produit->place = $data->place;
+	$produit->path = $data->path;
  
     // create the produit
     if($produit->addProduit()){
