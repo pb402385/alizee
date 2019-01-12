@@ -1,0 +1,22 @@
+<div id="contentLogin">
+
+  <div class="responseLogin" *ngIf="connection == 1 || connection == 0">
+        <p *ngIf="connection == 1" style="color:green;font-weight:bold;">{{ message }}</p>
+        <p *ngIf="connection == 0" style="color:red;font-weight:bold;">{{ message }}</p>
+  </div>
+
+  <form *ngIf="connection == null || connection == 0">
+    <div class="group">
+      <input id="Name" type="text" (blur)="effectBlur('Name')"><span class="highlight"></span><span class="bar"></span>
+      <label id="labelName" class="">Login</label>
+    </div>
+    <div class="group">
+      <input id="Password" type="password" (blur)="effectBlur('Password')"><span class="highlight"></span><span class="bar"></span>
+      <label id="labelPassword" class="">Password</label>
+    </div>
+    <button type="button" class="button buttonBlue" (click)="login()">Connexion
+      <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+    </button>
+  </form>
+
+</div>

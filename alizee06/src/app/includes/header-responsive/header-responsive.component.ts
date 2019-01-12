@@ -7,7 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderResponsiveComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+    if(localStorage.getItem('role') !== "ruby"){
+      localStorage.setItem("role", "user");
+    }
+  }
 
   ngOnInit() {
   }

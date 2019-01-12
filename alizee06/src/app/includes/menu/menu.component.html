@@ -6,7 +6,7 @@
 
   <div id="subtopnav" *ngIf="screenWidth > 700 && categories !== null && categories.records.length > 0">
     <a  *ngFor="let categorie of categories.records" 
-        id="menuTitle{{categorie.place}}" routerLink="./{{categorie.routerlink}}" (click)="activeMenuTitle(categorie.place)">
+        id="menuTitle{{categorie.place}}" href="/{{categorie.routerlink}}" (click)="activeMenuTitle(categorie.place)">
         {{categorie.nom}}
     </a>
   </div>
@@ -28,7 +28,7 @@
       </a>
   </div>
 
-  <a href="http://facebook.com/">
+  <a href="https://www.facebook.com/Médical-Esthétic-Alizé-266149550726983">
     <img src="assets/images/icon-facebook.png" class="fbIco" alt="Facebook" />
   </a>
 

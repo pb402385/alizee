@@ -1,9 +1,9 @@
 <div id="template">
-    <h3 id="titleProduit" (change)="reloadData()">
+    <h3 id="titleProduit">
         {{produit.nom}}
     </h3>
 
-    <div *ngIf="produit.id_template  == 1">
+    <div *ngIf="produit.id_template  == 1 && image_p !== 'data:image/bmp;base64,'">
         <div id="templateRight">
           <div id="templateImageRight">
             <img [src]="image_p" alt="templateImageRight" />
@@ -18,7 +18,7 @@
 
     </div>
 
-    <div *ngIf="produit.id_template  == 2">
+    <div *ngIf="produit.id_template  == 2 && image_p !== 'data:image/bmp;base64,'">
         <div id="imageTitleDiv">
             <img id="imageTitle" [src]="image_p" alt="templateImageTitle" />
         </div>
@@ -35,5 +35,9 @@
           </div>
         </div>
 
+    </div>
+
+    <div class="construction" *ngIf="image_p == 'data:image/bmp;base64,'">
+        <img src="assets/images/construction.png" class="imgConstruction" alt="Site en construction!" />
     </div>
 </div>

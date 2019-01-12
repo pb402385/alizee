@@ -49,6 +49,7 @@ import { TarifsComponent } from './pages/public/menu/tarifs/tarifs.component';
 import { SoinsVisageComponent } from './pages/public/menu/soins-visage/soins-visage.component';
 import { SoinsCorpsComponent } from './pages/public/menu/soins-corps/soins-corps.component';
 import { TemplateComponent } from './includes/template/template.component';
+import { LoginComponent } from './pages/private/login/login.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { TemplateComponent } from './includes/template/template.component';
     TarifsComponent,
     SoinsVisageComponent,
     SoinsCorpsComponent,
-    TemplateComponent
+    TemplateComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

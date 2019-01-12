@@ -3,7 +3,7 @@
 
         <h1 id="FAQ_title">FAQ : Question Fréquentes</h1>
 
-        <mat-accordion>
+        <mat-accordion *ngIf="!utils.isUnderConstruction">
 
 
             <mat-expansion-panel>
@@ -33,6 +33,10 @@
 
 
         </mat-accordion>
+
+        <div class="construction" *ngIf="utils.isUnderConstruction">
+            <img src="assets/images/construction.png" class="imgConstruction" alt="Site en construction!" />
+        </div>
 
     </div>
 </div>

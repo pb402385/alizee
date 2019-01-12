@@ -21,7 +21,7 @@ export class SoinsVisageComponent implements OnInit {
 
   public produitId: any = null;
 
-  constructor(private utils: UtilsService) {
+  constructor(public utils: UtilsService) {
     this.utils.getProduitsByCategorie("0",this);
   }
 

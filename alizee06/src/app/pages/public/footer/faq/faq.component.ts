@@ -9,7 +9,7 @@ import { UtilsService } from '../../../../services/utils.service';
 })
 export class FaqComponent implements OnInit {
 
-  constructor(private utils: UtilsService) {
+  constructor(public utils: UtilsService) {
 
   }
 

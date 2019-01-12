@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { LoginComponent } from '../pages/private/login/login.component';
+
 import { HomeComponent } from '../pages/public/home/home.component';
 
 import { TarifsComponent } from '../pages/public/menu/tarifs/tarifs.component';
@@ -23,6 +25,7 @@ const routes: Routes = [
   { path: 'soins-corps', component: SoinsCorpsComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'faq', component: FaqComponent },
+  { path: 'admin', component: LoginComponent },
   { path: '**', redirectTo: '' }
 ];
  

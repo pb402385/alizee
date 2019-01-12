@@ -20,4 +20,8 @@
   
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+</table>
+
+<div class="construction" *ngIf="utils.isUnderConstruction">
+  <img src="assets/images/construction.png" class="imgConstruction" alt="Site en construction!" />
+</div>

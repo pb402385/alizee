@@ -22,7 +22,7 @@ export class SoinsCorpsComponent implements OnInit {
   public produitId: any = null;
 
 
-  constructor(private utils: UtilsService) {
+  constructor(public utils: UtilsService) {
     this.utils.getProduitsByCategorie("1",this);
   }
 

@@ -3,6 +3,7 @@ import { Injectable, NgZone } from '@angular/core';
 import { CategorieService } from './api/categorie.service';
 import { ProduitService } from './api/produit.service';
 import { TarifService } from './api/tarif.service';
+import { DisconnectService } from './api/disconnect.service';
 
 import { ErrorLogService } from './error-log/error-log.service';
 
@@ -17,7 +18,19 @@ export class UtilsService {
     private categorieService: CategorieService,
     private produitService: ProduitService,
     private tarifService: TarifService,
-    private errorService: ErrorLogService) { }
+    private disconnectService: DisconnectService,
+    private errorService: ErrorLogService) { 
+
+  }
+
+
+  isUnderConstruction(){
+    if(localStorage.getItem('role') !== "user"){
+      return true;
+    }else{
+      return false;
+    }
+  }
 
 
 
@@ -131,6 +144,32 @@ export class UtilsService {
       error =>{
         //En cas d'ereur on affiche le message d'erreur
         if(error) this.errorService.errorManagement(error,"/getAllTarifs",this);
+      } 
+    );
+  }
+
+
+
+
+
+
+
+
+
+
+
+  /**
+   * API: GET /ruby/getRuby.php
+   */
+  public disconnect() :any{
+    //On fait un appel au web service de deconnexion
+    this.disconnectService.getDisconnect().subscribe(
+      response => {
+        localStorage.setItem("role", "user");
+      },
+      error =>{
+        //En cas d'ereur on affiche le message d'erreur
+        if(error) this.errorService.errorManagement(error,"/getRuby",this);
       } 
     );
   }

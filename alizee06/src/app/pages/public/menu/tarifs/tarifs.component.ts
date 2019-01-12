@@ -9,6 +9,7 @@ export interface Tarifs {
   price: number;
 }
 
+/*
 const ELEMENT_DATA: Tarifs[] = [
   {title: "Produit 1 (SV)", description: 'Twinslim radiofréquence', price: 100.00},
   {title: "Produit 2 (SV)", description: 'Dervabrasion', price: 90.00},
@@ -24,6 +25,9 @@ const ELEMENT_DATA: Tarifs[] = [
   {title: "Produit 12 (SC)", description: 'Miltathérapie', price: 110.00},
   {title: "Produit 13", description: '...', price: null}
 ];
+*/
+
+const ELEMENT_DATA: Tarifs[] = [];
 
 @Component({
   selector: 'app-tarifs',
@@ -32,7 +36,7 @@ const ELEMENT_DATA: Tarifs[] = [
 })
 export class TarifsComponent implements OnInit {
 
-  constructor(private utils: UtilsService) {
+  constructor(public utils: UtilsService) {
   }
 
   displayedColumns: string[] = ['title', 'description', 'price'];
