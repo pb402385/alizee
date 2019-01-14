@@ -1,31 +1,77 @@
 <div id="template">
-    <h3 id="titleProduit">
+
+  <div *ngIf="utils.readLocalStorageValue()">
+    <mat-slide-toggle
+      class=""
+      color="primary"
+      checked="false"
+      (change)="editProduit();">
+      Editer le produit!
+    </mat-slide-toggle>
+  </div>
+
+  <div>
+    <h3 *ngIf="edit == false" id="titleProduit">
         {{produit.nom}}
     </h3>
+    
+    <div *ngIf="edit == true" id="titleProduit">     
+      <mat-icon [ngStyle]="{'font-size':'18px'}">edit</mat-icon>
+      <mat-form-field>
+          <input matInput placeholder="Titre" value="{{produit.nom}}" (change)="setNom(produit,$event)">
+      </mat-form-field>
+      <br/>
+      <mat-slide-toggle
+        class=""
+        color="primary"
+        [checked]="produitIsVisible" 
+        (change)="isVisible(produit,$event)">
+        Le produit est visible dans le menu ({{produitIsVisible}})!
+      </mat-slide-toggle>
+    </div>
+  </div>
 
-    <div *ngIf="produit.id_template  == 1 && image_p !== 'data:image/bmp;base64,'">
+    <div *ngIf="produit.id_template  == 1 && (image_p !== 'data:image/bmp;base64,' || edit == true)">
         <div id="templateRight">
           <div id="templateImageRight">
-            <img [src]="image_p" alt="templateImageRight" />
+            <img class="imagep" id="imagePrincipale" *ngIf="image_p !== 'data:image/bmp;base64,'" [src]="image_p" alt="templateImageRight" />
+            <img class="imagep" id="imagePreviewP" *ngIf="image_p == 'data:image/bmp;base64,'" src="assets/images/null.jpg" alt="templateImageRight" />
+            <div *ngIf="edit == true">     
+                <mat-icon [ngStyle]="{'font-size':'18px'}">attachment</mat-icon>
+                <input type="file"
+                       name="avatar"
+                       accept="image/png, image/jpeg" 
+                       (change)="loadFileP(produit,$event)" />
+            </div>
           </div>
         </div>
 
         <div id="templateLeft">
-          <div *ngIf="description_p !== ''" id="templateDescription" [innerHTML]="description_p">
+          <div *ngIf="description_p !== '' && edit == false" id="templateDescription" [innerHTML]="description_p">
 
+          </div>
+          <div *ngIf="edit == true">  
+            <mat-form-field class="">
+                <textarea matInput 
+                          placeholder="Ecrire une description" 
+                          value="{{sanitizer.sanitize(description_p)}}" 
+                          (change)="changeDescriptionP(produit,$event)"></textarea>
+            </mat-form-field>
           </div>
         </div>
 
     </div>
 
-    <div *ngIf="produit.id_template  == 2 && image_p !== 'data:image/bmp;base64,'">
+    <div *ngIf="produit.id_template  == 2 && (image_p !== 'data:image/bmp;base64,' || edit == true)">
         <div id="imageTitleDiv">
-            <img id="imageTitle" [src]="image_p" alt="templateImageTitle" />
+            <img class="imagep" *ngIf="image_p !== 'data:image/bmp;base64,'" id="imageTitle" [src]="image_p" alt="templateImageTitle" />
+            <img class="imagep" *ngIf="image_p == 'data:image/bmp;base64,'" id="imageTitle" src="assets/images/null.jpg" alt="templateImageTitle" />
         </div>
 
         <div id="templateRight">
           <div id="templateImageRight">
-            <img [src]="image_s" alt="templateImageRight" />
+            <img class="imagep" *ngIf="image_p !== 'data:image/bmp;base64,'" [src]="image_s" alt="templateImageRight" />
+            <img class="imagep" *ngIf="image_p == 'data:image/bmp;base64,'" src="assets/images/null.jpg" alt="templateImageRight" />
           </div>
         </div>
 
@@ -37,7 +83,7 @@
 
     </div>
 
-    <div class="construction" *ngIf="image_p == 'data:image/bmp;base64,'">
+    <div class="construction" *ngIf="image_p == 'data:image/bmp;base64,' && edit == false">
         <img src="assets/images/construction.png" class="imgConstruction" alt="Site en construction!" />
     </div>
 </div>

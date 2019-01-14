@@ -41,7 +41,8 @@ import {
   MatMenuModule,
   MatCheckboxModule,
   MatTooltipModule,
-  MatGridListModule
+  MatGridListModule,
+  MatSlideToggleModule
  } from '@angular/material';
 import { MenuComponent } from './includes/menu/menu.component';
 import { DietetiqueComponent } from './pages/public/menu/dietetique/dietetique.component';
@@ -93,7 +94,8 @@ import { LoginComponent } from './pages/private/login/login.component';
     MatMenuModule,
     MatCheckboxModule,
     MatTooltipModule,
-    MatGridListModule
+    MatGridListModule,
+    MatSlideToggleModule
   ],
   providers: [UtilsService, ErrorLogService, CategorieService, ProduitService, TarifService],
   bootstrap: [AppComponent]

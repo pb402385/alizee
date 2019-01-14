@@ -24,15 +24,9 @@ export class UtilsService {
   }
 
 
-  isUnderConstruction(){
-    if(localStorage.getItem('role') !== "user"){
-      return true;
-    }else{
-      return false;
-    }
-  }
-
-
+  /**
+   *  METHODES PUBLIC GET
+   */
 
   getProduitsByCategorie(id:any,classe:any){
     //On fait un appel au web service des produits
@@ -155,7 +149,9 @@ export class UtilsService {
 
 
 
-
+  /**
+   *  METHODE DECONNEXION
+   */
 
 
   /**
@@ -174,6 +170,48 @@ export class UtilsService {
     );
   }
 
+
+
+
+
+
+
+  /**
+   *  METHODES ADMIN POST
+   */
+
+  updateProduit(produit:any){
+    this.produitService.postUpdateProduit(produit).subscribe(
+      response => {
+        alert(response);
+      },
+      error =>{
+        //En cas d'ereur on affiche le message d'erreur
+        if(error) this.errorService.errorManagement(error,"/updateProduit",this);
+      } 
+    );
+  }
+
+
+
+
+  /**
+   * AUTRES METHODES
+   */
+
+
+  isUnderConstruction(){
+    if(localStorage.getItem('role') !== "user"){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  /** Check if session is valid */
+  readLocalStorageValue() {
+    return (localStorage.getItem('role') == 'ruby');
+  }
 
   fixBottom(){
     this.zone.runOutsideAngular(() => {

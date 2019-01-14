@@ -74,4 +74,27 @@ export class ProduitService {
       responseType: "text"
     });
   }
+
+
+
+  /**
+   * API: POST /produit/updateProduit.php
+   */
+  public postUpdateProduit(produit:any){
+    //header
+    var requestHeaders = new HttpHeaders().set("Access-Control-Allow-Origin", "*")
+    .append("Access-Control-Allow-Methods", "POST, OPTIONS");
+
+    let body = produit;
+
+    //path
+    var path = "produit/updateProduit.php";
+
+    //appel du web service
+    return this.http.post(API_URL + path,  body, {
+      headers: requestHeaders,
+      observe: 'response',
+      responseType: "text"
+    });
+  }
 }

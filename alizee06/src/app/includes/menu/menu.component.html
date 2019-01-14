@@ -32,6 +32,10 @@
     <img src="assets/images/icon-facebook.png" class="fbIco" alt="Facebook" />
   </a>
 
+  <a *ngIf="utils.readLocalStorageValue()" style="cursor:pointer" id="menuTitleDisconnect" (click)="utils.disconnect()">
+    <mat-icon [ngStyle]="{'font-size':'18px','color':'red','font-weight':'bold'}">power_settings_new</mat-icon>
+  </a>
+
   <a href="javascript:void(0);" class="icon" (click)="activeMenuResponsive()">
       <mat-icon [ngStyle]="{'font-size':'18px'}">menu</mat-icon>
   </a>
