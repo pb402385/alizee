@@ -21,6 +21,8 @@ export class TemplateComponent implements OnInit {
   public edit: boolean = false;
   public produitIsVisible: boolean = null;
 
+  public selectedValue: number = null;
+
   constructor(private zone: NgZone, 
               public sanitizer: DomSanitizer, 
               private utils: UtilsService) {
@@ -32,6 +34,8 @@ export class TemplateComponent implements OnInit {
     this.image_p = null;
     this.image_s = null;
 
+    this.selectedValue = parseInt(this.produit.id_template);
+
     if(this.produit.isvisible == 1){
       this.produitIsVisible = true;
     }else{
@@ -39,7 +43,7 @@ export class TemplateComponent implements OnInit {
     };
 
     //On crée un contenu HTML secure
-    this.description_p = this.sanitizer.bypassSecurityTrustHtml(this.produit.description_p);
+    this.description_p = this.sanitizer.sanitize(1,this.produit.description_p);
     this.image_p = 'data:image/bmp;base64,'+this.produit.image_p;
     this.image_s = 'data:image/bmp;base64,'+this.produit.image_s;
   }
@@ -49,6 +53,8 @@ export class TemplateComponent implements OnInit {
     this.image_p = null;
     this.image_s = null;
 
+    this.selectedValue = parseInt(this.produit.id_template);
+
     if(this.produit.isvisible == 1){
       this.produitIsVisible = true;
     }else{
@@ -56,7 +62,7 @@ export class TemplateComponent implements OnInit {
     };
 
     //On crée un contenu HTML secure
-    this.description_p = this.sanitizer.bypassSecurityTrustHtml(this.produit.description_p);
+    this.description_p = this.sanitizer.sanitize(1,this.produit.description_p);
     this.image_p = 'data:image/bmp;base64,'+this.produit.image_p;
     this.image_s = 'data:image/bmp;base64,'+this.produit.image_s;
   }
@@ -92,10 +98,24 @@ export class TemplateComponent implements OnInit {
     this.produit.nom = event.currentTarget.value;
   }
 
+  setTemplate(produit:any,event:any){
+    this.produit.id_template = ''+event.value;
+    this.selectedValue = event.value;
+  }
+
   loadFileP(produit:any,event:any){
     this.produit.imagep = URL.createObjectURL(event.target.files[0]);
     this.image_p = this.sanitizer.bypassSecurityTrustUrl(this.produit.imagep);
     let el: HTMLImageElement = <HTMLImageElement>document.getElementById('imagePreviewP');
+    this.zone.runOutsideAngular(() => {
+      el.src = URL.createObjectURL(event.target.files[0]);
+    });
+  }
+
+  loadFileS(produit:any,event:any){
+    this.produit.images = URL.createObjectURL(event.target.files[0]);
+    this.image_s = this.sanitizer.bypassSecurityTrustUrl(this.produit.images);
+    let el: HTMLImageElement = <HTMLImageElement>document.getElementById('imagePreviewS');
     this.zone.runOutsideAngular(() => {
       el.src = URL.createObjectURL(event.target.files[0]);
     });

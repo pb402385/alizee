@@ -16,5 +16,9 @@
 }
 
 .imagep{
-    width:100%;
+    width:90%;
+}
+
+.heightTextArea{
+    height: 100%;
 }
