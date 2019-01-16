@@ -80,8 +80,9 @@ export class LoginComponent implements OnInit {
         this.connection = JSON.parse(responseJSON).connection;
         if(this.connection == 1){
           localStorage.setItem("role", "ruby");
+          localStorage.setItem("token", JSON.parse(responseJSON).token);
         }else{
-          localStorage.setItem("role", "user");
+          localStorage.setItem("token", "");
         }
         this.message = JSON.parse(responseJSON).message;    
 

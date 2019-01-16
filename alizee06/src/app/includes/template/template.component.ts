@@ -130,4 +130,16 @@ export class TemplateComponent implements OnInit {
     return this.sanitizer.sanitize(txt,true);
   }
 
+
+
+
+
+
+
+
+
+  updateProduit(produit:any){
+    this.utils.updateProduit(produit);
+  }
+
 }

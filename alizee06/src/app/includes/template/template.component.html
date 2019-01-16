@@ -113,6 +113,8 @@
 
     </div>
 
+    <button *ngIf="edit == true" (click)="updateProduit(produit)" color="primary" mat-raised-button>Update Produit</button>
+
     <div class="construction" *ngIf="image_p == 'data:image/bmp;base64,' && edit == false">
         <img src="assets/images/construction.png" class="imgConstruction" alt="Site en construction!" />
     </div>

@@ -83,12 +83,13 @@ export class ProduitService {
   public postUpdateProduit(produit:any){
     //header
     var requestHeaders = new HttpHeaders().set("Access-Control-Allow-Origin", "*")
-    .append("Access-Control-Allow-Methods", "POST, OPTIONS");
+    .append("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+    .append("Content-Type", "application/json");
 
     let body = produit;
 
     //path
-    var path = "produit/updateProduit.php";
+    var path = "produit/updateProduit.php?token="+localStorage.getItem("token");
 
     //appel du web service
     return this.http.post(API_URL + path,  body, {
