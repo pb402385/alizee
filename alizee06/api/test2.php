@@ -9,9 +9,9 @@ if (!isset ($_SESSION["etat"])) {
 	$_SESSION["etat"] = "user";
 }
 
-$_SESSION["etat"] = "admin";
+$_SESSION["etat"] = "user";
 
-if (!isset ($_SESSION["etat"])) { 
+if (isset ($_SESSION["etat"])) { 
 	$_SESSION["etat"] = "user";
 }
 
