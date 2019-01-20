@@ -12,6 +12,9 @@ import { ErrorLogService } from './error-log/error-log.service';
 })
 export class UtilsService {
 
+  public errorLog401: string = null;
+  public successLog: string = null;
+
   private categories: any = null;
 
   constructor(private zone: NgZone,
@@ -183,7 +186,7 @@ export class UtilsService {
   updateProduit(produit:any){
     this.produitService.postUpdateProduit(produit).subscribe(
       response => {
-        alert(response);
+        this.successLog = "Mise à jour réalisée avec succès!"
       },
       error =>{
         //En cas d'ereur on affiche le message d'erreur

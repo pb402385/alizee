@@ -17,5 +17,9 @@ export class ErrorLogService {
       console.log(error);
       console.log(urlWebService);
       console.log(classe);
+
+      if(error.status == 0){
+        classe.errorLog401 = "Le token a expiré, veuillez vous reconnecter!"
+      }
     }
 }

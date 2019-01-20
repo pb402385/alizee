@@ -43,6 +43,15 @@ body{
 }
 
 
+.heightTextArea{
+	width: 100%;
+}
+
+.mat-form-field-infix textarea{
+	min-height: 350px;
+}
+
+
 
 @media only screen and (max-width: 700px) {
     #wrapper{

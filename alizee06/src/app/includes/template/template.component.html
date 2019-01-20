@@ -31,22 +31,58 @@
       <br/>
       <mat-form-field>
           <mat-select [(value)]="selectedValue" placeholder="Numéro de template" (selectionChange)="setTemplate(produit,$event)">
+              <mat-option [value]="0">
+                  0
+              </mat-option>
               <mat-option [value]="1">
                   1
               </mat-option>
               <mat-option [value]="2">
                   2
               </mat-option>
+              <mat-option [value]="3">
+                  3
+              </mat-option>
           </mat-select>
       </mat-form-field>
     </div>
   </div>
 
-    <div *ngIf="produit.id_template  == 1 && (image_p !== 'data:image/bmp;base64,' || edit == true)">
+  <div *ngIf="produit.id_template  == 0 && (produit.image_p == null || produit.image_p.length >= 50 || edit == true)">
+      <div id="templateTop">
+        <div id="templateImageTop" [ngClass]="{'borderAdminNoIndent': edit == true}">
+          <img class="imagep" id="imagePrincipale" *ngIf="produit.image_p !== null && produit.image_p.length >= 50 " [src]="image_p" alt="templateImageRight" />
+          <img class="imagep" id="imagePreviewP" *ngIf="produit.image_p == null || produit.image_p.length < 50 " src="assets/images/null.jpg" alt="templateImageRight" />
+          <div *ngIf="edit == true">     
+              <mat-icon [ngStyle]="{'font-size':'18px'}">attachment</mat-icon>
+              <input type="file"
+                     accept="image/png, image/jpeg" 
+                     (change)="loadFileP(produit,$event)" />
+          </div>
+        </div>
+      </div>
+
+      <div id="templateSubTop">
+        <div *ngIf="description_p !== '' && edit == false" id="templateDescription" [innerHTML]="description_p">
+
+        </div>
+        <div *ngIf="edit == true" [ngClass]="{'borderAdmin': edit == true}" style="min-height: 350px;">  
+          <mat-form-field class="heightTextArea">
+              <textarea matInput 
+                        placeholder="Ecrire une description" 
+                        [(ngModel)]="description_p" 
+                        (change)="changeDescriptionP(produit,$event)"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+
+  </div>
+
+    <div *ngIf="produit.id_template  == 1 && (produit.image_p == null || produit.image_p.length >= 50 || edit == true)">
         <div id="templateRight">
-          <div id="templateImageRight" style="border: 1px solid blue;">
-            <img class="imagep" id="imagePrincipale" *ngIf="image_p !== 'data:image/bmp;base64,'" [src]="image_p" alt="templateImageRight" />
-            <img class="imagep" id="imagePreviewP" *ngIf="image_p == 'data:image/bmp;base64,'" src="assets/images/null.jpg" alt="templateImageRight" />
+          <div id="templateImageRight" [ngClass]="{'borderAdminNoIndent': edit == true}">
+            <img class="imagep" id="imagePrincipale" *ngIf="produit.image_p !== null && produit.image_p.length >= 50 " [src]="image_p" alt="templateImageRight" />
+            <img class="imagep" id="imagePreviewP" *ngIf="produit.image_p == null || produit.image_p.length < 50 " src="assets/images/null.jpg" alt="templateImageRight" />
             <div *ngIf="edit == true">     
                 <mat-icon [ngStyle]="{'font-size':'18px'}">attachment</mat-icon>
                 <input type="file"
@@ -60,7 +96,7 @@
           <div *ngIf="description_p !== '' && edit == false" id="templateDescription" [innerHTML]="description_p">
 
           </div>
-          <div *ngIf="edit == true" style="min-height: 350px;border: 1px solid blue;">  
+          <div *ngIf="edit == true" [ngClass]="{'borderAdmin': edit == true}" style="min-height: 350px;">  
             <mat-form-field class="heightTextArea">
                 <textarea matInput 
                           placeholder="Ecrire une description" 
@@ -72,10 +108,10 @@
 
     </div>
 
-    <div *ngIf="produit.id_template  == 2 && (image_p !== 'data:image/bmp;base64,' || edit == true)">
-        <div id="imageTitleDiv" style="border: 1px solid blue;">
-            <img class="imagep" *ngIf="image_p !== 'data:image/bmp;base64,'" id="imageTitle" [src]="image_p" alt="templateImageTitle" />
-            <img class="imagep" id="imagePreviewP" *ngIf="image_p == 'data:image/bmp;base64,'" src="assets/images/null.jpg" alt="templateImageTitle" />
+    <div *ngIf="produit.id_template  == 2 && (produit.image_p == null || produit.image_p.length >= 50  || edit == true)">
+        <div id="imageTitleDiv" [ngClass]="{'borderAdmin': edit == true}">
+            <img class="imagep" *ngIf="produit.image_p !== null && produit.image_p.length >= 50 " id="imageTitle" [src]="image_p" alt="templateImageTitle" />
+            <img class="imagep" id="imagePreviewP" *ngIf="produit.image_p == null || produit.image_p.length < 50 " src="assets/images/null.jpg" alt="templateImageTitle" />
             <div *ngIf="edit == true">     
                 <mat-icon [ngStyle]="{'font-size':'18px'}">attachment</mat-icon>
                 <input type="file"
@@ -85,9 +121,9 @@
         </div>
 
         <div id="templateRight">
-          <div id="templateImageRight" style="border: 1px solid blue;">
-            <img class="imagep" *ngIf="image_p !== 'data:image/bmp;base64,'" [src]="image_s" alt="templateImageRight" />
-            <img class="imagep" id="imagePreviewS" *ngIf="image_p == 'data:image/bmp;base64,'" src="assets/images/null.jpg" alt="templateImageRight" />
+          <div id="templateImageRight" [ngClass]="{'borderAdmin': edit == true}">
+            <img class="imagep" *ngIf="produit.image_p !== null && produit.image_p.length >= 50 " [src]="image_s" alt="templateImageRight" />
+            <img class="imagep" id="imagePreviewS" *ngIf="produit.image_p == null || produit.image_p.length < 50 " src="assets/images/null.jpg" alt="templateImageRight" />
             <div *ngIf="edit == true">     
                 <mat-icon [ngStyle]="{'font-size':'18px'}">attachment</mat-icon>
                 <input type="file"
@@ -101,7 +137,7 @@
           <div *ngIf="description_p !== '' && edit == false" id="templateDescription" [innerHTML]="description_p">
 
           </div>
-          <div *ngIf="edit == true" style="min-height: 350px;border: 1px solid blue;">  
+          <div *ngIf="edit == true" [ngClass]="{'borderAdmin': edit == true}" style="min-height: 350px;">  
               <mat-form-field class="heightTextArea">
                   <textarea matInput 
                             placeholder="Ecrire une description" 
@@ -113,9 +149,57 @@
 
     </div>
 
-    <button *ngIf="edit == true" (click)="updateProduit(produit)" color="primary" mat-raised-button>Update Produit</button>
 
-    <div class="construction" *ngIf="image_p == 'data:image/bmp;base64,' && edit == false">
+
+    <div *ngIf="produit.id_template  == 3 && (produit.image_p == null || produit.image_p.length >= 50 || edit == true)">
+        <div id="templateTop">
+          <div id="templateImageTop" [ngClass]="{'borderAdminNoIndent': edit == true}">
+            <img class="imagep" id="imagePrincipale" *ngIf="produit.image_p !== null && produit.image_p.length >= 50 " [src]="image_p" alt="templateImageTop" />
+            <img class="imagep" id="imagePreviewP" *ngIf="produit.image_p == null || produit.image_p.length < 50 " src="assets/images/null.jpg" alt="templateImageRight" />
+            <div *ngIf="edit == true">     
+                <mat-icon [ngStyle]="{'font-size':'18px'}">attachment</mat-icon>
+                <input type="file"
+                       accept="image/png, image/jpeg" 
+                       (change)="loadFileP(produit,$event)" />
+            </div>
+          </div>
+        </div>
+  
+        <div id="templateSubTop">
+          <div *ngIf="description_p !== '' && edit == false" id="templateDescription" [innerHTML]="description_p">
+  
+          </div>
+          <div *ngIf="edit == true" [ngClass]="{'borderAdmin': edit == true}" style="min-height: 350px;">  
+            <mat-form-field class="heightTextArea">
+                <textarea matInput 
+                          placeholder="Ecrire une description" 
+                          [(ngModel)]="description_p" 
+                          (change)="changeDescriptionP(produit,$event)"></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+
+
+        <div id="templateBottom">
+          <div id="templateImageBottom" [ngClass]="{'borderAdminNoIndent': edit == true}">
+            <img class="imagep" id="imagePrincipale" *ngIf="produit.image_p !== null && produit.image_p.length >= 50 " [src]="image_s" alt="templateImageBottom" />
+            <img class="imagep" id="imagePreviewP" *ngIf="produit.image_p == null || produit.image_p.length < 50 " src="assets/images/null.jpg" alt="templateImageRight" />
+            <div *ngIf="edit == true">     
+                <mat-icon [ngStyle]="{'font-size':'18px'}">attachment</mat-icon>
+                <input type="file"
+                       accept="image/png, image/jpeg" 
+                       (change)="loadFileP(produit,$event)" />
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <button *ngIf="edit == true" (click)="updateProduit(produit)" id="updateProduit" color="primary" mat-raised-button>Update Produit</button>
+
+    <div class="construction" *ngIf="produit.image_p == null || produit.image_p.length < 50 && edit == false">
         <img src="assets/images/construction.png" class="imgConstruction" alt="Site en construction!" />
     </div>
+
+    <div id="errorLog401 &&  edit == true" *ngIf="utils.errorLog401" class="errorLog">{{utils.errorLog401}}</div>
+    <div id="successLog &&  edit == true" *ngIf="utils.successLog" class="successLog">{{utils.successLog}}</div>
 </div>

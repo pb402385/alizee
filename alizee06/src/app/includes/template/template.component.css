@@ -22,3 +22,35 @@
 .heightTextArea{
     height: 100%;
 }
+
+.borderAdmin{
+    border: 1px solid blue;
+    padding-top: 10px;
+    margin-top: 10px;
+}
+
+.borderAdminNoIndent{
+    border: 1px solid blue;  
+}
+
+#updateProduit{
+    left: 14%;
+}
+
+.errorLog{
+    color: red;
+    width:100%;
+    text-align:center;
+    padding-top: 50px;
+    font-size: 200%;
+    font-weight: bold;
+}
+
+.successLog{
+    color: green;
+    width:100%;
+    text-align:center;
+    padding-top: 50px;
+    font-size: 200%;
+    font-weight: bold;
+}
