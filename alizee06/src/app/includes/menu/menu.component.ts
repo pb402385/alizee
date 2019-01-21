@@ -26,6 +26,7 @@ export class MenuComponent implements OnInit {
 
 
   constructor(public utils: UtilsService) { 
+    this.sortedProducts = this.utils.getInfoForMenu(this);
   }
 
   ngOnInit() {
@@ -39,7 +40,6 @@ export class MenuComponent implements OnInit {
         document.getElementById("subtopnavMobile").style.display = "none";
       }, 100);     
     }
-    this.sortedProducts = this.utils.getInfoForMenu(this);
   }
 
   ngOnChange() {
@@ -115,11 +115,11 @@ export class MenuComponent implements OnInit {
   onResize(event){
     this.screenWidth = window.innerWidth;
     if(this.screenWidth <= 700){
-      document.getElementById("subMenu").style.display = "none";
+      if(document.getElementById("subMenu")) document.getElementById("subMenu").style.display = "none";
       document.getElementById("subtopnav").style.display = "none";
       document.getElementById("subtopnavMobile").style.display = "block";
     }else{
-      document.getElementById("subMenu").style.display = "inherit";
+      if(document.getElementById("subMenu")) document.getElementById("subMenu").style.display = "inherit";
       document.getElementById("subtopnav").style.display = "inherit";
       document.getElementById("subtopnavMobile").style.display = "none";
     }

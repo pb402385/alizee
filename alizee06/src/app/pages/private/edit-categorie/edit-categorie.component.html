@@ -1,0 +1,79 @@
+<div id="editCategorie">
+
+    <div *ngIf="utils.readLocalStorageValue()">
+        <mat-slide-toggle
+          class=""
+          color="primary"
+          checked="false"
+          (change)="editCategories();">
+          Editer les catégories!
+        </mat-slide-toggle>
+    </div>
+    
+    <div *ngIf="editCategorie">
+
+      <div *ngIf="categories !== null">
+
+        <table style="width:100%;">
+          <tr>
+            <th>Id</th>
+            <th>Nom</th>
+            <th>Is Visible</th>
+            <th>Place</th>
+            <th>Chemin Url</th>
+            <th>Supprimer</th>
+          </tr>
+
+          <tr *ngFor="let categorie of categories.records">
+            <td>
+                {{categorie.id}}
+            </td>
+            <td>
+              <mat-icon [ngStyle]="{'font-size':'18px'}">edit</mat-icon>
+              <mat-form-field>
+                  <input matInput placeholder="Titre" value="{{categorie.nom}}" (change)="setNom(categorie,$event)">
+              </mat-form-field>
+            </td>
+            <td>
+              <span>{{categorie.is_visible}}</span><br/>
+              <mat-icon [ngStyle]="{'font-size':'18px'}">pan_tool</mat-icon>
+              <mat-slide-toggle
+                class=""
+                color="primary"
+                [checked]="categorie.is_visible == '1'" 
+                (change)="isVisible(categorie)">
+              </mat-slide-toggle>
+            </td>
+            <td>
+              <span>{{categorie.place}}</span><br/>
+              <mat-icon [ngStyle]="{'font-size':'18px'}">navigation</mat-icon>
+              <mat-form-field>
+                  <mat-select [(value)]="categorie.place" (selectionChange)="setPlace(categorie,$event);">
+                    <mat-option *ngFor="let categorie of categories.records" value="{{categorie.place}}">{{categorie.place}}</mat-option>
+                  </mat-select>
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-icon [ngStyle]="{'font-size':'18px'}">edit</mat-icon>
+              <mat-form-field>
+                  <input matInput placeholder="url" value="{{categorie.routerlink}}" (change)="setRouterLink(categorie,$event)">
+              </mat-form-field>
+            </td>
+            <td>
+                <mat-icon [ngStyle]="{'font-size':'18px'}">delete_forever</mat-icon>
+              </td>
+          </tr>
+
+      </table>
+
+      <button (click)="updateCategories();" id="updateCategories" color="primary" mat-raised-button>Update Categories</button>
+      <button (click)="addFormCategorie();" id="addCategorie" color="accent" mat-raised-button>Ajouter une Categorie</button>
+
+      <div id="errorLog401" *ngIf="utils.errorLog401" class="errorLog">{{utils.errorLog401}}</div>
+      <div id="successLog" *ngIf="utils.successLog" class="successLog">{{utils.successLog}}</div>
+
+      </div>
+
+    </div>
+
+</div>

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { LoginComponent } from '../pages/private/login/login.component';
+import { EditCategorieComponent } from '../pages/private/edit-categorie/edit-categorie.component';
 
 import { HomeComponent } from '../pages/public/home/home.component';
 
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'contact', component: ContactComponent },
   { path: 'faq', component: FaqComponent },
   { path: 'admin', component: LoginComponent },
+  { path: 'editCategorie', component: EditCategorieComponent },
   { path: '**', redirectTo: '' }
 ];
  

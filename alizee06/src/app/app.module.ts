@@ -51,6 +51,12 @@ import { SoinsVisageComponent } from './pages/public/menu/soins-visage/soins-vis
 import { SoinsCorpsComponent } from './pages/public/menu/soins-corps/soins-corps.component';
 import { TemplateComponent } from './includes/template/template.component';
 import { LoginComponent } from './pages/private/login/login.component';
+import { OptionalMenu1Component } from './pages/public/menu/optional-menu1/optional-menu1.component';
+import { OptionalMenu2Component } from './pages/public/menu/optional-menu2/optional-menu2.component';
+import { OptionalMenu3Component } from './pages/public/menu/optional-menu3/optional-menu3.component';
+import { OptionalMenu4Component } from './pages/public/menu/optional-menu4/optional-menu4.component';
+import { OptionalMenu5Component } from './pages/public/menu/optional-menu5/optional-menu5.component';
+import { EditCategorieComponent } from './pages/private/edit-categorie/edit-categorie.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +72,13 @@ import { LoginComponent } from './pages/private/login/login.component';
     SoinsVisageComponent,
     SoinsCorpsComponent,
     TemplateComponent,
-    LoginComponent
+    LoginComponent,
+    OptionalMenu1Component,
+    OptionalMenu2Component,
+    OptionalMenu3Component,
+    OptionalMenu4Component,
+    OptionalMenu5Component,
+    EditCategorieComponent
   ],
   imports: [
     BrowserModule,

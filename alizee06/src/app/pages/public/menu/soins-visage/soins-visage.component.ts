@@ -27,7 +27,7 @@ export class SoinsVisageComponent implements OnInit {
     this.utils.getProduitsByCategorie("0",this);
     //On récupère l'id de la notification
     this.route.queryParams.subscribe(params => {
-      this.produit = JSON.parse(params['prod']);
+      if(params['prod']) this.produit = JSON.parse(params['prod']);
     });
   }
 

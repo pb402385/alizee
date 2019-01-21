@@ -28,7 +28,7 @@ export class SoinsCorpsComponent implements OnInit {
     this.utils.getProduitsByCategorie("1",this);
     //On récupère l'id de la notification
     this.route.queryParams.subscribe(params => {
-      this.produit = JSON.parse(params['prod']);
+      if(params['prod']) this.produit = JSON.parse(params['prod']);
     });
   }
 
