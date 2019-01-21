@@ -34,4 +34,78 @@ export class CategorieService {
       responseType: "text"
     });
   }
+  
+  
+  
+  
+  
+  
+  
+  /**
+   * API: POST /categorie/updateCategorie.php
+   */
+  public postUpdateCategorie(categorie:any){
+    //header
+    var requestHeaders = new HttpHeaders().set("Access-Control-Allow-Origin", "*")
+    .append("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+    .append("Content-Type", "application/json");
+
+    let body = categorie;
+
+    //path
+    var path = "categorie/updateCategorie.php?token="+localStorage.getItem("token");
+
+    //appel du web service
+    return this.http.post(API_URL + path,  body, {
+      headers: requestHeaders,
+      observe: 'response',
+      responseType: "text"
+    });
+  }
+  
+  
+  /**
+   * API: POST /categorie/addCategorie.php
+   */
+  public postAddCategorie(categorie:any){
+    //header
+    var requestHeaders = new HttpHeaders().set("Access-Control-Allow-Origin", "*")
+    .append("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+    .append("Content-Type", "application/json");
+
+    let body = categorie;
+
+    //path
+    var path = "categorie/addCategorie.php?token="+localStorage.getItem("token");
+
+    //appel du web service
+    return this.http.post(API_URL + path,  body, {
+      headers: requestHeaders,
+      observe: 'response',
+      responseType: "text"
+    });
+  }
+  
+  /**
+   * API: POST /categorie/deleteCategorie.php
+   */
+  public postDeleteCategorie(id:number){
+    //header
+    var requestHeaders = new HttpHeaders().set("Access-Control-Allow-Origin", "*")
+    .append("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+    .append("Content-Type", "application/json");
+
+    let body = {"id":id};
+
+    //path
+    var path = "categorie/deleteCategorie.php?token="+localStorage.getItem("token");
+
+    //appel du web service
+    return this.http.post(API_URL + path,  body, {
+      headers: requestHeaders,
+      observe: 'response',
+      responseType: "text"
+    });
+  }
+  
 }

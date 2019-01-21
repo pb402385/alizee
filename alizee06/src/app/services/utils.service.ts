@@ -183,15 +183,116 @@ export class UtilsService {
   /**
    *  METHODES ADMIN POST
    */
-
   updateProduit(produit:any){
     this.produitService.postUpdateProduit(produit).subscribe(
       response => {
-        this.successLog = "Mise à jour réalisée avec succès!"
+        this.successLog = "Mise à jour du produit réalisée avec succès!"
       },
       error =>{
         //En cas d'ereur on affiche le message d'erreur
         if(error) this.errorService.errorManagement(error,"/updateProduit",this);
+      } 
+    );
+  }
+  
+  updateCategorie(categorie:any){
+    this.categorieService.postUpdateCategorie(categorie).subscribe(
+      response => {
+        this.successLog = "Mise à jour de la catégorie réalisée avec succès!"
+      },
+      error =>{
+        //En cas d'ereur on affiche le message d'erreur
+        if(error) this.errorService.errorManagement(error,"/updateCategorie",this);
+      } 
+    );
+  }
+  
+  updateTarif(tarif:any){
+    this.tarifService.postUpdateTarif(tarif).subscribe(
+      response => {
+        this.successLog = "Mise à jour du tarif réalisée avec succès!"
+      },
+      error =>{
+        //En cas d'ereur on affiche le message d'erreur
+        if(error) this.errorService.errorManagement(error,"/updateTarif",this);
+      } 
+    );
+  }
+  
+  
+  
+  
+  addProduit(produit:any){
+    this.produitService.postAddProduit(produit).subscribe(
+      response => {
+        this.successLog = "Ajout du produit réalisé avec succès!"
+      },
+      error =>{
+        //En cas d'ereur on affiche le message d'erreur
+        if(error) this.errorService.errorManagement(error,"/addProduit",this);
+      } 
+    );
+  }
+  
+  addCategorie(categorie:any){
+    this.categorieService.postAddCategorie(categorie).subscribe(
+      response => {
+        this.successLog = "Ajout de la catégorie réalisé avec succès!"
+      },
+      error =>{
+        //En cas d'ereur on affiche le message d'erreur
+        if(error) this.errorService.errorManagement(error,"/addCategorie",this);
+      } 
+    );
+  }
+  
+  addTarif(tarif:any){
+    this.tarifService.postAddTarif(tarif).subscribe(
+      response => {
+        this.successLog = "Ajout du tarif réalisé avec succès!"
+      },
+      error =>{
+        //En cas d'ereur on affiche le message d'erreur
+        if(error) this.errorService.errorManagement(error,"/addTarif",this);
+      } 
+    );
+  }
+  
+  
+  
+  
+  deleteProduit(id:number){
+    this.produitService.postDeleteProduit(id).subscribe(
+      response => {
+        this.successLog = "Ajout du produit réalisé avec succès!"
+      },
+      error =>{
+        //En cas d'ereur on affiche le message d'erreur
+        if(error) this.errorService.errorManagement(error,"/deleteProduit",this);
+      } 
+    );
+  }
+  
+  deleteCategorie(id:number){
+    this.categorieService.postDeleteCategorie(id).subscribe(
+      response => {
+        this.successLog = "Ajout de la catégorie réalisé avec succès!"
+      },
+      error =>{
+        //En cas d'ereur on affiche le message d'erreur
+        if(error) this.errorService.errorManagement(error,"/deleteCategorie",this);
+      } 
+    );
+  }
+  
+  deleteTarif(id:number){
+    this.tarifService.postDeleteTarif(id).subscribe(
+      response => {
+        this.successLog = "Ajout du tarif réalisé avec succès!"
+      },
+      error =>{
+        //En cas d'ereur on affiche le message d'erreur
+        if(error) this.errorService.errorManagement(error,"/deleteTarif",this);
       } 
     );
   }

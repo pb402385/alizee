@@ -84,7 +84,7 @@ if($_GET["token"] === $token ){
 		http_response_code(200);
 	 
 		// tell the user
-		echo json_encode(array("message" => "Unable to update produit. Data is incomplete!".$data));
+		echo json_encode(array("message" => "Unable to update produit. Data is incomplete!"));
 	}
 }else{
 	// set response code - 401 utilisateur non authentifié

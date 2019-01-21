@@ -98,4 +98,50 @@ export class ProduitService {
       responseType: "text"
     });
   }
+  
+  
+  /**
+   * API: POST /produit/addProduit.php
+   */
+  public postAddProduit(produit:any){
+    //header
+    var requestHeaders = new HttpHeaders().set("Access-Control-Allow-Origin", "*")
+    .append("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+    .append("Content-Type", "application/json");
+
+    let body = produit;
+
+    //path
+    var path = "produit/addProduit.php?token="+localStorage.getItem("token");
+
+    //appel du web service
+    return this.http.post(API_URL + path,  body, {
+      headers: requestHeaders,
+      observe: 'response',
+      responseType: "text"
+    });
+  }
+  
+  /**
+   * API: POST /produit/deleteProduit.php
+   */
+  public postDeleteProduit(id:number){
+    //header
+    var requestHeaders = new HttpHeaders().set("Access-Control-Allow-Origin", "*")
+    .append("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+    .append("Content-Type", "application/json");
+
+    let body = {"id":id};
+
+    //path
+    var path = "produit/deleteProduit.php?token="+localStorage.getItem("token");
+
+    //appel du web service
+    return this.http.post(API_URL + path,  body, {
+      headers: requestHeaders,
+      observe: 'response',
+      responseType: "text"
+    });
+  }
+  
 }

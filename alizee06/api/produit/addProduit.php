@@ -16,29 +16,28 @@ header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Access-Control-Allow-Methods, Access-Control-Allow-Origin, Authorization, X-Requested-With");
 
 if($_GET["token"] === $token ){
 	// initialize object
 	$produit = new Produit($db);
 	 
-	//TODO get data from url here
+	// Création d'un flux
+	$opts = array(
+	  'http'=>array(
+		'method'=>"POST"
+	  )
+	);
+	 
+	$context = stream_context_create($opts);
 	 
 	// get posted data
-	$data = file_get_contents('php://input');
+	$input = file_get_contents("php://input", false, $context); 
+	$data = json_decode($input, true);
 
 	// make sure data is not empty
 	if(
-		!empty($data->id_template) &&
-		!empty($data->id_categorie) &&
-		!empty($data->nom) &&
-		//!empty($data->image_p) &&
-		//!empty($data->description_p) &&
-		//!empty($data->image_s) &&
-		//!empty($data->description_s) &&
-		!empty($data->isvisible) &&
-		!empty($data->place) &&
-		!empty($path->path)
+		!empty($data)
 	){
 	 
 		// set produit property values

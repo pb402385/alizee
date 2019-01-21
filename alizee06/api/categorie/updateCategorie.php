@@ -16,24 +16,28 @@ header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Access-Control-Allow-Methods, Access-Control-Allow-Origin, Authorization, X-Requested-With");
 
 if($_GET["token"] === $token ){
 	// initialize object
 	$categorie = new Categorie($db);
 	 
-	//TODO get data from url here
+	// Création d'un flux
+	$opts = array(
+	  'http'=>array(
+		'method'=>"POST"
+	  )
+	);
+	 
+	$context = stream_context_create($opts);
 	 
 	// get posted data
-	$data = json_decode('{"id":"3","nom":"Test Categorie update","place":"4","is_visible":"1","routerlink":"routerlinktest"}');
+	$input = file_get_contents("php://input", false, $context); 
+	$data = json_decode($input, true);
 
 	// make sure data is not empty
 	if(
-		!empty($data->id) &&
-		!empty($data->nom) &&
-		!empty($data->place) &&
-		!empty($data->is_visible) &&
-		!empty($data->routerlink)
+		!empty($data)
 	){
 	 
 		// set categorie property values
