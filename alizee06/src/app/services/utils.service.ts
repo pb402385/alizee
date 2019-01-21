@@ -122,6 +122,7 @@ export class UtilsService {
           array[classe.produits.records[i].id_categorie].push(classe.produits.records[i]);
         }
         classe.sortedProducts = array;
+        return classe.sortedProducts;
       },
       error =>{
         //En cas d'ereur on affiche le message d'erreur

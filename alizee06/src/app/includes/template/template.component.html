@@ -52,7 +52,7 @@
       <div id="templateTop">
         <div id="templateImageTop" [ngClass]="{'borderAdminNoIndent': edit == true}">
           <img class="imagep" id="imagePrincipale" *ngIf="produit.image_p !== null && produit.image_p.length >= 50 " [src]="image_p" alt="templateImageRight" />
-          <img class="imagep" id="imagePreviewP" *ngIf="produit.image_p == null || produit.image_p.length < 50 " src="assets/images/null.jpg" alt="templateImageRight" />
+          <img class="imagep" id="imagePreviewP" *ngIf="(produit.image_p == null || produit.image_p.length < 50) && edit == true" src="assets/images/null.jpg" alt="templateImageRight" />
           <div *ngIf="edit == true">     
               <mat-icon [ngStyle]="{'font-size':'18px'}">attachment</mat-icon>
               <input type="file"
@@ -82,7 +82,7 @@
         <div id="templateRight">
           <div id="templateImageRight" [ngClass]="{'borderAdminNoIndent': edit == true}">
             <img class="imagep" id="imagePrincipale" *ngIf="produit.image_p !== null && produit.image_p.length >= 50 " [src]="image_p" alt="templateImageRight" />
-            <img class="imagep" id="imagePreviewP" *ngIf="produit.image_p == null || produit.image_p.length < 50 " src="assets/images/null.jpg" alt="templateImageRight" />
+            <img class="imagep" id="imagePreviewP" *ngIf="(produit.image_p == null || produit.image_p.length < 50) && edit == true" src="assets/images/null.jpg" alt="templateImageRight" />
             <div *ngIf="edit == true">     
                 <mat-icon [ngStyle]="{'font-size':'18px'}">attachment</mat-icon>
                 <input type="file"
@@ -111,7 +111,7 @@
     <div *ngIf="produit.id_template  == 2 && (produit.image_p == null || produit.image_p.length >= 50  || edit == true)">
         <div id="imageTitleDiv" [ngClass]="{'borderAdmin': edit == true}">
             <img class="imagep" *ngIf="produit.image_p !== null && produit.image_p.length >= 50 " id="imageTitle" [src]="image_p" alt="templateImageTitle" />
-            <img class="imagep" id="imagePreviewP" *ngIf="produit.image_p == null || produit.image_p.length < 50 " src="assets/images/null.jpg" alt="templateImageTitle" />
+            <img class="imagep" id="imagePreviewP" *ngIf="(produit.image_p == null || produit.image_p.length < 50) && edit == true " src="assets/images/null.jpg" alt="templateImageTitle" />
             <div *ngIf="edit == true">     
                 <mat-icon [ngStyle]="{'font-size':'18px'}">attachment</mat-icon>
                 <input type="file"
@@ -123,7 +123,7 @@
         <div id="templateRight">
           <div id="templateImageRight" [ngClass]="{'borderAdmin': edit == true}">
             <img class="imagep" *ngIf="produit.image_p !== null && produit.image_p.length >= 50 " [src]="image_s" alt="templateImageRight" />
-            <img class="imagep" id="imagePreviewS" *ngIf="produit.image_p == null || produit.image_p.length < 50 " src="assets/images/null.jpg" alt="templateImageRight" />
+            <img class="imagep" id="imagePreviewS" *ngIf="(produit.image_p == null || produit.image_p.length < 50) && edit == true" src="assets/images/null.jpg" alt="templateImageRight" />
             <div *ngIf="edit == true">     
                 <mat-icon [ngStyle]="{'font-size':'18px'}">attachment</mat-icon>
                 <input type="file"
@@ -154,8 +154,8 @@
     <div *ngIf="produit.id_template  == 3 && (produit.image_p == null || produit.image_p.length >= 50 || edit == true)">
         <div id="templateTop">
           <div id="templateImageTop" [ngClass]="{'borderAdminNoIndent': edit == true}">
-            <img class="imagep" id="imagePrincipale" *ngIf="produit.image_p !== null && produit.image_p.length >= 50 " [src]="image_p" alt="templateImageTop" />
-            <img class="imagep" id="imagePreviewP" *ngIf="produit.image_p == null || produit.image_p.length < 50 " src="assets/images/null.jpg" alt="templateImageRight" />
+            <img class="imagep" id="imagePrincipale" *ngIf="produit.image_p !== null && produit.image_p.length >= 50" [src]="image_p" alt="templateImageTop" />
+            <img class="imagep" id="imagePreviewP" *ngIf="(produit.image_p == null || produit.image_p.length <  50) && edit == true" src="assets/images/null.jpg" alt="templateImageRight" />
             <div *ngIf="edit == true">     
                 <mat-icon [ngStyle]="{'font-size':'18px'}">attachment</mat-icon>
                 <input type="file"
@@ -182,8 +182,8 @@
 
         <div id="templateBottom">
           <div id="templateImageBottom" [ngClass]="{'borderAdminNoIndent': edit == true}">
-            <img class="imagep" id="imagePrincipale" *ngIf="produit.image_p !== null && produit.image_p.length >= 50 " [src]="image_s" alt="templateImageBottom" />
-            <img class="imagep" id="imagePreviewP" *ngIf="produit.image_p == null || produit.image_p.length < 50 " src="assets/images/null.jpg" alt="templateImageRight" />
+            <img class="imagep" id="imagePrincipale" *ngIf="produit.image_p !== null && produit.image_p.length >= 50" [src]="image_s" alt="templateImageBottom" />
+            <img class="imagep" id="imagePreviewP" *ngIf="(produit.image_p == null || produit.image_p.length < 50) && edit == true" src="assets/images/null.jpg" alt="templateImageRight" />
             <div *ngIf="edit == true">     
                 <mat-icon [ngStyle]="{'font-size':'18px'}">attachment</mat-icon>
                 <input type="file"

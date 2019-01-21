@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { ActivatedRoute, Router } from '@angular/router';
+
 import { UtilsService } from '../../../../services/utils.service';
 
 @Component({
@@ -21,8 +23,12 @@ export class SoinsVisageComponent implements OnInit {
 
   public produitId: any = null;
 
-  constructor(public utils: UtilsService) {
+  constructor(public utils: UtilsService, private route: ActivatedRoute) {
     this.utils.getProduitsByCategorie("0",this);
+    //On récupère l'id de la notification
+    this.route.queryParams.subscribe(params => {
+      this.produit = JSON.parse(params['prod']);
+    });
   }
 
   ngOnInit() {}

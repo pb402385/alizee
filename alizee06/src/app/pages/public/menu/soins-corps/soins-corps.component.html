@@ -9,7 +9,7 @@
   <div id="right" *ngIf="screenWidth > 700 && produits !== null && produits.records.length > 0">
 
       <div *ngIf="menuScClicked == 0">
-          <p>
+          <p class="center">
               Sélectionnez un sous menu.
           </p>
       </div>
@@ -20,5 +20,23 @@
       </div>
 
   </div>
+</div>
+
+<div *ngIf="screenWidth <= 700 && produits !== null && produits.records.length > 0">
+      
+        <div id="right" *ngIf="screenWidth <= 700 && produits !== null && produits.records.length > 0">
+      
+            <div *ngIf="menuScClicked == 0">
+                <p class="center">
+                    Sélectionnez un sous menu.
+                </p>
+            </div>
+      
+            <div *ngIf="menuScClicked  >= 1">
+              <!-- On inclut le Contenu du menuSc1 -->
+              <app-template id="app-template" [produit]="produit"></app-template> 
+            </div>
+      
+        </div>
 </div>
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { UtilsService } from '../../services/utils.service';
 
@@ -11,25 +11,61 @@ export class MenuComponent implements OnInit {
 
   public subMenuVisage:boolean = false;
   public subMenuCorps:boolean = false;
+  
+
+
+  public menuResponsiveActivated = false;
 
   public categories:any = null;
   public produits:any = null;
   public sortedProducts: any = null;
 
-  public screenWidth:number = screen.width;
+  @Input() screenWidth:number = window.innerWidth;
 
   public menuClicked:number = 0;
 
 
-  constructor(private utils: UtilsService) { 
-    this.utils.getInfoForMenu(this);
+  constructor(public utils: UtilsService) { 
   }
 
   ngOnInit() {
+    if(this.screenWidth <= 700){
+      setTimeout(function(){ 
+        document.getElementById("subtopnav").style.display = "none";
+      }, 100);
+    }else{
+      setTimeout(function(){ 
+        document.getElementById("subtopnav").style.display = "inherit";
+        document.getElementById("subtopnavMobile").style.display = "none";
+      }, 100);     
+    }
+    this.sortedProducts = this.utils.getInfoForMenu(this);
+  }
+
+  ngOnChange() {
+    if(this.screenWidth <= 700){
+      setTimeout(function(){ 
+        document.getElementById("subtopnav").style.display = "none";
+      }, 100);
+    }else{
+      setTimeout(function(){ 
+        document.getElementById("subtopnav").style.display = "inherit";
+        document.getElementById("subtopnavMobile").style.display = "none";
+      }, 100);     
+    }
   }
 
 
   activeMenuResponsive() {
+
+    if(this.menuResponsiveActivated == false){
+      document.getElementById("subtopnavMobile").style.display = "inherit";
+      this.menuResponsiveActivated = true;
+    }else{
+      document.getElementById("subtopnavMobile").style.display = "none";
+      this.menuResponsiveActivated = false;
+    }
+
     var x = document.getElementById("myTopnav");
     if (x.className === "topnav") {
         x.className += " responsive";
@@ -40,8 +76,7 @@ export class MenuComponent implements OnInit {
 
   activeMenuTitle(id:number) {
     let menuLength = document.getElementById("myTopnav").children.length - 3;
-    menuLength = menuLength + document.getElementById("subtopnav").children.length;
-    for(let i=0; i<menuLength; i++){
+    for(let i=0; i<=menuLength; i++){
       document.getElementById("menuTitle"+i).className = "";
     }
     document.getElementById("menuTitle"+id).className = "active";
@@ -75,6 +110,19 @@ export class MenuComponent implements OnInit {
     }
 
     document.getElementById("menu"+categorieId+""+id).setAttribute("class","selected");
+  }
+
+  onResize(event){
+    this.screenWidth = window.innerWidth;
+    if(this.screenWidth <= 700){
+      document.getElementById("subMenu").style.display = "none";
+      document.getElementById("subtopnav").style.display = "none";
+      document.getElementById("subtopnavMobile").style.display = "block";
+    }else{
+      document.getElementById("subMenu").style.display = "inherit";
+      document.getElementById("subtopnav").style.display = "inherit";
+      document.getElementById("subtopnavMobile").style.display = "none";
+    }
   }
 
 }

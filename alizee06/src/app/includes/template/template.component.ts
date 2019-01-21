@@ -1,7 +1,5 @@
 import { Component, OnInit, Input, NgZone } from '@angular/core';
 
-import {Observable} from "rxjs/Observable";
-
 import { DomSanitizer } from '@angular/platform-browser';
 
 import { UtilsService } from '../../services/utils.service';
@@ -27,11 +25,12 @@ export class TemplateComponent implements OnInit {
 
   constructor(private zone: NgZone, 
               public sanitizer: DomSanitizer, 
-              private utils: UtilsService) {
+              public utils: UtilsService) {
 
   }
 
   ngOnInit() {
+
     this.description_p = "";
     this.image_p = null;
     this.image_s = null;
@@ -56,6 +55,7 @@ export class TemplateComponent implements OnInit {
   }
 
   ngOnChanges(){
+
     this.description_p = "";
     this.image_p = null;
     this.image_s = null;
