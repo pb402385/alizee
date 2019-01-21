@@ -142,9 +142,9 @@ class Produit{
 		$this->idcategorie=htmlspecialchars(strip_tags($this->idcategorie));
 		$this->nom=htmlspecialchars(strip_tags($this->nom));
 		$this->imagep=htmlspecialchars(strip_tags($this->imagep));
-		$this->descriptionp=htmlspecialchars(strip_tags($this->descriptionp));
+		$this->descriptionp=$this->descriptionp;
 		$this->images=htmlspecialchars(strip_tags($this->images));
-		$this->descriptions=htmlspecialchars(strip_tags($this->descriptions));
+		$this->descriptions=$this->descriptions;
 		$this->isvisible=htmlspecialchars(strip_tags($this->isvisible));
 		$this->place=htmlspecialchars(strip_tags($this->place));
 		$this->path=htmlspecialchars(strip_tags($this->path));
