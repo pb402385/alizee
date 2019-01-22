@@ -53,12 +53,27 @@ export class EditCategorieComponent implements OnInit {
   }
 
   setPlace(categorie,event){
-    let tmp = ''+event.value;
+    let tmp = null;
     for(let i = 0; i < this.categories.records.length; i++){
-      if(this.categoriePlaceSave[i] == tmp) this.categories.records[i].place = categorie.place;
+      if(this.isMissingValue(this.categoriePlaceSave[i])) tmp = this.categoriePlaceSave[i];
     }
-    categorie.place = tmp;
+    this.setMissingValue(tmp,categorie);
     this.verifyPlaceAndCopy();
+  }
+
+  isMissingValue(value:string){
+    for(let i = 0; i < this.categories.records.length; i++){
+      if(this.categories.records[i].place == value) return false;
+    }
+    console.log("missingvalue = " +value);
+    return true;
+  }
+
+  setMissingValue(oldValue:string,categorie:any){
+    for(let i = 0; i < this.categories.records.length; i++){
+      if(categorie.id !== this.categories.records[i].id && this.categories.records[i].place == categorie.place) console.log(this.categories.records[i].place+ " = " +oldValue);
+      if(categorie.id !== this.categories.records[i].id && this.categories.records[i].place == categorie.place) this.categories.records[i].place = oldValue;
+    }
   }
 
 

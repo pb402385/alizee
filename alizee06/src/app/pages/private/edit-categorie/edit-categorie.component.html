@@ -14,18 +14,18 @@
 
       <div *ngIf="categories !== null">
 
-        <table style="width:100%;">
+        <table>
           <tr>
-            <th>Id</th>
+            <th class="columnId">Id</th>
             <th>Nom</th>
             <th>Is Visible</th>
             <th>Place</th>
             <th>Chemin Url</th>
-            <th>Supprimer</th>
+            <th class="columnDelete">Supprimer</th>
           </tr>
 
           <tr *ngFor="let categorie of categories.records">
-            <td>
+            <td class="columnId">
                 {{categorie.id}}
             </td>
             <td>
@@ -35,7 +35,7 @@
               </mat-form-field>
             </td>
             <td>
-              <span>{{categorie.is_visible}}</span><br/>
+              <span>{{categorie.is_visible}}</span>
               <mat-icon [ngStyle]="{'font-size':'18px'}">pan_tool</mat-icon>
               <mat-slide-toggle
                 class=""
@@ -45,11 +45,11 @@
               </mat-slide-toggle>
             </td>
             <td>
-              <span>{{categorie.place}}</span><br/>
+              <span>{{categorie.place}}</span>
               <mat-icon [ngStyle]="{'font-size':'18px'}">navigation</mat-icon>
               <mat-form-field>
                   <mat-select [(value)]="categorie.place" (selectionChange)="setPlace(categorie,$event);">
-                    <mat-option *ngFor="let categorie of categories.records" value="{{categorie.place}}">{{categorie.place}}</mat-option>
+                    <mat-option *ngFor="let categorie of categories.records; let i = index" value="{{i+1}}">{{i+1}}</mat-option>
                   </mat-select>
               </mat-form-field>
             </td>
@@ -59,15 +59,23 @@
                   <input matInput placeholder="url" value="{{categorie.routerlink}}" (change)="setRouterLink(categorie,$event)">
               </mat-form-field>
             </td>
-            <td>
+            <td class="columnDelete">
                 <mat-icon [ngStyle]="{'font-size':'18px'}">delete_forever</mat-icon>
               </td>
           </tr>
 
       </table>
 
-      <button (click)="updateCategories();" id="updateCategories" color="primary" mat-raised-button>Update Categories</button>
-      <button (click)="addFormCategorie();" id="addCategorie" color="accent" mat-raised-button>Ajouter une Categorie</button>
+      <table>
+        <tr>
+          <td>
+            <button (click)="updateCategories();" id="updateCategories" color="primary" mat-raised-button>Update Categories</button>
+          </td>
+          <td>
+            <button (click)="addFormCategorie();" id="addCategorie" color="accent" mat-raised-button>Ajouter une Categorie</button>
+          </td>
+        </tr>
+      </table>
 
       <div id="errorLog401" *ngIf="utils.errorLog401" class="errorLog">{{utils.errorLog401}}</div>
       <div id="successLog" *ngIf="utils.successLog" class="successLog">{{utils.successLog}}</div>

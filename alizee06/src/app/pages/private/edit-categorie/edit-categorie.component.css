@@ -1,0 +1,21 @@
+table {
+    width: 100%;
+    background-color: #fff;
+}
+
+th, td {
+    font-weight: unset;
+    padding-right: 10px;
+}
+
+.columnId{
+    width: 50px;
+    padding-left: 25px;
+    text-align: center;
+}
+
+.columnDelete{
+    width: 50px;
+    padding-right: 10px;
+    text-align: center;
+}
