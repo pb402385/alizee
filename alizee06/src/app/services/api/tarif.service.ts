@@ -92,7 +92,7 @@ export class TarifService {
   /**
    * API: POST /tarif/deleteTarif.php
    */
-  public postDeleteTarif(id:number){
+  public postDeleteTarif(id:string){
     //header
     var requestHeaders = new HttpHeaders().set("Access-Control-Allow-Origin", "*")
     .append("Access-Control-Allow-Methods", "GET, POST, OPTIONS")

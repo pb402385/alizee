@@ -24,7 +24,7 @@
             <th class="columnDelete">Supprimer</th>
           </tr>
 
-          <tr *ngFor="let categorie of categories.records">
+          <tr *ngFor="let categorie of categories.records; let j = index" [ngClass]="'ligne'+j">
             <td class="columnId">
                 {{categorie.id}}
             </td>
@@ -60,7 +60,47 @@
               </mat-form-field>
             </td>
             <td class="columnDelete">
-                <mat-icon [ngStyle]="{'font-size':'18px'}">delete_forever</mat-icon>
+                <mat-icon (click)="deleteCategorie(categorie.id)" [ngClass]="'pointer'" [ngStyle]="{'font-size':'18px'}">delete_forever</mat-icon>
+            </td>
+          </tr>
+
+          <tr *ngIf="addFormIsActive" class="ligneEdit">
+              <td class="columnId">
+                  ??
+              </td>
+              <td>
+                <mat-icon [ngStyle]="{'font-size':'18px'}">edit</mat-icon>
+                <mat-form-field>
+                    <input matInput placeholder="Titre" value="{{nomToAdd}}" (change)="setNomToAdd($event)">
+                </mat-form-field>
+              </td>
+              <td>
+                <span>{{is_visibleToAdd}}</span>
+                <mat-icon [ngStyle]="{'font-size':'18px'}">pan_tool</mat-icon>
+                <mat-slide-toggle
+                  class=""
+                  color="primary"
+                  [checked]="is_visibleToAdd == '1'" 
+                  (change)="isVisibleToAdd()">
+                </mat-slide-toggle>
+              </td>
+              <td>
+                <span>{{placeToAdd}}</span>
+                <mat-icon [ngStyle]="{'font-size':'18px'}">navigation</mat-icon>
+                <mat-form-field>
+                    <mat-select [(value)]="placeToAdd">
+                      <mat-option value="{{placeToAdd}}">{{placeToAdd}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-icon [ngStyle]="{'font-size':'18px'}">edit</mat-icon>
+                <mat-form-field>
+                    <input matInput placeholder="url" value="{{routerlinkToAdd}}" (change)="setRouterLinkToAdd($event)">
+                </mat-form-field>
+              </td>
+              <td class="columnDelete">
+                  <mat-icon *ngIf="addFormIsActive" (click)="addFormCategorie();initParamsAddForm();" [ngClass]="'pointer'" [ngStyle]="{'font-size':'18px'}">delete_forever</mat-icon>
               </td>
           </tr>
 
@@ -72,7 +112,8 @@
             <button (click)="updateCategories();" id="updateCategories" color="primary" mat-raised-button>Update Categories</button>
           </td>
           <td>
-            <button (click)="addFormCategorie();" id="addCategorie" color="accent" mat-raised-button>Ajouter une Categorie</button>
+            <button *ngIf="!addFormIsActive" (click)="addFormCategorie();" id="addCategorie" color="accent" mat-raised-button>Ajouter une Categorie</button>
+            <button *ngIf="addFormIsActive" (click)="addCategorie()" id="addCategorie" color="accent" mat-raised-button>Sauvegarder la nouvelle Categorie</button>
           </td>
         </tr>
       </table>

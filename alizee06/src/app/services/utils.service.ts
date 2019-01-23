@@ -238,6 +238,7 @@ export class UtilsService {
     this.categorieService.postAddCategorie(categorie).subscribe(
       response => {
         this.successLog = "Ajout de la catégorie réalisé avec succès!"
+        location.reload();
       },
       error =>{
         //En cas d'ereur on affiche le message d'erreur
@@ -261,7 +262,7 @@ export class UtilsService {
   
   
   
-  deleteProduit(id:number){
+  deleteProduit(id:string){
     this.produitService.postDeleteProduit(id).subscribe(
       response => {
         this.successLog = "Ajout du produit réalisé avec succès!"
@@ -273,10 +274,11 @@ export class UtilsService {
     );
   }
   
-  deleteCategorie(id:number){
+  deleteCategorie(id:string){
     this.categorieService.postDeleteCategorie(id).subscribe(
       response => {
         this.successLog = "Ajout de la catégorie réalisé avec succès!"
+        location.reload();
       },
       error =>{
         //En cas d'ereur on affiche le message d'erreur
@@ -285,7 +287,7 @@ export class UtilsService {
     );
   }
   
-  deleteTarif(id:number){
+  deleteTarif(id:string){
     this.tarifService.postDeleteTarif(id).subscribe(
       response => {
         this.successLog = "Ajout du tarif réalisé avec succès!"

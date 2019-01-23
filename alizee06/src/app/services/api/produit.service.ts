@@ -125,7 +125,7 @@ export class ProduitService {
   /**
    * API: POST /produit/deleteProduit.php
    */
-  public postDeleteProduit(id:number){
+  public postDeleteProduit(id:string){
     //header
     var requestHeaders = new HttpHeaders().set("Access-Control-Allow-Origin", "*")
     .append("Access-Control-Allow-Methods", "GET, POST, OPTIONS")

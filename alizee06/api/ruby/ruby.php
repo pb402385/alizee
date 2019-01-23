@@ -215,7 +215,7 @@ class Ruby{
 
 		$curtime = time();
 
-		if(($curtime-$time) <= 1800) {     //1800 seconds (=30minutes)
+		if(($curtime-$time) <= 3600) {     //1800 seconds (=30minutes)
 		  return true;
 		}
 		

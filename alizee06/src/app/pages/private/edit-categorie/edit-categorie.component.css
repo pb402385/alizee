@@ -8,6 +8,13 @@ th, td {
     padding-right: 10px;
 }
 
+th {
+    font-size: 12px;
+    color: #fff;
+    line-height: 1.4;
+    background-color: #36304a;
+}
+
 .columnId{
     width: 50px;
     padding-left: 25px;
@@ -18,4 +25,64 @@ th, td {
     width: 50px;
     padding-right: 10px;
     text-align: center;
+}
+
+.pointer{
+    cursor: pointer;
+}
+
+
+
+.ligne0:hover{
+  background-color: silver !important;
+  color: black;
+  font-weight: bold;
+}
+
+.ligne1:hover{
+    background-color: silver !important;
+    color: black;
+    font-weight: bold;
+}
+
+.ligne2:hover{
+  background-color: silver !important;
+  color: black;
+  font-weight: bold;
+}
+
+.ligne3:hover{
+    background-color: silver !important;
+    color: black;
+    font-weight: bold;
+}
+
+.ligne4:hover{
+    background-color: silver !important;
+    color: black;
+    font-weight: bold;
+}
+
+.ligne5:hover{
+    background-color: silver !important;
+    color: black;
+    font-weight: bold;
+}
+
+.ligne6:hover{
+    background-color: silver !important;
+    color: black;
+    font-weight: bold;
+}
+
+.ligne7:hover{
+    background-color: silver !important;
+    color: black;
+    font-weight: bold;
+}
+
+.ligneEdit:hover{
+    background-color: silver !important;
+    color: black;
+    font-weight: bold;
 }

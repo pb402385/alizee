@@ -44,13 +44,13 @@ export class CategorieService {
   /**
    * API: POST /categorie/updateCategorie.php
    */
-  public postUpdateCategorie(categorie:any){
+  public postUpdateCategorie(categories:any){
     //header
     var requestHeaders = new HttpHeaders().set("Access-Control-Allow-Origin", "*")
-    .append("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+    .append("Access-Control-Allow-Methods", "POST, OPTIONS")
     .append("Content-Type", "application/json");
 
-    let body = categorie;
+    let body = categories;
 
     //path
     var path = "categorie/updateCategorie.php?token="+localStorage.getItem("token");
@@ -89,7 +89,7 @@ export class CategorieService {
   /**
    * API: POST /categorie/deleteCategorie.php
    */
-  public postDeleteCategorie(id:number){
+  public postDeleteCategorie(id:string){
     //header
     var requestHeaders = new HttpHeaders().set("Access-Control-Allow-Origin", "*")
     .append("Access-Control-Allow-Methods", "GET, POST, OPTIONS")

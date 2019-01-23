@@ -2,7 +2,7 @@
 require('../header.php');
 // include database and object files
 include_once '../config/database.php';
-include_once './produit.php';
+include_once './categorie.php';
 include_once '../ruby/ruby.php';
 
 $database = new Database();
@@ -37,11 +37,11 @@ if($_GET["token"] === $token ){
 
 	// make sure data is not empty
 	if(
-		!empty($data->id)
+		!empty($data)
 	){
 	 
 		// set categorie property values
-		$categorie->id = $data->id;
+		$categorie->id = $data["id"];
 		
 		// delete the categorie
 		if($categorie->deleteCategorie()){
@@ -68,7 +68,7 @@ if($_GET["token"] === $token ){
 	else{
 	 
 		// set response code - 400 bad request
-		http_response_code(400);
+		http_response_code(200);
 	 
 		// tell the user
 		echo json_encode(array("message" => "Unable to update categorie. Data is incomplete."));

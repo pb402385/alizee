@@ -14,6 +14,15 @@ export class EditCategorieComponent implements OnInit {
 
   public categoriePlaceSave: any = [];
 
+  public addFormIsActive: boolean = false;
+  public nomToAdd: string = "";
+  public is_visibleToAdd: string = "";
+  public placeToAdd: string = "";
+  public routerlinkToAdd: string = "";
+
+  public maxPlace: string = "0";
+
+
   constructor(public utils: UtilsService) { 
     this.categories = this.utils.getAllCategories(this);
   }
@@ -33,7 +42,9 @@ export class EditCategorieComponent implements OnInit {
   verifyPlaceAndCopy(){
     for(let i = 0; i < this.categories.records.length; i++){
       this.categoriePlaceSave[i] = this.categories.records[i].place;
+      if(parseInt(this.categories.records[i].place) > parseInt(this.maxPlace)) this.maxPlace = this.categories.records[i].place;
     }
+    this.placeToAdd = ""+(parseInt(this.maxPlace)+1);
   }
 
   isVisible(categorie){
@@ -85,11 +96,59 @@ export class EditCategorieComponent implements OnInit {
 
 
   updateCategories(){
-    alert("to implement!");
+    this.utils.updateCategorie(this.categories.records)
   }
 
   addFormCategorie(){
-    alert("to implement!");
+    if(this.addFormIsActive == false){
+      this.addFormIsActive = true;
+    }else{
+      this.addFormIsActive = false;
+    }
   }
+
+  initParamsAddForm(){
+    this.addFormIsActive = false;
+    this.nomToAdd = "";
+    this.is_visibleToAdd = "";
+    this.placeToAdd = ""+(parseInt(this.maxPlace)+1);
+    this.routerlinkToAdd = "";
+  }
+
+  addCategorie(){
+    let cat:any = {};
+    cat.nom = this.nomToAdd;
+    cat.is_visible = this.is_visibleToAdd;
+    //place = place max + 1
+    cat.place = this.placeToAdd;
+    cat.routerlink = this.routerlinkToAdd;
+    this.utils.addCategorie(cat)
+  }
+
+  setNomToAdd(event){
+    this.nomToAdd = event.currentTarget.value;
+  }
+
+  setRouterLinkToAdd(event){
+    this.routerlinkToAdd = event.currentTarget.value;
+  }
+
+  isVisibleToAdd(){
+    if(this.is_visibleToAdd == '1'){
+      this.is_visibleToAdd = '0';
+    }else{
+      this.is_visibleToAdd = '1';
+    }
+  }
+
+
+
+  deleteCategorie(id){
+    if(parseInt(id) > 3){
+      this.utils.deleteCategorie(id)
+    }else{
+      alert("Suppression impossible d'une des 4 premères catégories!");
+    }
+  } 
 
 }

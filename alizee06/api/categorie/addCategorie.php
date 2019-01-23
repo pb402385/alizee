@@ -2,7 +2,7 @@
 require('../header.php');
 // include database and object files
 include_once '../config/database.php';
-include_once './produit.php';
+include_once './categorie.php';
 include_once '../ruby/ruby.php';
 
 $database = new Database();
@@ -35,20 +35,19 @@ if($_GET["token"] === $token ){
 	// get posted data
 	$input = file_get_contents("php://input", false, $context); 
 	$data = json_decode($input, true);
+	
+	var_dump($data);
 	 
 	// make sure data is not empty
 	if(
-		!empty($data->nom) &&
-		!empty($data->place) &&
-		!empty($data->is_visible) &&
-		!empty($data->routerlink)
+		!empty($data)
 	){
 	 
 		// set categorie property values
-		$categorie->nom = $data->nom;
-		$categorie->place = $data->place;
-		$categorie->isvisible = $data->is_visible;
-		$categorie->routerlink = $data->routerlink;
+		$categorie->nom = $data["nom"];
+		$categorie->place = $data["place"];
+		$categorie->isvisible = $data["is_visible"];
+		$categorie->routerlink = $data["routerlink"];
 	 
 		// create the categorie
 		if($categorie->addCategorie()){
@@ -75,7 +74,7 @@ if($_GET["token"] === $token ){
 	else{
 	 
 		// set response code - 400 bad request
-		http_response_code(400);
+		http_response_code(200);
 	 
 		// tell the user
 		echo json_encode(array("message" => "Unable to create categorie. Data is incomplete."));
