@@ -41,17 +41,16 @@ if($_GET["token"] === $token ){
 	){
 	 
 		// set produit property values
-		$produit->id = intval ($data->id);
-		$produit->idtemplate = intval ($data->id_template);
-		$produit->idcategorie = intval ($data->id_categorie);
-		$produit->nom = $data->nom;
-		$produit->imagep = $data->image_p;
-		$produit->descriptionp = $data->description_p;
-		$produit->images = $data->image_s;
-		$produit->descriptions = $data->description_s;
-		$produit->isvisible = intval ($data->isvisible);
-		$produit->place = intval ($data->place);
-		$produit->path = $data->path;
+		$produit->idtemplate =  $data["id_template"];
+		$produit->idcategorie = $data["id_categorie"];
+		$produit->nom = $data["nom"];
+		$produit->imagep = null;
+		$produit->descriptionp = null;
+		$produit->images = null;
+		$produit->descriptions = null;
+		$produit->isvisible = $data["isvisible"];
+		$produit->place = $data["place"];
+		$produit->path = null;
 	 
 		// create the produit
 		if($produit->addProduit()){
@@ -78,7 +77,7 @@ if($_GET["token"] === $token ){
 	else{
 	 
 		// set response code - 400 bad request
-		http_response_code(400);
+		http_response_code(200);
 	 
 		// tell the user
 		echo json_encode(array("message" => "Unable to create produit. Data is incomplete."));

@@ -41,7 +41,7 @@ if($_GET["token"] === $token ){
 	){
 	 
 		// set produit property values
-		$produit->id = $data->id;
+		$produit->id = $data["id"];
 		
 		// delete the produit
 		if($produit->deleteProduit()){
@@ -68,7 +68,7 @@ if($_GET["token"] === $token ){
 	else{
 	 
 		// set response code - 400 bad request
-		http_response_code(400);
+		http_response_code(200);
 	 
 		// tell the user
 		echo json_encode(array("message" => "Unable to update produit. Data is incomplete."));

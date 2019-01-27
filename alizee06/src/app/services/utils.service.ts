@@ -49,17 +49,17 @@ export class UtilsService {
   }
 
 
-  getInfoForMenu(classe:any){
+  getInfoForMenu(classe:any,mode:boolean){
     //On fait un appel au web service des categories
     this.categorieService.getAllCategories().subscribe(
       response => {
 
         //On récupère les categories
         let responseJSON = response.body;
-        classe.categories = JSON.parse(responseJSON);
+        classe.categories = this.sortCategories(JSON.parse(responseJSON));
         this.categories = classe.categories;
 
-        this.getAllProduitsSimple(classe);
+        this.getAllProduitsSimple(classe,mode);
       },
       error =>{
         //En cas d'ereur on affiche le message d'erreur
@@ -103,7 +103,7 @@ export class UtilsService {
     );
   }
 
-  getAllProduitsSimple(classe:any){
+  getAllProduitsSimple(classe:any,mode:boolean){
     //On fait un appel au web service des produits
     this.produitService.getAllProduits().subscribe(
       response => {
@@ -115,11 +115,11 @@ export class UtilsService {
         //On trie les produits par categorie
         let array = [];
         for(let i = 0; i < this.categories.records.length; i++){
-          array[i] = [];
+            array[this.categories.records[i].id] = [];
           if(location.href.indexOf(this.categories.records[i].routerlink) >= 0) classe.activeMenuTitle(this.categories.records[i].place);   
         }
         for(let i = 0; i < classe.produits.records.length; i++){
-          array[classe.produits.records[i].id_categorie].push(classe.produits.records[i]);
+            array[classe.produits.records[i].id_categorie].push(classe.produits.records[i]);
         }
         classe.sortedProducts = array;
         return classe.sortedProducts;
@@ -194,6 +194,18 @@ export class UtilsService {
       } 
     );
   }
+
+  updateProduitsSimple(produits:any){
+    this.produitService.postUpdateProduitsSimple(produits).subscribe(
+      response => {
+        this.successLog = "Mise à jour du produit réalisée avec succès!"
+      },
+      error =>{
+        //En cas d'ereur on affiche le message d'erreur
+        if(error) this.errorService.errorManagement(error,"/updateProduit",this);
+      } 
+    );
+  }
   
   updateCategorie(categorie:any){
     this.categorieService.postUpdateCategorie(categorie).subscribe(
@@ -225,7 +237,8 @@ export class UtilsService {
   addProduit(produit:any){
     this.produitService.postAddProduit(produit).subscribe(
       response => {
-        this.successLog = "Ajout du produit réalisé avec succès!"
+        this.successLog = "Ajout du produit réalisé avec succès!";
+        location.reload();
       },
       error =>{
         //En cas d'ereur on affiche le message d'erreur
@@ -237,7 +250,7 @@ export class UtilsService {
   addCategorie(categorie:any){
     this.categorieService.postAddCategorie(categorie).subscribe(
       response => {
-        this.successLog = "Ajout de la catégorie réalisé avec succès!"
+        this.successLog = "Ajout de la catégorie réalisé avec succès!";
         location.reload();
       },
       error =>{
@@ -250,7 +263,8 @@ export class UtilsService {
   addTarif(tarif:any){
     this.tarifService.postAddTarif(tarif).subscribe(
       response => {
-        this.successLog = "Ajout du tarif réalisé avec succès!"
+        this.successLog = "Ajout du tarif réalisé avec succès!";
+        location.reload();
       },
       error =>{
         //En cas d'ereur on affiche le message d'erreur
@@ -265,7 +279,8 @@ export class UtilsService {
   deleteProduit(id:string){
     this.produitService.postDeleteProduit(id).subscribe(
       response => {
-        this.successLog = "Ajout du produit réalisé avec succès!"
+        this.successLog = "Suppression du produit réalisée avec succès!";
+        location.reload();
       },
       error =>{
         //En cas d'ereur on affiche le message d'erreur
@@ -277,7 +292,7 @@ export class UtilsService {
   deleteCategorie(id:string){
     this.categorieService.postDeleteCategorie(id).subscribe(
       response => {
-        this.successLog = "Ajout de la catégorie réalisé avec succès!"
+        this.successLog = "Suppression de la catégorie réalisée avec succès!";
         location.reload();
       },
       error =>{
@@ -290,7 +305,8 @@ export class UtilsService {
   deleteTarif(id:string){
     this.tarifService.postDeleteTarif(id).subscribe(
       response => {
-        this.successLog = "Ajout du tarif réalisé avec succès!"
+        this.successLog = "Suppression du tarif réalisée avec succès!";
+        location.reload();
       },
       error =>{
         //En cas d'ereur on affiche le message d'erreur
@@ -305,6 +321,39 @@ export class UtilsService {
   /**
    * AUTRES METHODES
    */
+
+
+  sortCategories(categories:any){
+    let categoriesFiltred: any = {};
+    categoriesFiltred.records = [];
+    let cpt = 0;
+
+    //On restire les nons visibles
+    for(let i = 0; i < categories.records.length; i++){
+      if(categories.records[i].is_visible == '1'){
+        categoriesFiltred.records[cpt] = {};
+        categoriesFiltred.records[cpt] = categories.records[i];
+        cpt++;
+      }
+    }
+
+    console.log(categoriesFiltred);
+
+    //On les classe par place
+    for(let i = 0; i < categoriesFiltred.records.length; i++){
+      for(let j = 0; j < categoriesFiltred.records.length; j++){
+        if(parseInt(categoriesFiltred.records[i].place) < parseInt(categoriesFiltred.records[j].place)){
+          let tmp = categoriesFiltred.records[i];
+          categoriesFiltred.records[i] = categoriesFiltred.records[j];
+          categoriesFiltred.records[j] = tmp;
+        }
+      }
+    }
+
+
+
+    return categoriesFiltred;
+  }
 
 
   isUnderConstruction(){

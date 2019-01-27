@@ -171,6 +171,45 @@ class Produit{
 		return false;
 	}
 	
+	// MAJ d'un produit
+	function updateProduitsSimple(){
+	 
+		// update query
+		$query = "UPDATE
+					" . $this->table_name . "
+				SET
+					idcategorie=:idcategorie, 
+					nom=:nom,
+					isvisible=:isvisible,
+					place=:place
+				WHERE
+					id = :id";
+	 
+		// prepare query statement
+		$stmt = $this->conn->prepare($query);
+	 
+		// sanitize
+		$this->idcategorie=htmlspecialchars(strip_tags($this->idcategorie));
+		$this->nom=htmlspecialchars(strip_tags($this->nom));
+		$this->isvisible=htmlspecialchars(strip_tags($this->isvisible));
+		$this->place=htmlspecialchars(strip_tags($this->place));
+		$this->id=htmlspecialchars(strip_tags($this->id));
+	 
+		// bind new values
+		$stmt->bindParam(':id', $this->id);
+		$stmt->bindParam(":idcategorie", $this->idcategorie);
+		$stmt->bindParam(":nom", $this->nom);
+		$stmt->bindParam(":place", $this->place);
+		$stmt->bindParam(":isvisible", $this->isvisible);
+	 
+		// execute the query
+		if($stmt->execute()){
+			return true;
+		}
+	 
+		return false;
+	}
+	
 	// delete d'un produit
 	function deleteProduit(){
 	 

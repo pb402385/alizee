@@ -35,8 +35,6 @@ if($_GET["token"] === $token ){
 	// get posted data
 	$input = file_get_contents("php://input", false, $context); 
 	$data = json_decode($input, true);
-	
-	var_dump($data);
 	 
 	// make sure data is not empty
 	if(

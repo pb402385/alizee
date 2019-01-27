@@ -36,8 +36,6 @@ if($_GET["token"] === $token ){
 	$input = file_get_contents("php://input", false, $context); 
 	$data = json_decode($input, true);
 	
-	var_dump($data["image_p"]);
-	
 	// make sure data is not empty
 	if(
 		!empty($data)

@@ -98,6 +98,28 @@ export class ProduitService {
       responseType: "text"
     });
   }
+
+  /**
+   * API: POST /produit/updateProduitsSimple.php
+   */
+  public postUpdateProduitsSimple(produit:any){
+    //header
+    var requestHeaders = new HttpHeaders().set("Access-Control-Allow-Origin", "*")
+    .append("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+    .append("Content-Type", "application/json");
+
+    let body = produit;
+
+    //path
+    var path = "produit/updateProduitsSimple.php?token="+localStorage.getItem("token");
+
+    //appel du web service
+    return this.http.post(API_URL + path,  body, {
+      headers: requestHeaders,
+      observe: 'response',
+      responseType: "text"
+    });
+  }
   
   
   /**

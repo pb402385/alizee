@@ -17,11 +17,9 @@ header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Access-Control-Allow-Methods, Access-Control-Allow-Origin, Authorization, X-Requested-With");
-
+ 
 if($_GET["token"] === $token ){
-	// initialize object
-	$tarif = new Tarifs($db);
-	 
+	
 	// Création d'un flux
 	$opts = array(
 	  'http'=>array(
@@ -34,35 +32,57 @@ if($_GET["token"] === $token ){
 	// get posted data
 	$input = file_get_contents("php://input", false, $context); 
 	$data = json_decode($input, true);
-	 
+	
 	// make sure data is not empty
 	if(
 		!empty($data)
 	){
+		$success = true;
+		$index = "";
 	 
-		// set tarif property values
-		$tarif->idproduit = $data->idproduit;
-		$tarif->idcategorie = $data->idcategorie;
-		$tarif->prix = $data->prix;
-	 
-		// create the tarif
-		if($tarif->addTarif()){
-	 
-			// set response code - 201 created
-			http_response_code(201);
-	 
-			// tell the user
-			echo json_encode(array("message" => "tarif was created."));
+		for($i = 0; $i < count($data); $i++){
+			
+			// initialize object
+			$produit = new Produit($db);
+				
+			// set produit property values
+			$produit->id = $data[$i]["id"];
+			$produit->idcategorie = $data[$i]["id_categorie"];
+			$produit->nom = $data[$i]["nom"];
+			$produit->isvisible = $data[$i]["isvisible"];
+			$produit->place = $data[$i]["place"];
+			
+			// update the produit
+			if($produit->updateProduitsSimple()){
+			 
+			}
+			// if unable to update the produit, tell the user
+			else{
+				$success = false;
+				
+				$index = $index.$i.", ";
+
+			}
 		}
-	 
-		// if unable to create the tarif, tell the user
+		
+		// update the produit
+		if($success == true){
+		 
+			// set response code - 200 ok
+			http_response_code(200);
+		 
+			// tell the user
+			echo json_encode(array("message" => "produit simple was updated.".var_dump($data)));
+		}
+		 
+		// if unable to update the produit, tell the user
 		else{
-	 
+		 
 			// set response code - 503 service unavailable
 			http_response_code(503);
-	 
+		 
 			// tell the user
-			echo json_encode(array("message" => "Unable to create tarif."));
+			echo json_encode(array("message" => "Unable to update produit. where id [ ".$index." ]"));
 		}
 	}
 	 
@@ -73,10 +93,11 @@ if($_GET["token"] === $token ){
 		http_response_code(200);
 	 
 		// tell the user
-		echo json_encode(array("message" => "Unable to create tarif. Data is incomplete."));
+		echo json_encode(array("message" => "Unable to update produit. Data is incomplete!"));
 	}
 }else{
 	// set response code - 401 utilisateur non authentifié
 	http_response_code(401);
 }
+
 ?>

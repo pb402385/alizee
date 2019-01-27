@@ -1,0 +1,123 @@
+<div id="editProduit">
+
+    <div *ngIf="utils.readLocalStorageValue()">
+        <mat-slide-toggle
+          class=""
+          color="primary"
+          checked="false"
+          (change)="editProduits();">
+          Editer les produits!
+        </mat-slide-toggle>
+    </div>
+
+    <div (click)="verifyPlaceAndCopy()">TEST</div>
+    
+    <div *ngIf="editProduit">
+
+      <div *ngIf="categories !== null">
+
+        <div  *ngFor="let categorie of categories.records; let i = index">
+            <h2>{{categorie.nom}}</h2>
+
+            <div *ngIf="sortedProducts !== null">
+              <table>
+                  <tr>
+                    <th class="columnId">Id</th>
+                    <th>Nom</th>
+                    <th>Is Visible</th>
+                    <th>Place</th>
+                    <th class="columnDelete">Supprimer</th>
+                  </tr>
+        
+                  <tr *ngFor="let produit of sortedProducts[categorie.id]; let j = index" [ngClass]="'ligne'+j">
+                    <td class="columnId">
+                        {{produit.id}}
+                    </td>
+                    <td>
+                      <mat-icon [ngStyle]="{'font-size':'18px'}">edit</mat-icon>
+                      <mat-form-field>
+                          <input matInput placeholder="Titre" value="{{produit.nom}}" (change)="setNom(produit,$event)">
+                      </mat-form-field>
+                    </td>
+                    <td>
+                      <span>{{produit.isvisible}}</span>
+                      <mat-icon [ngStyle]="{'font-size':'18px'}">pan_tool</mat-icon>
+                      <mat-slide-toggle
+                        class=""
+                        color="primary"
+                        [checked]="produit.isvisible == '1'" 
+                        (change)="isVisible(produit)">
+                      </mat-slide-toggle>
+                    </td>
+                    <td>
+                      <span>{{produit.place}}</span>
+                      <mat-icon [ngStyle]="{'font-size':'18px'}">navigation</mat-icon>
+                      <mat-form-field>
+                          <mat-select [(value)]="produit.place" (selectionChange)="setPlace(produit,$event,categorie);">
+                            <mat-option *ngFor="let produit of sortedProducts[categorie.id]; let k = index" value="{{k+1}}">{{k+1}}</mat-option>
+                          </mat-select>
+                      </mat-form-field>
+                    </td>
+                    <td class="columnDelete">
+                        <mat-icon (click)="deleteProduit(produit.id)" [ngClass]="'pointer'" [ngStyle]="{'font-size':'18px'}">delete_forever</mat-icon>
+                    </td>
+                  </tr>
+        
+                  <tr *ngIf="addFormIsActive[i]" class="ligneEdit">
+                      <td class="columnId">
+                          ??
+                      </td>
+                      <td>
+                        <mat-icon [ngStyle]="{'font-size':'18px'}">edit</mat-icon>
+                        <mat-form-field>
+                            <input matInput placeholder="Titre" value="{{nomToAdd[i]}}" (change)="setNomToAdd(i,$event)">
+                        </mat-form-field>
+                      </td>
+                      <td>
+                        <span>{{is_visibleToAdd[i]}}</span>
+                        <mat-icon [ngStyle]="{'font-size':'18px'}">pan_tool</mat-icon>
+                        <mat-slide-toggle
+                          class=""
+                          color="primary"
+                          [checked]="is_visibleToAdd[i] == '1'" 
+                          (change)="isVisibleToAdd(i)">
+                        </mat-slide-toggle>
+                      </td>
+                      <td>
+                        <span>{{placeToAdd[i]}}</span>
+                        <mat-icon [ngStyle]="{'font-size':'18px'}">navigation</mat-icon>
+                        <mat-form-field>
+                            <mat-select [(value)]="placeToAdd[i]">
+                              <mat-option value="{{placeToAdd[i]}}">{{placeToAdd[i]}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                      </td>
+                      <td class="columnDelete">
+                          <mat-icon (click)="addFormProduit(i);initParamsAddForm(i,categorie.id);" [ngClass]="'pointer'" [ngStyle]="{'font-size':'18px'}">delete_forever</mat-icon>
+                      </td>
+                  </tr>
+        
+              </table>
+        
+              <table>
+                <tr>
+                  <td>
+                    <button (click)="updateProduitsSimple(sortedProducts[categorie.id]);" id="updateproduits" color="primary" mat-raised-button>Update produits</button>
+                  </td>
+                  <td>
+                    <button *ngIf="!addFormIsActive[i]" (click)="initParamsAddForm(i,categorie.id);addFormProduit(i);" id="addProduit" color="accent" mat-raised-button>Ajouter une Produit</button>
+                    <button *ngIf="addFormIsActive[i]" (click)="addProduit(i,categorie.id)" id="addProduit" color="accent" mat-raised-button>Sauvegarder le nouveau Produit</button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+        </div>
+
+      <div id="errorLog401" *ngIf="utils.errorLog401" class="errorLog">{{utils.errorLog401}}</div>
+      <div id="successLog" *ngIf="utils.successLog" class="successLog">{{utils.successLog}}</div>
+
+      </div>
+
+    </div>
+
+</div>

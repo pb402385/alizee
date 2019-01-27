@@ -119,7 +119,6 @@ export class EditCategorieComponent implements OnInit {
     let cat:any = {};
     cat.nom = this.nomToAdd;
     cat.is_visible = this.is_visibleToAdd;
-    //place = place max + 1
     cat.place = this.placeToAdd;
     cat.routerlink = this.routerlinkToAdd;
     this.utils.addCategorie(cat)
@@ -145,7 +144,8 @@ export class EditCategorieComponent implements OnInit {
 
   deleteCategorie(id){
     if(parseInt(id) > 3){
-      this.utils.deleteCategorie(id)
+      var confirmation = confirm("Etes vous sur de vouloir supprimer ce produit ? (id = "+id+")");
+      if(confirmation == true) this.utils.deleteCategorie(id);
     }else{
       alert("Suppression impossible d'une des 4 premères catégories!");
     }

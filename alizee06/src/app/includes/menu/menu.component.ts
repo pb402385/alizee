@@ -26,7 +26,7 @@ export class MenuComponent implements OnInit {
 
 
   constructor(public utils: UtilsService) { 
-    this.sortedProducts = this.utils.getInfoForMenu(this);
+    this.sortedProducts = this.utils.getInfoForMenu(this,true);
   }
 
   ngOnInit() {
