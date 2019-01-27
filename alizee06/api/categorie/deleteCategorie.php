@@ -43,8 +43,38 @@ if($_GET["token"] === $token ){
 		// set categorie property values
 		$categorie->id = $data["id"];
 		
+		$categorieInfoToDelete = new Categorie($db);
+		$stmt = $categorieInfoToDelete->getCategorieInfoForDelete($data["id"]);		
+		$num = $stmt->rowCount();
+		// check if more than 0 record found
+		if($num>0){
+		 
+			// products array
+			$categorie_arr=array();
+		 
+			// retrieve our table contents
+			// fetch() is faster than fetchAll()
+			// http://stackoverflow.com/questions/2770630/pdofetchall-vs-pdofetch-in-a-loop
+			while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+				// extract row
+				// this will make $row['name'] to
+				// just $name only
+				extract($row);
+		 
+				$categorie_item=array(	
+					"place" => $place
+				);
+		 
+				array_push($categorie_arr, $categorie_item);
+			}
+		}
+		
 		// delete the categorie
 		if($categorie->deleteCategorie()){
+			
+			$categorie->updatePlaceCategorie($categorie_arr[0]["place"]);
+			
+			$categorie->deleteProduitsFromCategorie($data["id"]);
 		 
 			// set response code - 200 ok
 			http_response_code(200);

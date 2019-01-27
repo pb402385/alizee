@@ -11,6 +11,7 @@ import { TarifsComponent } from '../pages/public/menu/tarifs/tarifs.component';
 import { DietetiqueComponent } from '../pages/public/menu/dietetique/dietetique.component';
 import { SoinsCorpsComponent } from '../pages/public/menu/soins-corps/soins-corps.component';
 import { SoinsVisageComponent } from '../pages/public/menu/soins-visage/soins-visage.component';
+import { OptionalMenu1Component } from '../pages/public/menu/optional-menu1/optional-menu1.component';
 
 import { ContactComponent } from '../pages/public/footer/contact/contact.component';
 import { FaqComponent } from '../pages/public/footer/faq/faq.component';
@@ -30,6 +31,7 @@ const routes: Routes = [
   { path: 'admin', component: LoginComponent },
   { path: 'editCategorie', component: EditCategorieComponent },
   { path: 'editProduits', component: EditProduitComponent },
+  { path: 'optMenu1', component: OptionalMenu1Component },
   { path: '**', redirectTo: '' }
 ];
  

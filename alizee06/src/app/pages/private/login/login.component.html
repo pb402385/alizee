@@ -8,11 +8,11 @@
   <form *ngIf="connection == null || connection == 0">
     <div class="group">
       <input id="Name" type="text" (blur)="effectBlur('Name')"><span class="highlight"></span><span class="bar"></span>
-      <label id="labelName" class="">Login</label>
+      <label id="labelName" class="used">Login</label>
     </div>
     <div class="group">
       <input id="Password" type="password" (blur)="effectBlur('Password')"><span class="highlight"></span><span class="bar"></span>
-      <label id="labelPassword" class="">Password</label>
+      <label id="labelPassword" class="used">Password</label>
     </div>
     <button type="button" class="button buttonBlue" (click)="login()">Connexion
       <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>

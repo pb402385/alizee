@@ -58,6 +58,18 @@ class Produit{
 	 
 		return $stmt;
 	}
+	
+	//Obtenir tous les Produits (version allégée pour pas charger ce qui est inutile)
+	function getProduitsInfoForDelete($id){
+	 
+		$query = "SELECT idcategorie, place FROM " . $this->table_name . " WHERE id=" . $id;
+		// prepare query statement
+		$stmt = $this->conn->prepare($query);
+		// execute query
+		$stmt->execute();
+	 
+		return $stmt;
+	}
 
 
 	//Ajouter un produit
@@ -162,6 +174,40 @@ class Produit{
 		$stmt->bindParam(":place", $this->place);
 		$stmt->bindParam(":isvisible", $this->isvisible);
 		$stmt->bindParam(":path", $this->path);
+	 
+		// execute the query
+		if($stmt->execute()){
+			return true;
+		}
+	 
+		return false;
+	}
+	
+	
+	
+	
+	// MAJ d'un produit
+	function updatePlaceProduits($idcategorie,$place){
+	 
+		// update query
+		$query = "UPDATE
+					" . $this->table_name . "
+				SET
+					place = place - 1
+				WHERE
+					idcategorie = :idcategorie AND place > :place";
+	 
+		// prepare query statement
+		$stmt = $this->conn->prepare($query);
+	 
+		// sanitize
+		$this->idcategorie=htmlspecialchars(strip_tags($idcategorie));
+		$this->place=htmlspecialchars(strip_tags($place));
+	 
+		// bind new values
+		$stmt->bindParam(":idcategorie", $this->idcategorie);
+		$stmt->bindParam(":place", $this->place);
+
 	 
 		// execute the query
 		if($stmt->execute()){

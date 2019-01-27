@@ -65,6 +65,71 @@ class Categorie{
 		 
 	}
 	
+	
+	function deleteProduitsFromCategorie($id){
+		// delete query
+		$query = "DELETE FROM produit WHERE idcategorie = ?";
+	 
+		// prepare query
+		$stmt = $this->conn->prepare($query);
+	 
+		// sanitize
+		$this->id=htmlspecialchars(strip_tags($id));
+	 
+		// bind id of record to delete
+		$stmt->bindParam(1, $this->id);
+	 
+		// execute query
+		if($stmt->execute()){
+			return true;
+		}
+	 
+		return false;
+	}
+	
+	
+	// MAJ d'un categorie place
+	function updatePlaceCategorie($place){
+	 
+		// update query
+		$query = "UPDATE
+					" . $this->table_name . "
+				SET
+					place = place - 1
+				WHERE
+					place > :place";
+	 
+		// prepare query statement
+		$stmt = $this->conn->prepare($query);
+	 
+		// sanitize
+		$this->place=htmlspecialchars(strip_tags($place));
+	 
+		// bind new values
+		$stmt->bindParam(":place", $this->place);
+	 
+		// execute the query
+		if($stmt->execute()){
+			return true;
+		}
+	 
+		return false;
+	}
+	
+	
+	//Obtenir tous les Produits (version allégée pour pas charger ce qui est inutile)
+	function getCategorieInfoForDelete($id){
+	 
+		$query = "SELECT place FROM " . $this->table_name . " WHERE id=" . $id;
+		// prepare query statement
+		$stmt = $this->conn->prepare($query);
+		// execute query
+		$stmt->execute();
+	 
+		return $stmt;
+	}
+	
+	
 	// MAJ d'une categorie
 	function updateCategorie(){
 	 

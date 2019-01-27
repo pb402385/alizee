@@ -43,14 +43,44 @@ if($_GET["token"] === $token ){
 		// set produit property values
 		$produit->id = $data["id"];
 		
+		$produitInfoToDelete = new Produit($db);
+		$stmt = $produitInfoToDelete->getProduitsInfoForDelete($data["id"]);		
+		$num = $stmt->rowCount();
+		// check if more than 0 record found
+		if($num>0){
+		 
+			// products array
+			$produit_arr=array();
+		 
+			// retrieve our table contents
+			// fetch() is faster than fetchAll()
+			// http://stackoverflow.com/questions/2770630/pdofetchall-vs-pdofetch-in-a-loop
+			while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+				// extract row
+				// this will make $row['name'] to
+				// just $name only
+				extract($row);
+		 
+				$produit_item=array(	
+					"id_categorie" => $idcategorie,
+					"place" => $place
+				);
+		 
+				array_push($produit_arr, $produit_item);
+			}
+		}
+		
 		// delete the produit
 		if($produit->deleteProduit()){
+			
+			// $produit_arr[0]["id_categorie"] $produit_arr[0]["place"]
+			$produit->updatePlaceProduits($produit_arr[0]["id_categorie"],$produit_arr[0]["place"]);
 		 
 			// set response code - 200 ok
 			http_response_code(200);
 		 
 			// tell the user
-			echo json_encode(array("message" => "produit was deleted."));
+			echo json_encode(array("message" => "produit was deleted.".var_dump($produit_arr)));
 		}
 		 
 		// if unable to delete the produit

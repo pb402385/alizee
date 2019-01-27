@@ -40,8 +40,8 @@
                       </mat-form-field>
                     </td>
                     <td>
-                      <span>{{produit.isvisible}}</span>
-                      <mat-icon [ngStyle]="{'font-size':'18px'}">pan_tool</mat-icon>
+                      <mat-icon *ngIf="produit.isvisible == '0'" [ngStyle]="{'font-size':'18px'}">visibility_off</mat-icon>
+                      <mat-icon *ngIf="produit.isvisible == '1'" [ngStyle]="{'font-size':'18px'}">visibility</mat-icon>
                       <mat-slide-toggle
                         class=""
                         color="primary"
@@ -74,8 +74,8 @@
                         </mat-form-field>
                       </td>
                       <td>
-                        <span>{{is_visibleToAdd[i]}}</span>
-                        <mat-icon [ngStyle]="{'font-size':'18px'}">pan_tool</mat-icon>
+                        <mat-icon *ngIf="is_visibleToAdd[i] == '0'" [ngStyle]="{'font-size':'18px'}">visibility_off</mat-icon>
+                        <mat-icon *ngIf="is_visibleToAdd[i] == '1'" [ngStyle]="{'font-size':'18px'}">visibility</mat-icon>
                         <mat-slide-toggle
                           class=""
                           color="primary"

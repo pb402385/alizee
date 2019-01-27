@@ -1,4 +1,4 @@
-import { Component, OnInit, Input  } from '@angular/core';
+import { Component, OnInit, Input, NgZone } from '@angular/core';
 
 import { Injectable } from '@angular/core';
 
@@ -22,10 +22,12 @@ export class LoginComponent implements OnInit {
   public connection:number = null;
   public message: string = null;
 
-  constructor(private http:HttpClient) { }
+  public emptyPassword: boolean = true;
+  public emptyName: boolean = true;
+
+  constructor(private zone: NgZone,private http:HttpClient) { }
 
   ngOnInit() {
-
   }
 
   showVal(){
@@ -95,6 +97,20 @@ export class LoginComponent implements OnInit {
         alert("erreur");
       }                    
     );
+  }
+
+
+  public isEmpty(id){
+    let elem =<HTMLInputElement>document.getElementById(id);
+    if(elem.value == null || elem.value == undefined || elem.value == ""){
+      if(id == 'Name') this.emptyName = true;
+      if(id == 'Password') this.emptyName = true;
+      return true;
+    }else{
+      if(id == 'Name') this.emptyPassword = true;
+      if(id == 'Password') this.emptyPassword = true;
+      return false;
+    }
   }
 
 }
