@@ -2,13 +2,42 @@
     text-align: center;
 }
 
+.dietLi{
+    font-weight: bold;
+}
+
 ul{
     list-style-type: none;
+    margin-left: 50px;
+    margin-right: 50px;
+    color: #fff!important;
+    background-color: #4CAF50!important;
+    opacity: 0.8;
 }
 
 #imgFruit {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 50%;
+    width: 40%;
+}
+
+#titreInfo{
+    font-size: 150%;
+    font-style: italic;
+}
+
+#titreDietetique{
+    font-size: 200%;    
+    font-weight: bold;
+}
+
+#imgMat{
+    width: 95%;
+    float: left;
+}
+
+#imgSalt{
+    width: 95%;
+    float: right;
 }

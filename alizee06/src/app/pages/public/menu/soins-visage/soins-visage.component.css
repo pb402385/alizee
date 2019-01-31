@@ -3,12 +3,8 @@
   width: 80%;
   position: relative;
   z-index: 1;
-  /*
   left: 200px;
   top: -445px;
-  */
-  left: 180px;
-  top: -200px;
 }
 
 #subMenu {

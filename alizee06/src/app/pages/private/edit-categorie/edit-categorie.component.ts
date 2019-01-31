@@ -121,7 +121,7 @@ export class EditCategorieComponent implements OnInit {
     cat.is_visible = this.is_visibleToAdd;
     cat.place = this.placeToAdd;
     cat.routerlink = this.routerlinkToAdd;
-    this.utils.addCategorie(cat)
+    this.utils.addCategorie(cat);
   }
 
   setNomToAdd(event){

@@ -16,16 +16,18 @@
         <mat-accordion *ngIf="faqs !== null && faqs !== undefined">
 
             <div *ngIf="!editerFAQs">
-                <mat-expansion-panel *ngFor="let faq of faqs.records; let i = index">
-                    <mat-expansion-panel-header [collapsedHeight]="'120px'" [expandedHeight]="'120px'">
-                    <mat-panel-description class="faq_panel_description">
-                        <h3>{{faq.titre}}</h3>
-                    </mat-panel-description>
-                    </mat-expansion-panel-header>
-                    <div>
-                        <p>{{faq.description}}</p>
-                    </div>       
-                </mat-expansion-panel>
+                <div *ngFor="let faq of utils.sortFAQs(faqs).records; let i = index">
+                    <mat-expansion-panel *ngIf="faq.isvisible == '1'">
+                        <mat-expansion-panel-header [collapsedHeight]="'120px'" [expandedHeight]="'120px'">
+                        <mat-panel-description class="faq_panel_description">
+                            <h3>{{faq.titre}}</h3>
+                        </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <div>
+                            <p>{{faq.description}}</p>
+                        </div>       
+                    </mat-expansion-panel>
+                </div>
             </div>
 
             <div *ngIf="editerFAQs">
@@ -37,6 +39,34 @@
                         </mat-form-field>
                     </mat-panel-description>
                     </mat-expansion-panel-header>
+                    <div>
+                        <table>
+                            <tr>
+                                <td>
+                                    <mat-icon *ngIf="faq.isvisible == '0'" [ngStyle]="{'font-size':'18px'}">visibility_off</mat-icon>
+                                    <mat-icon *ngIf="faq.isvisible == '1'" [ngStyle]="{'font-size':'18px'}">visibility</mat-icon>
+                                    <mat-slide-toggle
+                                        class=""
+                                        color="primary"
+                                        [checked]="faq.isvisible == '1'" 
+                                        (change)="isVisible(faq)">
+                                    </mat-slide-toggle>
+                                </td>
+                        
+                                <td>
+                                    <mat-icon [ngStyle]="{'font-size':'18px'}">navigation</mat-icon>
+                                    <mat-form-field>
+                                        <mat-select [(value)]="faq.place" (selectionChange)="setPlace(faq,$event);">
+                                          <mat-option *ngFor="let tmpFaq of faqs.records; let i = index" value="{{i+1}}">{{i+1}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </td>
+                                <td class="columnDelete">
+                                    <mat-icon (click)="deleteFAQ(faq.id)" [ngClass]="'pointer'" [ngStyle]="{'font-size':'18px'}">delete_forever</mat-icon>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                     <div>
                         <mat-form-field class="heightTextArea">
                             <textarea matInput 
@@ -57,6 +87,35 @@
                         </mat-form-field>
                       </mat-panel-description>
                     </mat-expansion-panel-header>
+                    <div>
+                        <table>
+                            <tr>
+                                <td>
+                                    <mat-icon *ngIf="isvisibleToAdd == '0'" [ngStyle]="{'font-size':'18px'}">visibility_off</mat-icon>
+                                    <mat-icon *ngIf="isvisibleToAdd == '1'" [ngStyle]="{'font-size':'18px'}">visibility</mat-icon>
+                                    <mat-slide-toggle
+                                      class=""
+                                      color="primary"
+                                      [checked]="isvisibleToAdd == '1'" 
+                                      (change)="isVisibleToAddF()">
+                                    </mat-slide-toggle>
+                                </td>
+                        
+                                <td>
+                                    <mat-icon [ngStyle]="{'font-size':'18px'}">navigation</mat-icon>
+                                    <mat-form-field>
+                                        <mat-select [(value)]="placeToAdd">
+                                          <mat-option value="{{placeToAdd}}">{{placeToAdd}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </td>
+                                <td class="columnDelete">
+                                    <mat-icon *ngIf="addFormIsActive" (click)="addFormFAQ();initParamsAddForm();" [ngClass]="'pointer'" [ngStyle]="{'font-size':'18px'}">delete_forever</mat-icon>
+                                </td>
+                            </tr>
+                
+                        </table>
+                    </div>
                     <div>
                         <mat-form-field class="heightTextArea">
                                 <textarea matInput 

@@ -25,13 +25,14 @@ export class SoinsVisageComponent implements OnInit {
 
   constructor(public utils: UtilsService, private route: ActivatedRoute) {
     this.utils.getProduitsByCategorie("0",this);
-    //On récupère l'id de la notification
-    this.route.queryParams.subscribe(params => {
-      if(params['prod']) this.produit = JSON.parse(params['prod']);
-    });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    //On récupère l'id de la notification
+    this.route.queryParams.subscribe(params => {
+      if(params['prod']) this.produitId = ""+JSON.parse(params['prod']);
+    });
+  }
 
   ngAfterViewInit(){
     this.utils.fixBottom();
@@ -62,6 +63,21 @@ export class SoinsVisageComponent implements OnInit {
       }
     }
     return prod;
+  }
+
+
+  getProduitById(produitId){
+    let prod = null;
+    if(this.produits['records'].length > 0 && this.produitId !== null){
+      for(var i=0; i < this.produits['records'].length; i++){
+        if(this.produits['records'][i].id == produitId){
+          prod = this.produits['records'][i];
+          this.produit = prod;
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
 }

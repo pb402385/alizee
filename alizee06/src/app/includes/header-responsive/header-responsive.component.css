@@ -124,7 +124,7 @@
   
   @media only screen and (max-width: 700px) {
       #title-header{
-          left: calc(12% + 15px);
+          left: calc(20% + 15px);
           font-size: 31px;
       }
   
@@ -138,7 +138,7 @@
   
   @media only screen and (max-width: 600px) {
       #title-header{
-          left: calc(8% + 15px);
+          left: calc(18% + 15px);
           font-size: 31px;
       }
   
@@ -150,7 +150,7 @@
   
   @media only screen and (max-width: 550px) {
       #title-header{
-          left: calc(6% + 15px);
+          left: calc(16% + 15px);
           font-size: 29px;
       }
   
@@ -163,7 +163,7 @@
   
   @media only screen and (max-width: 500px) {
       #title-header{
-          left: calc(5% + 5px);
+          left: calc(13% + 15px);
           font-size: 25px;
           top: 13px;
       }
@@ -176,7 +176,7 @@
   
   @media only screen and (max-width: 480px) {
       #title-header{
-          left: 4%;
+          left: 14%;
           font-size: 24px;
           top: 14px;
       }

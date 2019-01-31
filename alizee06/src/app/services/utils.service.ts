@@ -414,6 +414,20 @@ export class UtilsService {
     return categoriesFiltred;
   }
 
+  sortFAQs(faqs:any){
+    //On les classe par place
+    for(let i = 0; i < faqs.records.length; i++){
+      for(let j = 0; j < faqs.records.length; j++){
+        if(parseInt(faqs.records[i].place) < parseInt(faqs.records[j].place)){
+          let tmp = faqs.records[i];
+          faqs.records[i] = faqs.records[j];
+          faqs.records[j] = tmp;
+        }
+      }
+    }
+    return faqs;
+  }
+
 
   isUnderConstruction(){
     if(localStorage.getItem('role') !== "user"){

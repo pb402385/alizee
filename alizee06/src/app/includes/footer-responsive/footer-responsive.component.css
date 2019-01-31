@@ -5,6 +5,17 @@
     bottom: 0px;
 }
 
+.footerStyle{
+    font-size: 125%;
+    font-weight: bold;
+    font-style: italic;
+    color: black !important;
+}
+
+.footerStyle:hover{
+    color: white !important; 
+}
+
 #footer_content{
 	display: inline-flex;
     height: 100%;
