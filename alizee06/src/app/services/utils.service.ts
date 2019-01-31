@@ -3,6 +3,7 @@ import { Injectable, NgZone } from '@angular/core';
 import { CategorieService } from './api/categorie.service';
 import { ProduitService } from './api/produit.service';
 import { TarifService } from './api/tarif.service';
+import { FaqService } from './api/faq.service';
 import { DisconnectService } from './api/disconnect.service';
 
 import { ErrorLogService } from './error-log/error-log.service';
@@ -21,6 +22,7 @@ export class UtilsService {
     private categorieService: CategorieService,
     private produitService: ProduitService,
     private tarifService: TarifService,
+    private faqService: FaqService,
     private disconnectService: DisconnectService,
     private errorService: ErrorLogService) { 
 
@@ -38,6 +40,9 @@ export class UtilsService {
 
         //On récupère les produits
         let responseJSON = response.body;
+
+        //TODO Order by place
+
         classe.produits = JSON.parse(responseJSON);
 
       },
@@ -99,6 +104,22 @@ export class UtilsService {
       error =>{
         //En cas d'ereur on affiche le message d'erreur
         if(error) this.errorService.errorManagement(error,"/getAllProduits",this);
+      } 
+    );
+  }
+
+  getAllFAQ(classe:any){
+    //On fait un appel au web service des produits
+    this.faqService.getAllFAQ().subscribe(
+      response => {
+
+        //On récupère les produits
+        let responseJSON = response.body;
+        classe.faqs = JSON.parse(responseJSON);
+      },
+      error =>{
+        //En cas d'ereur on affiche le message d'erreur
+        if(error) this.errorService.errorManagement(error,"/getAllFAQ",this);
       } 
     );
   }
@@ -186,11 +207,23 @@ export class UtilsService {
   updateProduit(produit:any){
     this.produitService.postUpdateProduit(produit).subscribe(
       response => {
-        this.successLog = "Mise à jour du produit réalisée avec succès!"
+        this.successLog = "Mise à jour du produit réalisé avec succès!"
       },
       error =>{
         //En cas d'ereur on affiche le message d'erreur
         if(error) this.errorService.errorManagement(error,"/updateProduit",this);
+      } 
+    );
+  }
+
+  updateFAQ(faq:any){
+    this.faqService.postUpdateFaq(faq).subscribe(
+      response => {
+        this.successLog = "Mise à jour de la FAQ réalisée avec succès!"
+      },
+      error =>{
+        //En cas d'ereur on affiche le message d'erreur
+        if(error) this.errorService.errorManagement(error,"/updateFAQ",this);
       } 
     );
   }
@@ -246,6 +279,19 @@ export class UtilsService {
       } 
     );
   }
+
+  addFAQ(faq:any){
+    this.faqService.postAddFaq(faq).subscribe(
+      response => {
+        this.successLog = "Ajout de la FAQ réalisée avec succès!";
+        location.reload();
+      },
+      error =>{
+        //En cas d'ereur on affiche le message d'erreur
+        if(error) this.errorService.errorManagement(error,"/addFAQ",this);
+      } 
+    );
+  }
   
   addCategorie(categorie:any){
     this.categorieService.postAddCategorie(categorie).subscribe(
@@ -285,6 +331,19 @@ export class UtilsService {
       error =>{
         //En cas d'ereur on affiche le message d'erreur
         if(error) this.errorService.errorManagement(error,"/deleteProduit",this);
+      } 
+    );
+  }
+
+  deleteFAQ(id:string){
+    this.faqService.postDeleteFaq(id).subscribe(
+      response => {
+        this.successLog = "Suppression de la FAQ réalisée avec succès!";
+        location.reload();
+      },
+      error =>{
+        //En cas d'ereur on affiche le message d'erreur
+        if(error) this.errorService.errorManagement(error,"/deleteFAQ",this);
       } 
     );
   }

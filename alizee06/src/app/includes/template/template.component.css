@@ -4,7 +4,13 @@
 
 #titleProduit{
     text-align:center;
+    font-size: 300%;
 }
+
+#viewProduit{
+    text-align:center;
+}
+
 
 #templateRight{
     width:50%;

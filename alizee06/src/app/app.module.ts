@@ -21,6 +21,7 @@ import { ErrorLogService } from './services/error-log/error-log.service';
 import { CategorieService } from './services/api/categorie.service';
 import { ProduitService } from './services/api/produit.service';
 import { TarifService } from './services/api/tarif.service';
+import { FaqService } from './services/api/faq.service';
 
 import { 
   MatButtonModule,
@@ -111,7 +112,7 @@ import { EditProduitComponent } from './pages/private/edit-produit/edit-produit.
     MatGridListModule,
     MatSlideToggleModule
   ],
-  providers: [UtilsService, ErrorLogService, CategorieService, ProduitService, TarifService],
+  providers: [UtilsService, ErrorLogService, CategorieService, ProduitService, TarifService, FaqService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

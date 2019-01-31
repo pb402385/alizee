@@ -3,36 +3,87 @@
 
         <h1 id="FAQ_title">FAQ : Question Fréquentes</h1>
 
-        <mat-accordion *ngIf="!utils.isUnderConstruction">
+        <div *ngIf="utils.readLocalStorageValue()" class="paddingTB">
+            <mat-slide-toggle
+                  class=""
+                  color="primary"
+                  checked="false"
+                  (change)="editFAQs();">
+                  Editer les FAQ!
+            </mat-slide-toggle>
+        </div>
 
+        <mat-accordion *ngIf="faqs !== null && faqs !== undefined">
 
-            <mat-expansion-panel>
-                <mat-expansion-panel-header [collapsedHeight]="'120px'" [expandedHeight]="'120px'">
-                  <mat-panel-description class="faq_panel_description">
-                      <h3>Question 1 ?</h3>
-                  </mat-panel-description>
-                </mat-expansion-panel-header>
-                <div>
-                    <p>blabla..</p>
-                    <p>blabla...</p>
-                </div>       
+            <div *ngIf="!editerFAQs">
+                <mat-expansion-panel *ngFor="let faq of faqs.records; let i = index">
+                    <mat-expansion-panel-header [collapsedHeight]="'120px'" [expandedHeight]="'120px'">
+                    <mat-panel-description class="faq_panel_description">
+                        <h3>{{faq.titre}}</h3>
+                    </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <div>
+                        <p>{{faq.description}}</p>
+                    </div>       
+                </mat-expansion-panel>
+            </div>
+
+            <div *ngIf="editerFAQs">
+                <mat-expansion-panel *ngFor="let faq of faqs.records; let i = index">
+                    <mat-expansion-panel-header [collapsedHeight]="'120px'" [expandedHeight]="'120px'">
+                    <mat-panel-description class="faq_panel_description">
+                        <mat-form-field>
+                            <input matInput placeholder="Titre" value="{{faq.titre}}" (change)="setTitre(faq,$event)">
+                        </mat-form-field>
+                    </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <div>
+                        <mat-form-field class="heightTextArea">
+                            <textarea matInput 
+                                      placeholder="Ecrire une description" 
+                                      [(ngModel)]="faq.description" 
+                                      (change)="changeDescription(faq,$event)">
+                            </textarea>
+                        </mat-form-field>
+                    </div>       
+                </mat-expansion-panel>
+            </div>
+
+            <mat-expansion-panel *ngIf="addFormIsActive && editerFAQs">
+                    <mat-expansion-panel-header [collapsedHeight]="'120px'" [expandedHeight]="'120px'">
+                      <mat-panel-description class="faq_panel_description">
+                        <mat-form-field>
+                            <input matInput placeholder="Titre" value="{{titreToAdd}}" (change)="setTitreToAdd($event)">
+                        </mat-form-field>
+                      </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <div>
+                        <mat-form-field class="heightTextArea">
+                                <textarea matInput 
+                                          placeholder="Ecrire une description" 
+                                          [(ngModel)]="descriptionToAdd" 
+                                          (change)="changeDescriptionToAdd($event)">
+                                </textarea>
+                        </mat-form-field>
+                    </div>       
             </mat-expansion-panel>
-
-            <mat-expansion-panel>
-              <mat-expansion-panel-header [collapsedHeight]="'120px'" [expandedHeight]="'120px'">
-                <mat-panel-description class="faq_panel_description">
-                    <h3>Question 2 ?</h3>
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-              <div>
-                  <p>blabla..</p>
-                  <p>blabla...</p>
-              </div>       
-            </mat-expansion-panel>
-
-
 
         </mat-accordion>
+
+        <table *ngIf="editerFAQs">
+          <tr>
+            <td>
+              <button (click)="updateFAQs();" id="updateFAQs" color="primary" mat-raised-button>Update FAQs</button>
+            </td>
+            <td>
+              <button *ngIf="!addFormIsActive" (click)="addFormFAQ();" id="addFAQ" color="accent" mat-raised-button>Ajouter une FAQ</button>
+              <button *ngIf="addFormIsActive" (click)="addFAQ()" id="addFAQ" color="accent" mat-raised-button>Sauvegarder la nouvelle FAQ</button>
+            </td>
+          </tr>
+        </table>
+
+        <div id="errorLog401" *ngIf="utils.errorLog401" class="errorLog">{{utils.errorLog401}}</div>
+        <div id="successLog" *ngIf="utils.successLog" class="successLog">{{utils.successLog}}</div>
 
         <div class="construction" *ngIf="utils.isUnderConstruction">
             <img src="assets/images/construction.png" class="imgConstruction" alt="Site en construction!" />

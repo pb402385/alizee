@@ -15,7 +15,7 @@
         {{produit.nom}}
     </h3>
     
-    <div *ngIf="edit == true" id="titleProduit">     
+    <div *ngIf="edit == true" id="viewProduit">     
       <mat-icon [ngStyle]="{'font-size':'18px'}">edit</mat-icon>
       <mat-form-field>
           <input matInput placeholder="Titre" value="{{produit.nom}}" (change)="setNom(produit,$event)">

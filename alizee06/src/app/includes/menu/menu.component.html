@@ -19,10 +19,12 @@
         </button>
 
         <div id="content{{categorie.place}}" class="dropdown-container" *ngIf="sortedProducts">
-            <p *ngFor="let produit of sortedProducts[categorie.place-1]" routerLink="{{categorie.routerlink}}" [queryParams]="{prod:produit.id}"
+            <div *ngFor="let produit of sortedProducts[categorie.place-1]"> 
+              <p *ngIf="produit.isvisible == '1'" routerLink="{{categorie.routerlink}}" [queryParams]="{prod:produit.id}"
                 id="menu{{categorie.place}}{{produit.place}}" class="pSubContent">
                 {{produit.nom}}
-            </p>
+              </p>
+            </div>
         </div>
 
       </div>
