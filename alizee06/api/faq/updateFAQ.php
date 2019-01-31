@@ -17,11 +17,15 @@ header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Access-Control-Allow-Methods, Access-Control-Allow-Origin, Authorization, X-Requested-With");
- 
+
 if($_GET["token"] === $token ){
- 
-	// initialize object
-	$faq = new FAQ($db);
+	
+	if ($_SERVER['REQUEST_METHOD'] === 'OPTION') {
+     // The request is using the OPTION method
+	 
+	 // set response code - 200 ok
+	 http_response_code(200);
+	}
 	
 	// Création d'un flux
 	$opts = array(
@@ -34,59 +38,68 @@ if($_GET["token"] === $token ){
 	 
 	// get posted data
 	$input = file_get_contents("php://input", false, $context); 
+	
 	$data = json_decode($input, true);
 	
 	// make sure data is not empty
-	if(
-		!empty($data)
-	){
+	if(!empty($data)){
 	 
-		// set FAQ property values
-		$faq->id = $data["id"];
-		$faq->idtemplate = $data["id_template"];
-		$faq->idcategorie = $data["id_categorie"];
-		$faq->nom = $data["nom"];
-		$faq->imagep = $data["image_p"];
-		$faq->descriptionp = $data["description_p"];
-		$faq->images = $data["image_s"];
-		$faq->descriptions = $data["description_s"];
-		$faq->isvisible = $data["isvisible"];
-		$faq->place = $data["place"];
-		$faq->path = $data["path"];
+		$success = true;
+		$index = "";
 		
+		for($i = 0; $i < count($data); $i++){
+			
+			// initialize object
+			$faq = new FAQ($db);
+
+			// set faq property values
+			$faq->id = $data[$i]["id"];
+			$faq->titre = $data[$i]["titre"];
+			$faq->place = $data[$i]["place"];
+			$faq->isvisible = $data[$i]["isvisible"];
+			$faq->description = $data[$i]["description"];
+			
+			// update the categorie
+			if($faq->updateFAQ()){
+			 
+			}
+			// if unable to update the categorie, tell the user
+			else{
+				$success = false;
+				
+				$index = $index.$i.", ";
+
+			}
+		}
+
 		// update the FAQ
-		if($faq->updateFAQ()){
+		if($success == true){
 		 
 			// set response code - 200 ok
 			http_response_code(200);
 		 
 			// tell the user
-			echo json_encode(array("message" => "FAQ was updated.".var_dump($data)));
-		}
-		 
-		// if unable to update the FAQ, tell the user
-		else{
-		 
+			echo json_encode(array("message" => "FAQs were updated.".var_dump($data)));
+		}else{
 			// set response code - 503 service unavailable
 			http_response_code(503);
-		 
+			 
 			// tell the user
-			echo json_encode(array("message" => "Unable to update FAQ."));
+			echo json_encode(array("message" => "Unable to update FAQs where id [ ".$index." ]"));
 		}
-	}
-	 
-	// tell the user data is incomplete
-	else{
+		
+	}else{
 	 
 		// set response code - 400 bad request
 		http_response_code(200);
 	 
 		// tell the user
-		echo json_encode(array("message" => "Unable to update FAQ. Data is incomplete!"));
+		echo json_encode(array("message" => "Unable to update FAQs. Data is incomplete."));
 	}
+
 }else{
-	// set response code - 401 utilisateur non authentifié
-	http_response_code(401);
+		// set response code - 401 utilisateur non authentifié
+		http_response_code(401);
 }
 
 ?>

@@ -97,7 +97,7 @@ class FAQ{
 	 
 		// sanitize
 		$this->titre=htmlspecialchars(strip_tags($this->titre));
-		$this->description=$this->description;
+		$this->description=htmlspecialchars(strip_tags($this->description));
 		$this->isvisible=htmlspecialchars(strip_tags($this->isvisible));
 		$this->place=htmlspecialchars(strip_tags($this->place));
 		$this->id=htmlspecialchars(strip_tags($this->id));
