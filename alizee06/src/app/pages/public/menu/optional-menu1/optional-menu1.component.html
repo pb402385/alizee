@@ -1,10 +1,17 @@
-<div *ngIf="screenWidth > 700 && produits !== null && produits.records.length > 0">
+<div *ngIf="screenWidth > 700 && produits !== null && produits.records.length > 0 && initNumMenu()">
     <div id="subMenu">
         <div *ngFor="let produit of produits.records">
-            <p *ngIf="produit.isvisible == '1'" 
+
+            <p *ngIf="produit.isvisible == '1' && incNumMenu()" 
             id="menu{{produit.place}}" (click)="setMenu(produit.place)">
             {{produit.nom}}
             </p>
+
+            <p *ngIf="produit.isvisible !== '1'" 
+                id="menu{{produit.place}}" style="display:none">
+                {{produit.nom}}
+            </p>
+            
         </div>
     </div>
   

@@ -2,7 +2,7 @@
 require('../header.php');
 // include database and object files
 include_once '../config/database.php';
-include_once './produit.php';
+include_once './tarifs.php';
 include_once '../ruby/ruby.php';
 
 $database = new Database();
@@ -41,10 +41,38 @@ if($_GET["token"] === $token ){
 	){
 	 
 		// set tarif property values
-		$tarif->id = $data->id;
+		$tarif->id = $data["id"];
+		
+		$tarifInfoToDelete = new Tarifs($db);
+		$stmt = $tarifInfoToDelete->getTarifInfoForDelete($data["id"]);		
+		$num = $stmt->rowCount();
+		// check if more than 0 record found
+		if($num>0){
+		 
+			// products array
+			$tarif_arr=array();
+		 
+			// retrieve our table contents
+			// fetch() is faster than fetchAll()
+			// http://stackoverflow.com/questions/2770630/pdofetchall-vs-pdofetch-in-a-loop
+			while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+				// extract row
+				// this will make $row['name'] to
+				// just $name only
+				extract($row);
+		 
+				$tarif_item=array(	
+					"place" => $place
+				);
+		 
+				array_push($tarif_arr, $tarif_item);
+			}
+		}
 		
 		// delete the tarif
 		if($tarif->deleteTarif()){
+			
+			$tarif->updatePlaceTarif($tarif_arr[0]["place"]);
 		 
 			// set response code - 200 ok
 			http_response_code(200);
@@ -68,7 +96,7 @@ if($_GET["token"] === $token ){
 	else{
 	 
 		// set response code - 400 bad request
-		http_response_code(400);
+		http_response_code(200);
 	 
 		// tell the user
 		echo json_encode(array("message" => "Unable to update tarif. Data is incomplete."));

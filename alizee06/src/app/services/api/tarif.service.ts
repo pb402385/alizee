@@ -56,7 +56,7 @@ export class TarifService {
     let body = tarif;
 
     //path
-    var path = "tarif/updateTarif.php?token="+localStorage.getItem("token");
+    var path = "tarifs/updateTarif.php?token="+localStorage.getItem("token");
 
     //appel du web service
     return this.http.post(API_URL + path,  body, {
@@ -79,7 +79,7 @@ export class TarifService {
     let body = tarif;
 
     //path
-    var path = "tarif/addTarif.php?token="+localStorage.getItem("token");
+    var path = "tarifs/addTarif.php?token="+localStorage.getItem("token");
 
     //appel du web service
     return this.http.post(API_URL + path,  body, {
@@ -101,7 +101,7 @@ export class TarifService {
     let body = {"id":id};
 
     //path
-    var path = "tarif/deleteTarif.php?token="+localStorage.getItem("token");
+    var path = "tarifs/deleteTarif.php?token="+localStorage.getItem("token");
 
     //appel du web service
     return this.http.post(API_URL + path,  body, {

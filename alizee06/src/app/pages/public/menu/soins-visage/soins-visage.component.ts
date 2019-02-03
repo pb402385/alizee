@@ -13,6 +13,8 @@ export class SoinsVisageComponent implements OnInit {
   
   public subMenuVisage:boolean = true;
 
+  public numMenu: number = 0;
+
   public menuSvClicked:number = 0;
 
   public screenWidth:number = screen.width;
@@ -78,6 +80,23 @@ export class SoinsVisageComponent implements OnInit {
       }
     }
     return false;
+  }
+
+
+  initNumMenu(){
+    this.numMenu = 0;
+    return true;
+  }
+
+  incNumMenu(){
+    this.numMenu = this.numMenu+1;
+    this.setTopValue();
+    return true;
+  }
+
+  setTopValue(){
+    document.getElementById("right").style.top = "-" + (this.numMenu*54) + "px";
+    console.log("top=" + (this.numMenu*50));
   }
 
 }

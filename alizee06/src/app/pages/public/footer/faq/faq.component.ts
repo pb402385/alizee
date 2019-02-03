@@ -79,7 +79,7 @@ export class FaqComponent implements OnInit {
     faq.isvisible = this.isvisibleToAdd;
     faq.place = this.placeToAdd;
     faq.description = this.descriptionToAdd;
-    this.utils.addFAQ(faq)
+    this.utils.addFAQ(faq);
   }
 
   deleteFAQ(id){
@@ -92,7 +92,7 @@ export class FaqComponent implements OnInit {
   } 
 
   updateFAQs(){
-    this.utils.updateFAQ(this.faqs.records)
+    this.utils.updateFAQ(this.faqs.records);
   }
 
 

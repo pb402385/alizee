@@ -1,27 +1,188 @@
-<table id="materialTableTarifs" mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+<div id="contentTarifs">
 
-    <!-- Produit Column -->
-    <ng-container matColumnDef="title">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Produit </th>
-      <td mat-cell *matCellDef="let element"> {{element.title}} </td>
-    </ng-container>
-  
-    <!-- Description Column -->
-    <ng-container matColumnDef="description">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
-      <td mat-cell *matCellDef="let element"> {{element.description}} </td>
-    </ng-container>
-  
-    <!-- Price Column -->
-    <ng-container matColumnDef="price">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Prix </th>
-      <td mat-cell *matCellDef="let element"> {{element.price}} €</td>
-    </ng-container>
-  
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+  <h1 id="titleTarif">Tarifs</h1>
 
-<div class="construction" *ngIf="utils.isUnderConstruction">
-  <img src="assets/images/construction.png" class="imgConstruction" alt="Site en construction!" />
+  <div *ngIf="utils.readLocalStorageValue()" class="paddingTB">
+      <mat-slide-toggle
+            class=""
+            color="primary"
+            checked="false"
+            (change)="editTarifs();">
+            Editer les Tarifs!
+      </mat-slide-toggle>
+  </div>
+
+  <div *ngIf="!editerTarifs">
+    <table id="materialTableTarifs" *ngIf="tarifs !== null && tarifs !== undefined && generateArray()" mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+        <!-- Produit Column -->
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Produit </th>
+          <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+        </ng-container>
+      
+        <!-- Description Column -->
+        <ng-container matColumnDef="prix">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Prix par séance: </th>
+          <td mat-cell *matCellDef="let element"> &nbsp;&nbsp;{{element.prix}} €</td>
+        </ng-container>
+      
+        <!-- Price Column -->
+        <ng-container matColumnDef="periode">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre de séances </th>
+          <td mat-cell *matCellDef="let element"> {{element.periode}} </td>
+        </ng-container>
+
+        <!-- Price Column -->
+        <ng-container matColumnDef="promotion">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Promotion </th>
+            <td mat-cell *matCellDef="let element"> {{element.promotion}} </td>
+          </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+
+  <div *ngIf="editerTarifs">
+      <table id="materialTableTarifs" *ngIf="tarifs !== null && tarifs !== undefined && generateArray()" mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+  
+          <!-- Produit Place -->
+          <ng-container matColumnDef="place">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Place </th>
+              <td mat-cell *matCellDef="let element">
+                  <mat-icon [ngStyle]="{'font-size':'18px'}">navigation</mat-icon>
+                  <mat-form-field>
+                      <mat-select [(value)]="element.place" (selectionChange)="setPlace(element,$event);">
+                        <mat-option *ngFor="let tmpTarif of tarifs; let i = index" value="{{i+1}}">{{i+1}}</mat-option>
+                      </mat-select>
+                  </mat-form-field>
+              </td>
+            </ng-container>
+
+          <!-- Produit Column -->
+          <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Produit </th>
+            <td mat-cell *matCellDef="let element">
+              <div class="subTextarea">
+                <mat-form-field class="minHeightTextarea">
+                    <textarea matInput rows="1" class="minHeightTextarea" 
+                              placeholder="Ecrire une description" 
+                              [(ngModel)]="element.description" 
+                              (change)="changeDescription(element,$event)"></textarea>
+                </mat-form-field>
+              </div>
+            </td>
+          </ng-container>
+        
+          <!-- Description Column -->
+          <ng-container matColumnDef="prix">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Prix par séance: </th>
+            <td mat-cell *matCellDef="let element">
+                <mat-form-field>
+                    <input matInput placeholder="Prix" value="{{element.prix}}" (change)="setPrix(element,$event)"> 
+                </mat-form-field>
+                €
+            </td>
+          </ng-container>
+        
+          <!-- Price Column -->
+          <ng-container matColumnDef="periode">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre de séances </th>
+            <td mat-cell *matCellDef="let element">
+                <mat-form-field>
+                    <input matInput placeholder="Période" value="{{element.periode}}" (change)="setPeriode(element,$event)">
+                </mat-form-field>
+            </td>
+          </ng-container>
+  
+          <!-- Price Column -->
+          <ng-container matColumnDef="promotion">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Promotion </th>
+              <td mat-cell *matCellDef="let element">
+                  <mat-form-field>
+                      <input matInput placeholder="Promotion" value="{{element.promotion}}" (change)="setPromotion(element,$event)">
+                  </mat-form-field>
+              </td>
+          </ng-container>
+
+          <!-- Price Column -->
+          <ng-container matColumnDef="delete">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Delete </th>
+              <td mat-cell *matCellDef="let element">
+                  <mat-icon (click)="deleteTarif(element)" [ngClass]="'pointer'" [ngStyle]="{'font-size':'18px'}">delete_forever</mat-icon>
+              </td>
+          </ng-container>
+        
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsEdit"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnsEdit;"></tr>
+
+      </table>
+
+      <table class="mat-table" style="width: 100%">
+          <tr *ngIf="addFormIsActive" class="mat-header-row">
+              <td class="mat-header-cell">
+                  <mat-icon [ngStyle]="{'font-size':'18px'}">navigation</mat-icon>
+                  <mat-form-field>
+                      <mat-select [(value)]="placeToAdd">
+                        <mat-option value="{{placeToAdd}}">{{placeToAdd}}</mat-option>
+                      </mat-select>
+                  </mat-form-field>
+              </td>
+              
+              <td class="mat-header-cell">
+                  <mat-form-field class="minHeightTextarea">
+                      <textarea matInput class="minHeightTextarea" 
+                                placeholder="Ecrire une description" 
+                                [(ngModel)]="descriptionToAdd" 
+                                (change)="changeDescriptionToAdd($event)">
+                      </textarea>
+                  </mat-form-field>            
+              </td>
+  
+              <td class="mat-header-cell">
+                  <mat-form-field>
+                      <input matInput placeholder="Prix" value="{{prixToAdd}}" (change)="setPrixToAdd($event)">
+                  </mat-form-field>
+                  €
+              </td>
+  
+              <td class="mat-header-cell">
+                  <mat-form-field>
+                      <input matInput placeholder="Période" value="{{periodeToAdd}}" (change)="setPeriodeToAdd($event)">
+                  </mat-form-field>
+              </td>
+  
+              <td class="mat-header-cell">
+                  <mat-form-field>
+                      <input matInput placeholder="Promotion" value="{{promotionToAdd}}" (change)="setPromotionToAdd($event)">
+                  </mat-form-field>
+              </td>
+              <td class="mat-header-cell columnDelete">
+                  <mat-icon *ngIf="addFormIsActive" (click)="addFormTarif();initParamsAddForm();" [ngClass]="'pointer'" [ngStyle]="{'font-size':'18px'}">delete_forever</mat-icon>
+              </td>
+        </tr>
+    </table>
+      
+  </div>
+
+  <table *ngIf="editerTarifs">
+    <tr>
+      <td>
+        <button (click)="updateTarifs();" id="updateTarifs" color="primary" mat-raised-button>Update Tarifs</button>
+      </td>
+      <td>
+        <button *ngIf="!addFormIsActive" (click)="addFormTarif();" id="addTarif" color="accent" mat-raised-button>Ajouter un Tarif</button>
+        <button *ngIf="addFormIsActive" (click)="addTarif()" id="addTarif" color="accent" mat-raised-button>Sauvegarder le nouveau Tarif</button>
+      </td>
+    </tr>
+  </table>
+
+  <div id="errorLog401" *ngIf="utils.errorLog401" class="errorLog">{{utils.errorLog401}}</div>
+  <div id="successLog" *ngIf="utils.successLog" class="successLog">{{utils.successLog}}</div>
+
+  <div class="construction" *ngIf="utils.isUnderConstruction">
+    <img src="assets/images/construction.png" class="imgConstruction" alt="Site en construction!" />
+  </div>
+
 </div>

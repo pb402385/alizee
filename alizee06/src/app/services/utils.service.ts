@@ -152,13 +152,14 @@ export class UtilsService {
     );
   }
 
-  getAllTarifs(){
+  getAllTarifs(classe:any){
     //On fait un appel au web service des tarifs
     this.tarifService.getAllTarifs().subscribe(
       response => {
 
         //On récupère les tarifs
         let responseJSON = response.body;
+        classe.tarifs = JSON.parse(responseJSON).records;
       },
       error =>{
         //En cas d'ereur on affiche le message d'erreur

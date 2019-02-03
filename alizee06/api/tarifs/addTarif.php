@@ -2,7 +2,7 @@
 require('../header.php');
 // include database and object files
 include_once '../config/database.php';
-include_once './produit.php';
+include_once './tarifs.php';
 include_once '../ruby/ruby.php';
 
 $database = new Database();
@@ -41,9 +41,11 @@ if($_GET["token"] === $token ){
 	){
 	 
 		// set tarif property values
-		$tarif->idproduit = $data->idproduit;
-		$tarif->idcategorie = $data->idcategorie;
-		$tarif->prix = $data->prix;
+		$tarif->description = $data["description"];
+		$tarif->promotion = $data["promotion"];
+		$tarif->prix = $data["prix"];
+		$tarif->periode = $data["periode"];
+		$tarif->place = $data["place"];
 	 
 		// create the tarif
 		if($tarif->addTarif()){

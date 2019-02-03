@@ -2,3 +2,30 @@
 	width: 100%;
 	color:#333;
 }
+
+.columnDelete{
+    width: 50px;
+    padding-right: 10px;
+    text-align: center;
+}
+
+.pointer{
+	cursor: pointer;
+}
+
+.minHeightTextarea{
+    min-width: 150px;
+    max-width: 250px;
+    min-height: 75px;
+}
+
+.subTextarea{
+    min-width: 150px;
+    max-width: 250px;
+    height: 120px; 
+}
+
+#titleTarif{
+    text-align: center;
+	color: #006e82;
+}

@@ -22,6 +22,8 @@
     public produit:any = null;
   
     public produitId: any = null;
+
+    public numMenu: number = 0;
   
   
     constructor(public utils: UtilsService, private route: ActivatedRoute) {
@@ -63,6 +65,21 @@
         }
       }
       return prod;
+    }
+
+    initNumMenu(){
+      this.numMenu = 0;
+      return true;
+    }
+  
+    incNumMenu(){
+      this.numMenu = this.numMenu+1;
+      this.setTopValue();
+      return true;
+    }
+  
+    setTopValue(){
+      document.getElementById("right").style.top = "-" + (this.numMenu*54) + "px";
     }
   
   }

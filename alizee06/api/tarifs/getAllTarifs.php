@@ -39,9 +39,11 @@ if($num>0){
  
         $tarif_item=array(
             "id" => $id,
-            "idproduit" => $idproduit,
-            "idcategorie" => $idcategorie,
-            "prix" => $prix
+            "description" => $description,
+            "prix" => $prix,
+            "promotion" => $promotion,
+			"periode" => $periode,
+			"place" => $place
         );
  
         array_push($tarif_arr["records"], $tarif_item);

@@ -7,9 +7,11 @@ class Tarifs{
  
     // object properties
     public $id;
-    public $idproduit;
-    public $idcategorie;
+    public $description;
+    public $promotion;
     public $prix;
+	public $periode;
+	public $place;
  
     // constructor with $db as database connection
     public function __construct($db){
@@ -35,22 +37,28 @@ class Tarifs{
 		$query = "INSERT INTO
 					" . $this->table_name . "
 				SET
-					idproduit=:idproduit, 
-					idcategorie=:idcategorie, 
+					promotion=:promotion, 
+					description=:description, 
+					periode=:periode, 
+					place=:place, 
 					prix=:prix";
 	 
 		// prepare query
 		$stmt = $this->conn->prepare($query);
 	 
 		// sanitize
-		$this->idproduit=htmlspecialchars(strip_tags($this->idproduit));
-		$this->idcategorie=htmlspecialchars(strip_tags($this->idcategorie));
+		$this->promotion=htmlspecialchars(strip_tags($this->promotion));
+		$this->description=htmlspecialchars(strip_tags($this->description));
+		$this->periode=htmlspecialchars(strip_tags($this->periode));
 		$this->prix=htmlspecialchars(strip_tags($this->prix));
+		$this->place=htmlspecialchars(strip_tags($this->place));
 	 
 		// bind values
-		$stmt->bindParam(":idproduit", $this->idproduit);
-		$stmt->bindParam(":idcategorie", $this->idcategorie);
+		$stmt->bindParam(":promotion", $this->promotion);
+		$stmt->bindParam(":description", $this->description);
+		$stmt->bindParam(":periode", $this->periode);
 		$stmt->bindParam(":prix", $this->prix);
+		$stmt->bindParam(":place", $this->place);
 	 
 		// execute query
 		if($stmt->execute()){
@@ -68,8 +76,10 @@ class Tarifs{
 		$query = "UPDATE
 					" . $this->table_name . "
 				SET
-					idproduit=:idproduit, 
-					idcategorie=:idcategorie, 
+					promotion=:promotion, 
+					description=:description, 
+					periode=:periode, 
+					place=:place, 
 					prix=:prix
 				WHERE
 					id = :id";
@@ -79,15 +89,19 @@ class Tarifs{
 	 
 	 
 		// sanitize
-		$this->idproduit=htmlspecialchars(strip_tags($this->idproduit));
-		$this->idcategorie=htmlspecialchars(strip_tags($this->idcategorie));
+		$this->promotion=htmlspecialchars(strip_tags($this->promotion));
+		$this->description=htmlspecialchars(strip_tags($this->description));
+		$this->periode=htmlspecialchars(strip_tags($this->periode));
 		$this->prix=htmlspecialchars(strip_tags($this->prix));
+		$this->place=htmlspecialchars(strip_tags($this->place));
 		$this->id=htmlspecialchars(strip_tags($this->id));
 	 
 		// bind values
 		$stmt->bindParam(':id', $this->id);
-		$stmt->bindParam(":idproduit", $this->idproduit);
-		$stmt->bindParam(":idcategorie", $this->idcategorie);
+		$stmt->bindParam(":promotion", $this->promotion);
+		$stmt->bindParam(":description", $this->description);
+		$stmt->bindParam(":periode", $this->periode);
+		$stmt->bindParam(":place", $this->place);
 		$stmt->bindParam(":prix", $this->prix);
 	 
 		// execute the query
@@ -120,6 +134,48 @@ class Tarifs{
 	 
 		return false;
 		 
+	}
+	
+	
+	// MAJ d'un categorie place
+	function updatePlaceTarif($place){
+	 
+		// update query
+		$query = "UPDATE
+					" . $this->table_name . "
+				SET
+					place = place - 1
+				WHERE
+					place > :place";
+	 
+		// prepare query statement
+		$stmt = $this->conn->prepare($query);
+	 
+		// sanitize
+		$this->place=htmlspecialchars(strip_tags($place));
+	 
+		// bind new values
+		$stmt->bindParam(":place", $this->place);
+	 
+		// execute the query
+		if($stmt->execute()){
+			return true;
+		}
+	 
+		return false;
+	}
+	
+	
+	//Obtenir tous les Produits (version allégée pour pas charger ce qui est inutile)
+	function getTarifInfoForDelete($id){
+	 
+		$query = "SELECT place FROM " . $this->table_name . " WHERE id=" . $id;
+		// prepare query statement
+		$stmt = $this->conn->prepare($query);
+		// execute query
+		$stmt->execute();
+	 
+		return $stmt;
 	}
 
 }

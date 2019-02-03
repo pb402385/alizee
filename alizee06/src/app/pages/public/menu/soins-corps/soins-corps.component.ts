@@ -23,6 +23,8 @@ export class SoinsCorpsComponent implements OnInit {
 
   public produitId: any = null;
 
+  public numMenu: number = 0;
+
 
   constructor(public utils: UtilsService, private route: ActivatedRoute) {
     this.utils.getProduitsByCategorie("1",this);
@@ -78,6 +80,21 @@ export class SoinsCorpsComponent implements OnInit {
       }
     }
     return false;
+  }
+
+  initNumMenu(){
+    this.numMenu = 0;
+    return true;
+  }
+
+  incNumMenu(){
+    this.numMenu = this.numMenu+1;
+    this.setTopValue();
+    return true;
+  }
+
+  setTopValue(){
+    document.getElementById("right").style.top = "-" + (this.numMenu*54) + "px";
   }
 
 }

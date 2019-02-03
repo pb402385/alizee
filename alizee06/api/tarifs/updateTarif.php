@@ -2,7 +2,7 @@
 require('../header.php');
 // include database and object files
 include_once '../config/database.php';
-include_once './produit.php';
+include_once './tarifs.php';
 include_once '../ruby/ruby.php';
 
 $database = new Database();
@@ -19,8 +19,13 @@ header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Access-Control-Allow-Methods, Access-Control-Allow-Origin, Authorization, X-Requested-With");
  
 if($_GET["token"] === $token ){
-	// initialize object
-	$tarif = new Tarifs($db);
+	
+	if ($_SERVER['REQUEST_METHOD'] === 'OPTION') {
+     // The request is using the OPTION method
+	 
+	 // set response code - 200 ok
+	 http_response_code(200);
+	}
 	 
 	// Création d'un flux
 	$opts = array(
@@ -39,31 +44,48 @@ if($_GET["token"] === $token ){
 	if(
 		!empty($data)
 	){
-	 
-		// set tarif property values
-		$tarif->id = $data->id;
-		$tarif->idproduit = $data->idproduit;
-		$tarif->idcategorie = $data->idcategorie;
-		$tarif->prix = $data->prix;
 		
-		// update the tarif
-		if($tarif->updateTarif()){
-		 
+		$success = true;
+		$index = "";
+		
+		for($i = 0; $i < count($data); $i++){
+			
+			// initialize object
+			$tarif = new Tarifs($db);
+
+			// set tarif property values
+			$tarif->id = $data[$i]["id"];
+			$tarif->description = $data[$i]["description"];
+			$tarif->place = $data[$i]["place"];
+			$tarif->promotion = $data[$i]["promotion"];
+			$tarif->prix = $data[$i]["prix"];
+			$tarif->periode = $data[$i]["periode"];
+			
+			// update the tarif
+			if($tarif->updateTarif()){
+			 
+			}
+			// if unable to update the tarif, tell the user
+			else{
+				$success = false;
+				
+				$index = $index.$i.", ";
+
+			}
+		}
+		
+		if($success == true){
 			// set response code - 200 ok
 			http_response_code(200);
-		 
+			 
 			// tell the user
-			echo json_encode(array("message" => "tarif was updated."));
-		}
-		 
-		// if unable to update the tarif, tell the user
-		else{
-		 
+			echo json_encode(array("message" => "tarif were updated."));
+		}else{
 			// set response code - 503 service unavailable
 			http_response_code(503);
-		 
+			 
 			// tell the user
-			echo json_encode(array("message" => "Unable to update tarif."));
+			echo json_encode(array("message" => "Unable to update tarifs. where id [ ".$index." ]"));
 		}
 	}
 	 
@@ -71,7 +93,7 @@ if($_GET["token"] === $token ){
 	else{
 	 
 		// set response code - 400 bad request
-		http_response_code(400);
+		http_response_code(200);
 	 
 		// tell the user
 		echo json_encode(array("message" => "Unable to update tarif. Data is incomplete."));
