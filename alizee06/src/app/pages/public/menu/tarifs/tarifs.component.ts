@@ -14,24 +14,6 @@ export interface Tarifs {
   delete: string;
 }
 
-/*
-const ELEMENT_DATA: Tarifs[] = [
-  {title: "Produit 1 (SV)", description: 'Twinslim radiofréquence', price: 100.00},
-  {title: "Produit 2 (SV)", description: 'Dervabrasion', price: 90.00},
-  {title: "Produit 3 (SV)", description: 'Micro-needling', price: 110.00},
-  {title: "Produit 4 (SV)", description: 'Mésolift', price: 80.00},
-  {title: "Produit 5 (SV)", description: 'Injections Acide hyaluonique', price: 50.00},
-  {title: "Produit 6 (SV)", description: 'Peeling', price: 150.00},
-  {title: "Produit 7 (SV)", description: 'Miltathérapie', price: 140.00},
-  {title: "Produit 8 (SC)", description: 'Twinslim cavitation', price: 100.00},
-  {title: "Produit 9 (SC)", description: 'Twinslim radiofréquence', price: 110.00},
-  {title: "Produit 10 (SC)", description: 'Cryolipolyse', price: 70.00},
-  {title: "Produit 11 (SC)", description: 'Onde de choc', price: 85.00},
-  {title: "Produit 12 (SC)", description: 'Miltathérapie', price: 110.00},
-  {title: "Produit 13", description: '...', price: null}
-];
-*/
-
 const ELEMENT_DATA: Tarifs[] = [];
 
 @Component({
@@ -57,16 +39,18 @@ export class TarifsComponent implements OnInit {
   displayedColumnsEdit: string[] = ['place', 'description', 'prix', 'periode', 'promotion', 'delete'];
   public dataSource = null;
 
-  constructor(public utils: UtilsService) {
-    this.tarifs = this.utils.getAllTarifs(this);
-    this.dataSource =  new MatTableDataSource(ELEMENT_DATA);
-  }
-
   @ViewChild(MatSort) sort: MatSort;
 
-  ngOnInit() {
-    this.dataSource.sort = this.sort;
+  constructor(public utils: UtilsService) {
+    this.tarifs = this.utils.getAllTarifs(this);
   }
+
+  ngOnInit() {
+  }
+
+  ngOnChange() {
+  }
+
 
   generateArray(){
     ELEMENT_DATA.splice(0,ELEMENT_DATA.length);
@@ -76,6 +60,8 @@ export class TarifsComponent implements OnInit {
       ELEMENT_DATA.push({id: this.tarifs[i].id, description: this.tarifs[i].description, prix: this.tarifs[i].prix, periode: this.tarifs[i].periode, promotion: this.tarifs[i].promotion, place: this.tarifs[i].place, delete: ''});
     }
     if(i>0){
+      this.dataSource =  new MatTableDataSource(ELEMENT_DATA);
+      this.dataSource.sort = this.sort;
       return true;
     } 
     return false;
@@ -83,6 +69,7 @@ export class TarifsComponent implements OnInit {
 
   ngAfterViewInit(){
     this.utils.fixBottom();
+    //this.dataSource.sort = this.sort;
   }
 
   editTarifs(){

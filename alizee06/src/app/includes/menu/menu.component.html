@@ -1,7 +1,19 @@
 <div class="topnav" id="myTopnav" (window:resize)="onResize($event)">
 
-  <a id="menuTitle0" routerLink="./accueil" class="active" (click)="activeMenuTitle(0)">
+  <a *ngIf="windowSize <= 700" id="menuTitle0" routerLink="./accueil" class="active" (click)="activeMenuTitle(0);activeMenuResponsive();">
     <mat-icon [ngStyle]="{'font-size':'18px'}">home</mat-icon>
+  </a>
+
+  <a *ngIf="windowSize > 700" id="menuTitle0" routerLink="./accueil" class="active" (click)="activeMenuTitle(0);">
+    <mat-icon [ngStyle]="{'font-size':'18px'}">home</mat-icon>
+  </a>
+
+  <a *ngIf="windowSize <= 700" id="menuTitle-1" routerLink="./cv" (click)="activeMenuTitle(-1);activeMenuResponsive();">
+    CV
+  </a>
+
+  <a *ngIf="windowSize > 700" id="menuTitle-1" routerLink="./cv" (click)="activeMenuTitle(-1);">
+    CV
   </a>
 
   <div id="subtopnav" *ngIf="categories !== null">
@@ -11,17 +23,24 @@
     </a>
   </div>
 
-  <div id="subtopnavMobile" *ngIf="categories !== null" style="display: none;">
+  <div id="subtopnavMobile" *ngIf="categories !== null && sortedProducts !== null" style="display: none;">
       <div *ngFor="let categorie of categories.records"  
          id="menuTitle{{categorie.place}}" (click)="openSubMenu(''+categorie.place)">
-        <button id="menuBtn{{categorie.place}}" class="dropdown-btn">{{categorie.nom}}
-          <i class="fa fa-caret-down"></i>
-        </button>
+        <div *ngIf="sortedProducts !== undefined && sortedProducts !== null && sortedProducts[categorie.id].length > 0">
+          <button id="menuBtn{{categorie.place}}" class="dropdown-btn">{{categorie.nom}}
+            <i class="fa fa-caret-down"></i>
+          </button>
+        </div>
+
+        <div *ngIf="sortedProducts !== undefined && sortedProducts !== null && sortedProducts[categorie.id].length == 0">
+            <button id="menuBtn{{categorie.place}}" routerLink="{{categorie.routerlink}}" (click)="activeMenuResponsive();" class="dropdown-btn">{{categorie.nom}}
+            </button>
+        </div>
 
         <div id="content{{categorie.place}}" class="dropdown-container" *ngIf="sortedProducts">
             <div *ngFor="let produit of sortedProducts[categorie.id]"> 
               <p *ngIf="produit.isvisible == '1'" routerLink="{{categorie.routerlink}}" [queryParams]="{prod:produit.id}"
-                id="menu{{categorie.place}}{{produit.place}}" class="pSubContent">
+                id="menu{{categorie.place}}{{produit.place}}" class="pSubContent" (click)="activeMenuResponsive();">
                 {{produit.nom}}
               </p>
             </div>
@@ -34,7 +53,7 @@
     <img src="assets/images/icon-facebook.png" class="fbIco" alt="Facebook" />
   </a>
 
-  <a *ngIf="utils.readLocalStorageValue()" style="cursor:pointer" id="menuTitleDisconnect" (click)="utils.disconnect()">
+  <a *ngIf="utils.readLocalStorageValue()" id="btnMenuOpen" style="cursor:pointer" id="menuTitleDisconnect" (click)="utils.disconnect()">
     <mat-icon [ngStyle]="{'font-size':'18px','color':'red','font-weight':'bold'}">power_settings_new</mat-icon>
   </a>
 

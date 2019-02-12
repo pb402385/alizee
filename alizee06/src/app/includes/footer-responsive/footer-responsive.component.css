@@ -119,3 +119,159 @@
     }
 
 }
+
+
+@media only screen and (max-width: 700px) {
+
+    #logo-footer-div {
+        left: 10%;
+    }
+
+    .list-group {
+        left: 10%;
+    }
+  
+  }
+  
+  
+  
+  @media only screen and (max-width: 600px) {
+  
+    #logo-footer-div {
+        left: 6%;
+    }
+
+    .list-group {
+        left: 6%;
+    }
+  
+  }
+  
+  @media only screen and (max-width: 550px) {
+  
+    #logo-footer-div {
+        left: 4%;
+    }
+
+    .list-group {
+        left: 5%;
+    }
+  
+  }
+  
+  
+  @media only screen and (max-width: 500px) {
+  
+    #logo-footer-div {
+        left: 4%;
+    }
+  
+  }
+  
+  @media only screen and (max-width: 480px) {
+  
+    #logo-footer-div {
+        left: 1%;
+    }
+
+    .list-group {
+        left: 4%;
+    }
+  
+  }
+  
+  @media only screen and (max-width: 440px) {
+  
+    #logo-footer-div {
+        left: 2%;
+    }
+  
+    #logo-footer{
+        width: 95%;
+        height: 95%;
+    }
+
+    .list-group {
+        left: 3%;
+    }
+  }
+  
+  @media only screen and (max-width: 400px) {
+  
+    #logo-footer-div {
+        left: 1%;
+    }
+  
+    #logo-footer{
+        width: 90%;
+        height: 90%;
+    }
+
+    .list-group {
+        left: 2%;
+    }
+  }
+  
+  @media only screen and (max-width: 375px) {
+  
+    #logo-footer-div {
+        left: 0%;
+    }
+  
+    #logo-footer{
+        width: 80%;
+        height: 80%;
+    }
+
+    .list-group {
+        left: 1%;
+    }
+  }
+  
+  @media only screen and (max-width: 355px) {
+  
+    #logo-footer-div {
+        left: 0%;
+    }
+  
+    #logo-footer{
+        width: 80%;
+        height: 80%;
+    }
+
+    .list-group {
+        left: 0%;
+    }
+  }
+  
+  @media only screen and (max-width: 345px) {
+  
+    #logo-footer-div {
+        left: 0%;
+    }
+  
+    #logo-footer{
+        width: 80%;
+        height: 80%;
+    }
+
+    .list-group {
+        left: 0%;
+    }
+  }
+  
+  @media only screen and (max-width: 335px) {
+  
+    #logo-footer-div {
+        left: 0%;
+    }
+  
+    #logo-footer{
+        width: 70%;
+        height: 70%;
+    }
+
+    .list-group {
+        left: 0%;
+    }
+  }

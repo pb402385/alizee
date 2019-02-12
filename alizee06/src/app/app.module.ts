@@ -59,6 +59,7 @@ import { OptionalMenu4Component } from './pages/public/menu/optional-menu4/optio
 import { OptionalMenu5Component } from './pages/public/menu/optional-menu5/optional-menu5.component';
 import { EditCategorieComponent } from './pages/private/edit-categorie/edit-categorie.component';
 import { EditProduitComponent } from './pages/private/edit-produit/edit-produit.component';
+import { CvComponent } from './pages/public/cv/cv.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +82,8 @@ import { EditProduitComponent } from './pages/private/edit-produit/edit-produit.
     OptionalMenu4Component,
     OptionalMenu5Component,
     EditCategorieComponent,
-    EditProduitComponent
+    EditProduitComponent,
+    CvComponent
   ],
   imports: [
     BrowserModule,

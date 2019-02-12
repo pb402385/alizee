@@ -7,6 +7,7 @@ import { EditProduitComponent } from '../pages/private/edit-produit/edit-produit
 
 import { HomeComponent } from '../pages/public/home/home.component';
 
+import { CvComponent } from '../pages/public//cv/cv.component';
 import { TarifsComponent } from '../pages/public/menu/tarifs/tarifs.component';
 import { DietetiqueComponent } from '../pages/public/menu/dietetique/dietetique.component';
 import { SoinsCorpsComponent } from '../pages/public/menu/soins-corps/soins-corps.component';
@@ -40,6 +41,7 @@ const routes: Routes = [
   { path: 'optMenu3', component: OptionalMenu3Component },
   { path: 'optMenu4', component: OptionalMenu4Component },
   { path: 'optMenu5', component: OptionalMenu5Component },
+  { path: 'cv', component: CvComponent },
   { path: '**', redirectTo: '' }
 ];
  

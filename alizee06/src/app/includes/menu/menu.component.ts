@@ -19,6 +19,7 @@ export class MenuComponent implements OnInit {
   public categories:any = null;
   public produits:any = null;
   public sortedProducts: any = null;
+  public windowSize = window.innerWidth;
 
   @Input() screenWidth:number = window.innerWidth;
 
@@ -30,6 +31,7 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.windowSize = window.innerWidth;
     if(this.screenWidth <= 700){
       setTimeout(function(){ 
         document.getElementById("subtopnav").style.display = "none";
@@ -43,6 +45,7 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnChange() {
+    this.windowSize = window.innerWidth;
     if(this.screenWidth <= 700){
       setTimeout(function(){ 
         document.getElementById("subtopnav").style.display = "none";
@@ -75,6 +78,7 @@ export class MenuComponent implements OnInit {
   }
 
   activeMenuTitle(id:number) {
+    document.getElementById("menuTitle-1").className = "";
     let menuLength = document.getElementById("myTopnav").children.length - 3;
     for(let i=0; i<=menuLength; i++){
       document.getElementById("menuTitle"+i).className = "";
